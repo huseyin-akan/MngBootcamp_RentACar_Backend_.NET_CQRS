@@ -25,8 +25,11 @@ namespace Domain.Entities
         public virtual Transmission Transmission { get; set; }
         public virtual Fuel Fuel { get; set; }
 
+        public virtual ICollection<Car> Cars { get; set; }
+
         public Model()
         {
+            Cars = new HashSet<Car>();
         }
 
         public Model(int id, string name, double dailyPrice,
