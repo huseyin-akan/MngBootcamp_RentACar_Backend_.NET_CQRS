@@ -16,7 +16,7 @@ namespace Domain.Entities
         {
             Cars = new HashSet<Car>();
         }
-        public Color(string name, int id) :this()
+        public Color(int id, string name ) :this()
         {
             Name = name;
             Id = id;

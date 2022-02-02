@@ -21,8 +21,8 @@ namespace Application.Features.Brands.Commands.CreateBrand
             IMapper _mapper;
             BrandBusinessRules _brandBusinessRules;
 
-            public CreateBrandCommandHandler(IBrandRepository brandRepository, 
-                IMapper mapper, BrandBusinessRules brandBusinessRules)
+            public CreateBrandCommandHandler(IBrandRepository brandRepository, IMapper mapper,
+                BrandBusinessRules brandBusinessRules)
             {
                 _brandRepository = brandRepository;
                 _mapper = mapper;
@@ -31,6 +31,7 @@ namespace Application.Features.Brands.Commands.CreateBrand
 
             public async Task<Brand> Handle(CreateBrandCommand request, CancellationToken cancellationToken)
             {
+                //business rules
                 await _brandBusinessRules.BrandNameCannotBeDuplicatedWhenInserted(request.Name);
                 
                 var mappedBrand =  _mapper.Map<Brand>(request);

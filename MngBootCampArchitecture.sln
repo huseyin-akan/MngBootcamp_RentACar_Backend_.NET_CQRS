@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebAPI", "src\rentACar\WebA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Core.Persistence", "src\corePackages\Core.Persistence\Core.Persistence.csproj", "{ABDE8B99-389B-4F91-A8AC-1A74D4BABF17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossCuttingConcerns", "src\corePackages\CrossCuttingConcerns\CrossCuttingConcerns.csproj", "{FC109D87-63DC-4BAC-B3B0-C155D8B18CD9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.CrossCuttingConcerns", "Core.CrossCuttingConcerns\Core.CrossCuttingConcerns.csproj", "{CCE78EA2-F9BF-4A79-9DF0-3DA38D88DD46}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -49,10 +49,10 @@ Global
 		{ABDE8B99-389B-4F91-A8AC-1A74D4BABF17}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ABDE8B99-389B-4F91-A8AC-1A74D4BABF17}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ABDE8B99-389B-4F91-A8AC-1A74D4BABF17}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FC109D87-63DC-4BAC-B3B0-C155D8B18CD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FC109D87-63DC-4BAC-B3B0-C155D8B18CD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FC109D87-63DC-4BAC-B3B0-C155D8B18CD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FC109D87-63DC-4BAC-B3B0-C155D8B18CD9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CCE78EA2-F9BF-4A79-9DF0-3DA38D88DD46}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CCE78EA2-F9BF-4A79-9DF0-3DA38D88DD46}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CCE78EA2-F9BF-4A79-9DF0-3DA38D88DD46}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CCE78EA2-F9BF-4A79-9DF0-3DA38D88DD46}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -65,7 +65,7 @@ Global
 		{BAFF5486-5F66-4317-B1F3-AFFA5D63E71B} = {04CBF7D0-AC04-4083-BB9F-52B67A1F6AC5}
 		{D4BF256B-ED20-4762-A0F5-1B12DF8B20F3} = {04CBF7D0-AC04-4083-BB9F-52B67A1F6AC5}
 		{ABDE8B99-389B-4F91-A8AC-1A74D4BABF17} = {C740BA91-88D7-493F-9E69-75F696388266}
-		{FC109D87-63DC-4BAC-B3B0-C155D8B18CD9} = {C740BA91-88D7-493F-9E69-75F696388266}
+		{CCE78EA2-F9BF-4A79-9DF0-3DA38D88DD46} = {C740BA91-88D7-493F-9E69-75F696388266}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {13AB3195-FED7-4C35-9880-50EAF3AB6D2A}

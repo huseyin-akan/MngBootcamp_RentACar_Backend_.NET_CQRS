@@ -1,4 +1,5 @@
 ﻿using Core.Persistence.Repositories;
+using Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,8 @@ namespace Domain.Entities
         public string Plate { get; set; }
         public int ModelYear { get; set; }
 
+        public CarState CarState { get; set; }
+
         public virtual Color Color { get; set; }
         public virtual Model Model { get; set; }
 
@@ -22,13 +25,14 @@ namespace Domain.Entities
 
         }
 
-        public Car(int id, int modelId, int colorId, string plate, int modelYear):this()
+        public Car(int id, int modelId, int colorId, string plate, int modelYear, CarState carState) :this()
         {
             Id = id;
             ModelId = modelId;
             ColorId = colorId;
             Plate = plate;
             ModelYear = modelYear;
+            CarState = carState;
         }
     }
 }

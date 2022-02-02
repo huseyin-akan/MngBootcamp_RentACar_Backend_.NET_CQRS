@@ -17,7 +17,7 @@ namespace Domain.Entities
             Models = new HashSet<Model>();
         }
 
-        public Transmission(string name, int id) : this()
+        public Transmission(int id, string name) : this()
         {
             Name = name;
             Id = id;

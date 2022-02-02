@@ -15,29 +15,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Core.CrossCuttingConcerns\Core.CrossCuttingConcerns.csproj" />
     <ProjectReference Include="..\..\corePackages\Core.Persistence\Core.Persistence.csproj" />
-    <ProjectReference Include="..\..\corePackages\CrossCuttingConcerns\CrossCuttingConcerns.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Brands\Dtos\" />
-    <Folder Include="Features\Brands\Models\" />
     <Folder Include="Features\Brands\Tests\" />
     <Folder Include="Features\Brands\Queries\" />
-    <Folder Include="Features\Cars\Commands\" />
     <Folder Include="Features\Cars\Dtos\" />
     <Folder Include="Features\Cars\Models\" />
-    <Folder Include="Features\Cars\Profiles\" />
     <Folder Include="Features\Cars\Queries\" />
-    <Folder Include="Features\Cars\Rules\" />
     <Folder Include="Features\Cars\Tests\" />
-    <Folder Include="Features\Models\Commands\" />
     <Folder Include="Features\Models\Dtos\" />
     <Folder Include="Features\Models\Models\" />
-    <Folder Include="Features\Models\Profiles\" />
     <Folder Include="Features\Models\Queries\" />
-    <Folder Include="Features\Models\Rules\" />
     <Folder Include="Features\Models\Tests\" />
   </ItemGroup>
 

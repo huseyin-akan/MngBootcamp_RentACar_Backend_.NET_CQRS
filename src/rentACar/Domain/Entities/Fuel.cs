@@ -17,7 +17,7 @@ namespace Domain.Entities
             Models = new HashSet<Model>();
         }
 
-        public Fuel(string name, int id) : this()
+        public Fuel(int id, string name) : this()
         {
             Name = name;
             Id = id;

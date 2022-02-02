@@ -1,5 +1,5 @@
 ﻿using Application.Services.Repositories;
-using CrossCuttingConcerns.Exceptions;
+using Core.CrossCuttingConcerns.Exceptions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +10,7 @@ namespace Application.Features.Brands.Rules
 {
     public class BrandBusinessRules
     {
-        IBrandRepository _brandRepository;
+        readonly IBrandRepository  _brandRepository;
 
         public BrandBusinessRules(IBrandRepository brandRepository)
         {

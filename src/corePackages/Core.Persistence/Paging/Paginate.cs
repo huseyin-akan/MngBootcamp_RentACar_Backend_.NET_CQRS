@@ -9,6 +9,7 @@ namespace Core.Persistence.Paging
 {
     public class Paginate<T> : IPaginate<T>
     {
+        //constructor
         internal Paginate(IEnumerable<T> source, int index, int size, int from)
         {
             var enumerable = source as T[] ?? source.ToArray();
@@ -22,7 +23,7 @@ namespace Core.Persistence.Paging
                 Size = size;
                 From = from;
                 Count = querable.Count();
-                Pages = (int)Math.Ceiling(Count / (double)Size);
+                Pages = (int) Math.Ceiling(Count / (double)Size);
 
                 Items = querable.Skip((Index - From) * Size).Take(Size).ToList();
             }
@@ -33,7 +34,7 @@ namespace Core.Persistence.Paging
                 From = from;
 
                 Count = enumerable.Count();
-                Pages = (int)Math.Ceiling(Count / (double)Size);
+                Pages = (int) Math.Ceiling(Count / (double)Size);
 
                 Items = enumerable.Skip((Index - From) * Size).Take(Size).ToList();
             }
