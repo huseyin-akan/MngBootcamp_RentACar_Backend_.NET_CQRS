@@ -1,4 +1,5 @@
-﻿using Application.Services.Repositories;
+﻿using Application.Features.Maintenenaces.Rules;
+using Application.Services.Repositories;
 using Core.CrossCuttingConcerns.Exceptions;
 using System;
 using System.Collections.Generic;
@@ -12,18 +13,19 @@ namespace Application.Features.Rentals.Rules
     public class RentalBusinessRules
     {
         readonly IRentalRepository _rentalRepository;
-        readonly IMaintenanceRepository _maintenanceRepository;
+        readonly MaintenanceBusinessRules _maintenanceBusinessRules;
 
-        public RentalBusinessRules(IRentalRepository rentalRepository, IMaintenanceRepository maintenanceRepository)
+        public RentalBusinessRules(IRentalRepository rentalRepository,
+            MaintenanceBusinessRules maintenanceBusinessRules)
         {
             _rentalRepository = rentalRepository;
-            _maintenanceRepository = maintenanceRepository;
+            _maintenanceBusinessRules = maintenanceBusinessRules;
         }
 
         //Gerkhin
         public bool CheckIfCarIsUnderMaintenance(int carId)
         {
-            var result = _maintenanceRepository.CheckIfCarIsUnderMaintenance(carId);
+            var result = _maintenanceBusinessRules.CheckIfCarIsUnderMaintenance(carId);
 
             if (result)
             {
