@@ -1,6 +1,7 @@
 ﻿using Application.Features.Brands.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Utilities.Results;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -11,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Brands.Commands.CreateBrand
 {
-    public  class CreateBrandCommand :IRequest<Brand>
+    public  class CreateBrandCommand :IRequest<DataResult<Brand>>
     {
         public string Name {get; set;}
 
-        public class CreateBrandCommandHandler : IRequestHandler<CreateBrandCommand, Brand>
+        public class CreateBrandCommandHandler : IRequestHandler<CreateBrandCommand, DataResult<Brand>>
         {
             IBrandRepository _brandRepository;
             IMapper _mapper;
@@ -29,7 +30,7 @@ namespace Application.Features.Brands.Commands.CreateBrand
                 _brandBusinessRules = brandBusinessRules;
             }
 
-            public async Task<Brand> Handle(CreateBrandCommand request, CancellationToken cancellationToken)
+            public async Task<DataResult<Brand>> Handle(CreateBrandCommand request, CancellationToken cancellationToken)
             {
                 //business rules
                 await _brandBusinessRules.BrandNameCannotBeDuplicatedWhenInserted(request.Name);
@@ -37,8 +38,8 @@ namespace Application.Features.Brands.Commands.CreateBrand
                 var mappedBrand =  _mapper.Map<Brand>(request);
 
                 var createdBrand = await _brandRepository.AddAsync(mappedBrand);
-                return createdBrand;
-            }
+                return new SuccessDataResult<Brand>(createdBrand);
+            } 
         }
     }
 }

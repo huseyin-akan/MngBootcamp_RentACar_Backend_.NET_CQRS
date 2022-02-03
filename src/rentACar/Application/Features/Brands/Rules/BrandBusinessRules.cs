@@ -1,5 +1,7 @@
 ﻿using Application.Services.Repositories;
 using Core.CrossCuttingConcerns.Exceptions;
+using Core.Utilities.Messages;
+using Core.Utilities.Results;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +26,7 @@ namespace Application.Features.Brands.Rules
             
             if(result.Items.Any() )
             {
-                throw new BusinessException("Brand name already exists");
+                throw new BusinessException(Messages.BrandNameExists);
             }
         } 
     }

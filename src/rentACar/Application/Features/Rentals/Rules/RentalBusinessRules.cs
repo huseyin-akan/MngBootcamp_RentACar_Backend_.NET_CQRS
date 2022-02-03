@@ -22,15 +22,10 @@ namespace Application.Features.Rentals.Rules
             _maintenanceBusinessRules = maintenanceBusinessRules;
         }
 
-        //Gerkhin
         public bool CheckIfCarIsUnderMaintenance(int carId)
         {
             var result = _maintenanceBusinessRules.CheckIfCarIsUnderMaintenance(carId);
 
-            if (result)
-            {
-                throw new BusinessException("Car is under maintenance. Therefore cannot be rent!!!");
-            }
             return result;
         }
 
@@ -40,7 +35,7 @@ namespace Application.Features.Rentals.Rules
 
             if (result)
             {
-                throw new BusinessException("Car is rented. Therefore cannot be sent to maintenance!!!");
+                throw new BusinessException("Car is rented.");
             }
             return result;
         }

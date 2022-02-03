@@ -1,6 +1,7 @@
 ﻿using Application.Features.Brands.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Utilities.Results;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -11,12 +12,12 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Brands.Commands.UpdateBrand
 {
-    public class UpdateBrandCommand :IRequest<Brand>
+    public class UpdateBrandCommand :IRequest<DataResult<Brand>>
     {
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public class UpdateBrandCommandHandler: IRequestHandler<UpdateBrandCommand, Brand>
+        public class UpdateBrandCommandHandler: IRequestHandler<UpdateBrandCommand, DataResult<Brand>>
         {
             IBrandRepository _brandRepository;
             IMapper _mapper;
@@ -30,13 +31,13 @@ namespace Application.Features.Brands.Commands.UpdateBrand
                 _brandBusinessRules = brandBusinessRules;
             }
 
-            public async Task<Brand> Handle(UpdateBrandCommand request, CancellationToken cancellationToken)
+            public async Task<DataResult<Brand>> Handle(UpdateBrandCommand request, CancellationToken cancellationToken)
             {
                 await _brandBusinessRules.BrandNameCannotBeDuplicatedWhenInserted(request.Name);
 
                 var mappedBrand = _mapper.Map<Brand>(request);
                 var updatedBrand = await _brandRepository.UpdateAsync(mappedBrand);
-                return updatedBrand;
+                return new SuccessDataResult<Brand>(updatedBrand);
             }
         }
         

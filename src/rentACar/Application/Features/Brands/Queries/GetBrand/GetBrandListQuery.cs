@@ -2,6 +2,7 @@
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.Application.Requests;
+using Core.Utilities.Results;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,11 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Brands.Queries.GetBrand
 {
-    public class GetBrandListQuery : IRequest<BrandListModel>
+    public class GetBrandListQuery : IRequest<DataResult<BrandListModel>>
     {
         public PageRequest PageRequest { get; set; }
 
-        public class GetBrandListHandler : IRequestHandler<GetBrandListQuery, BrandListModel>
+        public class GetBrandListHandler : IRequestHandler<GetBrandListQuery, DataResult<BrandListModel>>
         {
             IBrandRepository _brandRepository;
             IMapper _mapper;
@@ -26,14 +27,14 @@ namespace Application.Features.Brands.Queries.GetBrand
                 _mapper = mapper;
             }
 
-            public async Task<BrandListModel> Handle(GetBrandListQuery request, CancellationToken cancellationToken)
+            public async Task<DataResult<BrandListModel>> Handle(GetBrandListQuery request, CancellationToken cancellationToken)
             {
                 var brands = await _brandRepository.GetListAsync(
                     index:request.PageRequest.Page,
                     size : request.PageRequest.PageSize
                     );
                 var mappedBrands = _mapper.Map<BrandListModel>(brands);
-                return mappedBrands;
+                return new SuccessDataResult<BrandListModel>(mappedBrands);
             }
         }
     }

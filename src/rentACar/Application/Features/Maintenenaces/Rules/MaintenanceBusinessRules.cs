@@ -28,7 +28,7 @@ namespace Application.Features.Maintenenaces.Rules
 
             if (result)
             {
-                throw new BusinessException("Car is under maintenance. Therefore cannot be rent!!!");
+                throw new BusinessException("Car is under maintenance.");
             }
             return result;
         }
@@ -37,10 +37,6 @@ namespace Application.Features.Maintenenaces.Rules
         {
             var result = _rentalBusinessRules.Value.CheckIfCarIsRented(carId);
 
-            if (result)
-            {
-                throw new BusinessException("Car is rented. Therefore cannot be sent to maintenance!!!");
-            }
             return result;
         }
     }
