@@ -25,6 +25,8 @@ namespace Persistence.Contexts
         public DbSet<Color> Colors { get; set; }
         public DbSet<Transmission> Transmissions { get; set; }
         public DbSet<Fuel> Fuels { get; set; }
+        public DbSet<Maintenance> Maintenances { get; set; }
+        public DbSet<Rental> Rentals { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -84,6 +86,29 @@ namespace Persistence.Contexts
                 m.HasOne(p => p.Transmission);
                 m.HasOne(p => p.Fuel);
                 m.HasOne(p => p.Brand);
+            });
+
+            modelBuilder.Entity<Maintenance>(m =>
+            {
+                m.ToTable("Maintenances").HasKey(k => k.Id);
+                m.Property(p => p.Id).HasColumnName("Id");
+                m.Property(p => p.CarId).HasColumnName("CarId");
+                m.Property(p => p.Description).HasColumnName("Description");
+                m.Property(p => p.MaintenanceDate).HasColumnName("MaintenanceDate");
+                m.Property(p => p.ReturnDate).HasColumnName("ReturnDate");
+                m.HasOne(c => c.Car);
+            });
+
+            modelBuilder.Entity<Rental>( r =>
+            {
+                r.ToTable("Rentals").HasKey(r => r.Id);
+                r.Property(p => p.Id).HasColumnName("Id");
+                r.Property(p => p.CarId).HasColumnName("CarId");
+                r.Property(p => p.RentDate).HasColumnName("RentDate");
+                r.Property(p => p.ReturnDate).HasColumnName("ReturnDate");
+                r.Property(p => p.ReturnedDate).HasColumnName("ReturnedDate");
+                r.Property(p => p.RentedKilometer).HasColumnName("RentedKilometer");
+                r.Property(p => p.ReturnedKilometer).HasColumnName("ReturnedKilometer");
             });
 
             modelBuilder.Entity<Car>(c =>

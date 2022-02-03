@@ -16,21 +16,42 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\Core.CrossCuttingConcerns\Core.CrossCuttingConcerns.csproj" />
+    <ProjectReference Include="..\..\corePackages\Core.Application\Core.Application.csproj" />
     <ProjectReference Include="..\..\corePackages\Core.Persistence\Core.Persistence.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Features\Brands\Tests\" />
-    <Folder Include="Features\Brands\Queries\" />
+    <Folder Include="Features\burdan kopyala\Commands\" />
+    <Folder Include="Features\burdan kopyala\Dtos\" />
+    <Folder Include="Features\burdan kopyala\Models\" />
+    <Folder Include="Features\burdan kopyala\Profiles\" />
+    <Folder Include="Features\burdan kopyala\Queries\" />
+    <Folder Include="Features\burdan kopyala\Rules\" />
+    <Folder Include="Features\burdan kopyala\Tests\" />
     <Folder Include="Features\Cars\Dtos\" />
     <Folder Include="Features\Cars\Models\" />
     <Folder Include="Features\Cars\Queries\" />
     <Folder Include="Features\Cars\Tests\" />
-    <Folder Include="Features\Models\Dtos\" />
-    <Folder Include="Features\Models\Models\" />
-    <Folder Include="Features\Models\Queries\" />
+    <Folder Include="Features\Colors\Tests\" />
+    <Folder Include="Features\Fuels\Tests\" />
+    <Folder Include="Features\Maintenenaces\Dtos\" />
+    <Folder Include="Features\Maintenenaces\Models\" />
+    <Folder Include="Features\Maintenenaces\Queries\" />
+    <Folder Include="Features\Maintenenaces\Tests\" />
     <Folder Include="Features\Models\Tests\" />
+    <Folder Include="Features\Rentals\Queries\" />
+    <Folder Include="Features\Rentals\Tests\" />
+    <Folder Include="Features\Rentals\Models\" />
+    <Folder Include="Features\Rentals\Dtos\" />
+    <Folder Include="Features\Transmissions\Commands\" />
+    <Folder Include="Features\Transmissions\Dtos\" />
+    <Folder Include="Features\Transmissions\Models\" />
+    <Folder Include="Features\Transmissions\Profiles\" />
+    <Folder Include="Features\Transmissions\Queries\" />
+    <Folder Include="Features\Transmissions\Rules\" />
+    <Folder Include="Features\Transmissions\Tests\" />
   </ItemGroup>
 
 </Project>

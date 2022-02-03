@@ -61,10 +61,11 @@ namespace Core.Persistence.Repositories
             await Context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(TEntity entity)
+        public async Task<TEntity> UpdateAsync(TEntity entity)
         {
             Context.Entry(entity).State = EntityState.Modified;
             await Context.SaveChangesAsync();
+            return entity;
         }
     }
 }

@@ -10,6 +10,6 @@ namespace Application.Services.Repositories
 {
     public interface IModelRepository : IAsyncRepository<Model>
     {
-
+        Task<List<Model>> GetAllModels();
     }
 }
