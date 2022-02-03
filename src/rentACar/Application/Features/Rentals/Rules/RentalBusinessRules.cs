@@ -33,6 +33,17 @@ namespace Application.Features.Rentals.Rules
             }
             return result;
         }
+
+        public bool CheckIfCarIsRented(int carId)
+        {
+            var result = _rentalRepository.CheckIfCarIsRented(carId);
+
+            if (result)
+            {
+                throw new BusinessException("Car is rented. Therefore cannot be sent to maintenance!!!");
+            }
+            return result;
+        }
     }
 
 }

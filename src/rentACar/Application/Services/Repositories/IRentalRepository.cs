@@ -10,6 +10,6 @@ namespace Application.Services.Repositories
 {
     public interface IRentalRepository : IAsyncRepository<Rental>
     {
-
+        bool CheckIfCarIsRented(int carId);
     }
 }

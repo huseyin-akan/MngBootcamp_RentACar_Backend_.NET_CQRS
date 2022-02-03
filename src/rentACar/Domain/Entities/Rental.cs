@@ -11,7 +11,7 @@ namespace Domain.Entities
     {
         public DateTime RentDate { get; set; }
         public DateTime ReturnDate { get; set; }
-        public DateTime ReturnedDate { get; set; }
+        public DateTime? ReturnedDate { get; set; }
 
         public int RentedKilometer { get; set; }
         public int ReturnedKilometer { get; set; }

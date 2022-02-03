@@ -1,4 +1,5 @@
 using Application;
+using Core.Application.Extensions;
 using Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,8 @@ builder.Services.AddPersistenceServices(builder.Configuration);
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddLazyResolution();
 
 var app = builder.Build();
 

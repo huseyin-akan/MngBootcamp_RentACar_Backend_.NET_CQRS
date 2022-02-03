@@ -32,8 +32,7 @@ namespace Application.Features.Maintenenaces.Commands.CreateMaintenance
 
             public async Task<Maintenance> Handle(CreateMaintenanceCommand request, CancellationToken cancellationToken)
             {
-                //TODO: araç kiradaysa bakıma gönderilemez!!
-                //await _maintenanceBusinessRules
+                _maintenanceBusinessRules.CheckIfCarIsRented(request.CarId);
 
                 var mappedMaintenance = _mapper.Map<Maintenance>(request);
 

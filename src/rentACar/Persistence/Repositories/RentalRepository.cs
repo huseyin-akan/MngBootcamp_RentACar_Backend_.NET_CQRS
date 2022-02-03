@@ -15,5 +15,15 @@ namespace Persistence.Repositories
         public RentalRepository(BaseDbContext context) : base(context)
         {
         }
+
+        public bool CheckIfCarIsRented(int carId)
+        {
+            var result = Context.Rentals.Where(r => r.ReturnedDate == null && r.CarId == carId).FirstOrDefault();
+            if (result is null)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

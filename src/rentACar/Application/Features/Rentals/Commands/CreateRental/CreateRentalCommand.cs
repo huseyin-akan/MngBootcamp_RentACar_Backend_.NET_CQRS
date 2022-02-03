@@ -15,7 +15,6 @@ namespace Application.Features.Rentals.Commands.CreateRental
     {
         public DateTime RentDate { get; set; }
         public DateTime ReturnDate { get; set; }
-        public DateTime ReturnedDate { get; set; }
         public int RentedKilometer { get; set; }
         public int ReturnedKilometer { get; set; }
         public int CarId { get; set; }
@@ -25,7 +24,6 @@ namespace Application.Features.Rentals.Commands.CreateRental
             IRentalRepository _rentalRepository;
             IMapper _mapper;
             RentalBusinessRules _rentalBusinessRules;
-
             public CreateRentalCommandHandler(IRentalRepository rentalRepository, IMapper mapper, RentalBusinessRules rentalBusinessRules)
             {
                 _rentalRepository = rentalRepository;
