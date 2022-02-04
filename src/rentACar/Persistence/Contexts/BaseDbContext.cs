@@ -109,6 +109,7 @@ namespace Persistence.Contexts
                 r.Property(p => p.ReturnedDate).HasColumnName("ReturnedDate");
                 r.Property(p => p.RentedKilometer).HasColumnName("RentedKilometer");
                 r.Property(p => p.ReturnedKilometer).HasColumnName("ReturnedKilometer");
+                r.HasOne(r => r.Car);
             });
 
             modelBuilder.Entity<Car>(c =>
