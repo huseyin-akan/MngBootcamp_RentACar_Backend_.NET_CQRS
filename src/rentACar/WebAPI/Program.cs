@@ -20,7 +20,6 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddLazyResolution();
 
-
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
