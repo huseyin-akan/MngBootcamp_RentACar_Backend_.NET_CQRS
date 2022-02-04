@@ -14,7 +14,7 @@ namespace Core.Mailing.MailKitImplementations
         IConfiguration _configuration;
         MailSettings _mailSettings;
 
-        public MailKitMailService(IConfiguration configuration, MailSettings mailSettings)
+        public MailKitMailService(IConfiguration configuration)
         {
             _configuration = configuration;
             _mailSettings = _configuration.GetSection("MailSettings").Get<MailSettings>();

@@ -13,9 +13,10 @@ namespace Application.Features.Maintenenaces.Rules
     {
         readonly IMaintenanceRepository _maintenanceRepository;
         readonly Lazy<RentalBusinessRules> _rentalBusinessRules;
+        
 
-        public MaintenanceBusinessRules(IMaintenanceRepository maintenanceRepository,
-            Lazy<RentalBusinessRules> rentalBusinessRules
+        public MaintenanceBusinessRules(IMaintenanceRepository maintenanceRepository
+            , Lazy<RentalBusinessRules> rentalBusinessRules
             )
         {
             _maintenanceRepository = maintenanceRepository;
