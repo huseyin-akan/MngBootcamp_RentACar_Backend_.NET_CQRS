@@ -1,5 +1,7 @@
 using Application;
 using Core.Application.Extensions;
+using Core.Mailing;
+using Core.Mailing.MailKitImplementations;
 using Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,11 +13,13 @@ builder.Services.AddControllers();
 
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistenceServices(builder.Configuration);
+builder.Services.AddSingleton<IMailService, MailKitMailService>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddLazyResolution();
+
 
 var app = builder.Build();
 

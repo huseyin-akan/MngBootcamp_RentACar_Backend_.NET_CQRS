@@ -1,6 +1,7 @@
 ﻿using Application.Features.Brands.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Mailing;
 using Core.Utilities.Results;
 using Domain.Entities;
 using MediatR;
@@ -21,13 +22,15 @@ namespace Application.Features.Brands.Commands.CreateBrand
             IBrandRepository _brandRepository;
             IMapper _mapper;
             BrandBusinessRules _brandBusinessRules;
+            IMailService _mailService;
 
             public CreateBrandCommandHandler(IBrandRepository brandRepository, IMapper mapper,
-                BrandBusinessRules brandBusinessRules)
+                BrandBusinessRules brandBusinessRules, IMailService mailService)
             {
                 _brandRepository = brandRepository;
                 _mapper = mapper;
                 _brandBusinessRules = brandBusinessRules;
+                _mailService = mailService;
             }
 
             public async Task<DataResult<Brand>> Handle(CreateBrandCommand request, CancellationToken cancellationToken)
@@ -38,6 +41,16 @@ namespace Application.Features.Brands.Commands.CreateBrand
                 var mappedBrand =  _mapper.Map<Brand>(request);
 
                 var createdBrand = await _brandRepository.AddAsync(mappedBrand);
+
+                var mail = new Mail
+                {
+                    ToFullName="system admins",
+                    ToEmail = "admins@mngkargo.com.tr",
+                    Subject = "New Brand Added!!",
+                    HtmlBody = "<p> Hey, check the system. A new brand is added </p>"
+                };
+                _mailService.SendMail(mail);
+
                 return new SuccessDataResult<Brand>(createdBrand);
             } 
         }
