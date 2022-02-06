@@ -28,7 +28,10 @@ namespace Application.Features.Models.Queries
 
             public async Task<ModelListModel> Handle(GetModelListQuery2 request, CancellationToken cancellationToken)
             {
-                var models = await _modelRepository.GetAllModels();
+                var models = await _modelRepository.GetAllModels(
+                    index: request.PageRequest.Page,
+                    size: request.PageRequest.PageSize);
+
                 var mappedModels = _mapper.Map<ModelListModel>(models);
                 return mappedModels;
             }

@@ -22,6 +22,7 @@ namespace Application.Features.Models.Profiles
             CreateMap<Model, UpdateModelCommand>().ReverseMap();
             CreateMap<Model, ModelListDto>().ReverseMap();
             CreateMap<IPaginate<Model>, ModelListModel>().ReverseMap();
+            CreateMap<IPaginate<ModelListDto>, ModelListModel>().ReverseMap();
         }
     }
 }

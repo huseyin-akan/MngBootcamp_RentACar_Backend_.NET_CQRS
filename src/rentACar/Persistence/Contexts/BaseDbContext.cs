@@ -45,7 +45,7 @@ namespace Persistence.Contexts
                 b.ToTable("Brands").HasKey(k => k.Id);
                 b.Property(p => p.Id).HasColumnName("Id");
                 b.Property(p => p.Name).HasColumnName("Name");
-                b.HasMany(p => p.Models);
+                //b.HasMany(p => p.Models);
             });
 
             modelBuilder.Entity<Color>(c =>
@@ -61,7 +61,7 @@ namespace Persistence.Contexts
                 c.ToTable("Fuels").HasKey(k => k.Id);
                 c.Property(p => p.Id).HasColumnName("Id");
                 c.Property(p => p.Name).HasColumnName("Name");
-                c.HasMany(p => p.Models);
+                //c.HasMany(p => p.Models);
             });
 
             modelBuilder.Entity<Transmission>(c =>

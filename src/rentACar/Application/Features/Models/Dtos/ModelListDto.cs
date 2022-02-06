@@ -16,8 +16,8 @@ namespace Application.Features.Models.Dtos
         public int FuelId { get; set; }
         public int BrandId { get; set; }
         public string ImageUrl { get; set; }
-        public Brand Brand { get; set; }
-        public Fuel Fuel { get; set; }
-        public Transmission Transmission { get; set; }
+        public string Brand { get; set; }
+        public string Fuel { get; set; }
+        public string Transmission { get; set; }
     }
 }

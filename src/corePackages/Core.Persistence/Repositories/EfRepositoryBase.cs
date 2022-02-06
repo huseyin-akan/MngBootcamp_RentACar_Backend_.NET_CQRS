@@ -26,7 +26,8 @@ namespace Core.Persistence.Repositories
             return await Context.Set<TEntity>().FirstOrDefaultAsync(predicate);
         }
 
-        public async Task<IPaginate<TEntity>> GetListAsync(Expression<Func<TEntity, 
+        public async Task<IPaginate<TEntity>> GetListAsync(
+            Expression<Func<TEntity, 
             bool>> predicate = null,
             Func<IQueryable<TEntity>, 
             IOrderedQueryable<TEntity>> orderBy = null, 

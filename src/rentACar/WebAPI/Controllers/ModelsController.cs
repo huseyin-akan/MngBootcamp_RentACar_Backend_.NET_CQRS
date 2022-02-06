@@ -33,5 +33,14 @@ namespace WebAPI.Controllers
             var result = await Mediator.Send(query);
             return Ok(result);
         }
+
+        [HttpGet("getall2")]
+        public async Task<IActionResult> GetAll2([FromQuery] PageRequest pageRequest)
+        {
+            var query = new GetModelListQuery2();
+            query.PageRequest = pageRequest;
+            var result = await Mediator.Send(query);
+            return Ok(result);
+        }
     }
 }
