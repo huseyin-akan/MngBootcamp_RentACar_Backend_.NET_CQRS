@@ -5,18 +5,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Cars.Commands.CreateCar
+namespace Application.Features.Cars.Commands.UpdateCar
 {
-    public class CreateCarCommandValidator : AbstractValidator<CreateCarCommand>
+    public class UpdateCarCommandValidator : AbstractValidator<UpdateCarCommand>
     {
-        public CreateCarCommandValidator()
+        public UpdateCarCommandValidator()
         {
+            RuleFor(c => c.Id).NotEmpty();
             RuleFor(c => c.ModelYear).NotEmpty();
             RuleFor(c => c.Plate).NotEmpty();
             RuleFor(c => c.ModelId).NotEmpty();
             RuleFor(c => c.ColorId).NotEmpty();
             RuleFor(c => c.ColorId).GreaterThan(0);
             RuleFor(c => c.ModelId).GreaterThan(0);
+            RuleFor(c => c.CarState).IsInEnum()
+                .WithMessage("Araç durumu hatalı. Böyle bir araç durumu yok");
             RuleFor(c => c.Plate).Length(6, 9);
             RuleFor(c => c.Plate).Must(StartWithValidNumber)
                 .WithMessage("Araç plakası geçerli bir şehir numarasıyla başlamıyor!");

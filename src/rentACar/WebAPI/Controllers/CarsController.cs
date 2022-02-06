@@ -1,4 +1,8 @@
 ﻿using Application.Features.Cars.Commands.CreateCar;
+using Application.Features.Cars.Queries.GetCar;
+using Application.Features.Maintenenaces.Commands.UpdateMaintenance;
+using Application.Features.Maintenenaces.Queries.GetMaintenance;
+using Core.Application.Requests;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,6 +17,31 @@ namespace WebAPI.Controllers
         {
             var result = await Mediator.Send(command);
             return Created("", result);
+        }
+
+        [HttpPost("update")]
+        public async Task<IActionResult> Update([FromBody] UpdateMaintenanceCommand command)
+        {
+            var result = await Mediator.Send(command);
+            return Created("", result);
+        }
+
+        [HttpGet("getall")]
+        public async Task<IActionResult> GetAll([FromQuery] PageRequest pageRequest)
+        {
+            var query = new GetAllCarsListQuery();
+            query.PageRequest = pageRequest;
+            var result = await Mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("getallrentables")]
+        public async Task<IActionResult> GetAllRentables([FromQuery] PageRequest pageRequest)
+        {
+            var query = new GetAllRentableCarsListQuery();
+            query.PageRequest = pageRequest;
+            var result = await Mediator.Send(query);
+            return Ok(result);
         }
     }
 }

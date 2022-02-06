@@ -9,21 +9,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Maintenenaces.Commands.CreateMaintenance
+namespace Application.Features.Maintenenaces.Commands.UpdateMaintenance
 {
-    public class CreateMaintenanceCommand : IRequest<Maintenance>
+    public class UpdateMaintenanceCommand : IRequest<Maintenance>
     {
+        public int Id { get; set; }
         public string Description { get; set; }
         public DateTime MaintenanceDate { get; set; }
         public int CarId { get; set; }
 
-        public class CreateMaintenanceCommandHandler : IRequestHandler<CreateMaintenanceCommand, Maintenance>
+        public class UpdateMaintenanceCommandHandler : IRequestHandler<UpdateMaintenanceCommand, Maintenance>
         {
             IMaintenanceRepository _maintenanceRepository;
             IMapper _mapper;
             MaintenanceBusinessRules _maintenanceBusinessRules;
 
-            public CreateMaintenanceCommandHandler(IMaintenanceRepository maintenanceRepository,
+            public UpdateMaintenanceCommandHandler(IMaintenanceRepository maintenanceRepository,
                 IMapper mapper, MaintenanceBusinessRules maintenanceBusinessRules)
             {
                 _maintenanceRepository = maintenanceRepository;
@@ -31,13 +32,13 @@ namespace Application.Features.Maintenenaces.Commands.CreateMaintenance
                 _maintenanceBusinessRules = maintenanceBusinessRules;
             }
 
-            public async Task<Maintenance> Handle(CreateMaintenanceCommand request, CancellationToken cancellationToken)
+            public async Task<Maintenance> Handle(UpdateMaintenanceCommand request, CancellationToken cancellationToken)
             {
                 _maintenanceBusinessRules.CheckIfCarIsRented(request.CarId);
 
                 var mappedMaintenance = _mapper.Map<Maintenance>(request);
 
-                var createdMaintenance = await _maintenanceRepository.AddAsync(mappedMaintenance);
+                var createdMaintenance = await _maintenanceRepository.UpdateAsync(mappedMaintenance);
                 return createdMaintenance;
             }
         }

@@ -1,4 +1,5 @@
-﻿using FluentValidation;
+﻿using Core.Application.Extensions;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ namespace Application.Features.Colors.Commands.CreateColor
         {
             RuleFor(c => c.Name).NotEmpty();
             RuleFor(c => c.Name).Must(NotContainW).WithMessage("İçerisinde w olan renk olamaz!!");
+            RuleFor(c => c.Name).FirstLetterMustBeUpperCase();
         }
 
         private bool NotContainW(string name)

@@ -1,4 +1,7 @@
 ﻿using Application.Features.Brands.Commands.CreateBrand;
+using Application.Features.Brands.Commands.UpdateBrand;
+using Application.Features.Cars.Commands.CreateCar;
+using Application.Features.Cars.Commands.UpdateCar;
 using Application.Features.Cars.Dtos;
 using Application.Features.Cars.Models;
 using AutoMapper;
@@ -16,8 +19,9 @@ namespace Application.Features.Cars.Profiles
     {
         public MappingProfiles()
         {
-            CreateMap<Car, CreateBrandCommand>().ReverseMap();
-            //CreateMap<Brand, UpdateBrandCommand>().ReverseMap();
+            CreateMap<Car, CreateCarCommand>().ReverseMap();
+            CreateMap<Car, UpdateCarCommand>().ReverseMap();
+            CreateMap<Car, UpdateCarStateCommand>().ReverseMap();
             CreateMap<Car, CarListDto>().ReverseMap();
             CreateMap<IPaginate<Car>, CarListModel>().ReverseMap();
         }

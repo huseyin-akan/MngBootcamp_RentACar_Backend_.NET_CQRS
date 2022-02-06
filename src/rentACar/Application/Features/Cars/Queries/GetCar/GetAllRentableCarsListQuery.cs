@@ -2,7 +2,6 @@
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.Application.Requests;
-using Core.Utilities.Results;
 using Domain.Enums;
 using MediatR;
 using System;
@@ -13,23 +12,23 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Cars.Queries.GetCar
 {
-    public class GetCarsNotInMaintenanceListQuery : IRequest<CarListModel>
+    public class GetAllRentableCarsListQuery : IRequest<CarListModel>
     {
         public PageRequest PageRequest { get; set; }
 
-        public class GetCarsNotInMaintenanceListQueryHandler : IRequestHandler<GetCarsNotInMaintenanceListQuery, CarListModel>
+        public class GetAllRentableCarsListQueryHandler : IRequestHandler<GetAllRentableCarsListQuery, CarListModel>
         {
             ICarRepository _carRepository;
             IMapper _mapper;
-            public GetCarsNotInMaintenanceListQueryHandler(ICarRepository carRepository, IMapper mapper)
+            public GetAllRentableCarsListQueryHandler(ICarRepository carRepository, IMapper mapper)
             {
                 _carRepository = carRepository;
                 _mapper = mapper;
             }
-            public async Task<CarListModel> Handle(GetCarsNotInMaintenanceListQuery request, CancellationToken cancellationToken)
+            public async Task<CarListModel> Handle(GetAllRentableCarsListQuery request, CancellationToken cancellationToken)
             {
                 var cars = await _carRepository.GetListAsync(
-                    c => c.CarState != CarState.InMaintenance,
+                    c => c.CarState == CarState.Available,
                     index: request.PageRequest.Page,
                     size: request.PageRequest.PageSize
                     );
@@ -38,7 +37,4 @@ namespace Application.Features.Cars.Queries.GetCar
             }
         }
     }
-
-
-
 }

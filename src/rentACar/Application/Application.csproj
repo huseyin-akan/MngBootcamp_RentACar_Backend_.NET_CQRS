@@ -35,9 +35,6 @@
     <Folder Include="Features\Cars\Tests\" />
     <Folder Include="Features\Colors\Tests\" />
     <Folder Include="Features\Fuels\Tests\" />
-    <Folder Include="Features\Maintenenaces\Dtos\" />
-    <Folder Include="Features\Maintenenaces\Models\" />
-    <Folder Include="Features\Maintenenaces\Queries\" />
     <Folder Include="Features\Maintenenaces\Tests\" />
     <Folder Include="Features\Models\Tests\" />
     <Folder Include="Features\Rentals\Queries\" />

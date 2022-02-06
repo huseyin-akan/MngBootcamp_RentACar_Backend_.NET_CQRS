@@ -9,37 +9,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Rentals.Commands.CreateRental
+namespace Application.Features.Rentals.Commands.UpdateRental
 {
-    public class CreateRentalCommand : IRequest<Rental>
+    public class UpdateRentalCommand : IRequest<Rental>
     {
+        public int Id { get; set; }
         public DateTime RentDate { get; set; }
         public DateTime ReturnDate { get; set; }
         public int RentedKilometer { get; set; }
         public int ReturnedKilometer { get; set; }
         public int CarId { get; set; }
 
-        public class CreateRentalCommandHandler : IRequestHandler<CreateRentalCommand, Rental>
+        public class UpdateRentalCommandHandler : IRequestHandler<UpdateRentalCommand, Rental>
         {
             IRentalRepository _rentalRepository;
             IMapper _mapper;
             RentalBusinessRules _rentalBusinessRules;
-            public CreateRentalCommandHandler(IRentalRepository rentalRepository, IMapper mapper, RentalBusinessRules rentalBusinessRules)
+            public UpdateRentalCommandHandler(IRentalRepository rentalRepository, IMapper mapper, RentalBusinessRules rentalBusinessRules)
             {
                 _rentalRepository = rentalRepository;
                 _mapper = mapper;
                 _rentalBusinessRules = rentalBusinessRules;
             }
 
-            public async Task<Rental> Handle(CreateRentalCommand request, CancellationToken cancellationToken)
+            public async Task<Rental> Handle(UpdateRentalCommand request, CancellationToken cancellationToken)
             {
-                //TODO: business rules + result sistem eklenecek.
-                _rentalBusinessRules.CheckIfCarIsUnderMaintenance(request.CarId); 
-                _rentalBusinessRules.CheckIfCarIsRented(request.CarId);
+                _rentalBusinessRules.CheckIfCarIsUnderMaintenance(request.CarId);
 
                 var mappedRental = _mapper.Map<Rental>(request);
 
-                var createdRental = await _rentalRepository.AddAsync(mappedRental);
+                var createdRental = await _rentalRepository.UpdateAsync(mappedRental);
                 return createdRental;
             }
         }

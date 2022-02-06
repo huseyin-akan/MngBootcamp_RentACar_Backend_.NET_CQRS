@@ -33,8 +33,7 @@ namespace Core.Mailing.MailKitImplementations
             var bodyBuilder = new BodyBuilder
             {
                 TextBody = mail.TextBody,
-                HtmlBody = mail.HtmlBody,
-
+                HtmlBody = mail.HtmlBody
             };
 
             if (mail.Attachments != null)

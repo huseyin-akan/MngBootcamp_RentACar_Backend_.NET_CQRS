@@ -10,22 +10,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Cars.Commands.CreateCar
+namespace Application.Features.Cars.Commands.UpdateCar
 {
-    public class CreateCarCommand : IRequest<Car>
+    public class UpdateCarCommand : IRequest<Car>
     {
+        public int Id { get; set; }
         public int ModelId { get; set; }
         public int ColorId { get; set; }
         public string Plate { get; set; }
         public int ModelYear { get; set; }
+        public CarState CarState { get; set; }
 
-        public class CreateBrandCommandHandler : IRequestHandler<CreateCarCommand, Car>
+        public class UpdateBrandCommandHandler : IRequestHandler<UpdateCarCommand, Car>
         {
             ICarRepository _carRepository;
             IMapper _mapper;
             CarBusinessRules _carBusinessRules;
 
-            public CreateBrandCommandHandler(ICarRepository carRepository,
+            public UpdateBrandCommandHandler(ICarRepository carRepository,
                 IMapper mapper, CarBusinessRules carBusinessRules)
             {
                 _carRepository = carRepository;
@@ -33,13 +35,12 @@ namespace Application.Features.Cars.Commands.CreateCar
                 _carBusinessRules = carBusinessRules;
             }
 
-            public async Task<Car> Handle(CreateCarCommand request, CancellationToken cancellationToken)
+            public async Task<Car> Handle(UpdateCarCommand request, CancellationToken cancellationToken)
             {
                 var mappedCar = _mapper.Map<Car>(request);
-                mappedCar.CarState = CarState.Available;
 
-                var createdCar = await _carRepository.AddAsync(mappedCar);
-                return createdCar;
+                var updatedCar = await _carRepository.UpdateAsync(mappedCar);
+                return updatedCar;
             }
         }
     }

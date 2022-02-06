@@ -49,7 +49,7 @@ namespace Application.Features.Brands.Commands.CreateBrand
                     Subject = "New Brand Added!!",
                     HtmlBody = "<p> Hey, check the system. A new brand is added </p>"
                 };
-                _mailService.SendMail(mail);
+                //_mailService.SendMail(mail);
 
                 return new SuccessDataResult<Brand>(createdBrand);
             } 
