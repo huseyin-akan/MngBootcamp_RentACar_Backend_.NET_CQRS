@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Rentals.Commands.CreateRental
+namespace Application.Features.Rentals.Commands.RentForCorporateCustomer
 {
-    public class CreateRentalCommandValidator : AbstractValidator<CreateRentalCommand>
+    public class RentForCorporateCustomerCommandValidator : AbstractValidator<RentForCorporateCustomerCommand>
     {
-        public CreateRentalCommandValidator()
+        public RentForCorporateCustomerCommandValidator()
         {
             RuleFor(c => c.RentDate).NotEmpty();
             RuleFor(c => c.RentedKilometer).NotEmpty();
