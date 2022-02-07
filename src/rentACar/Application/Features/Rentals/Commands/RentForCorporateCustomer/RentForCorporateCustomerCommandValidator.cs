@@ -12,7 +12,6 @@ namespace Application.Features.Rentals.Commands.RentForCorporateCustomer
         public RentForCorporateCustomerCommandValidator()
         {
             RuleFor(c => c.RentDate).NotEmpty();
-            RuleFor(c => c.RentedKilometer).NotEmpty();
         }
     }
 }

@@ -38,6 +38,12 @@
     <Folder Include="Features\CorporateCustomers\Models\" />
     <Folder Include="Features\CorporateCustomers\Queries\" />
     <Folder Include="Features\CorporateCustomers\Tests\" />
+    <Folder Include="Features\CreditCardInfos\Commands\" />
+    <Folder Include="Features\CreditCardInfos\Models\" />
+    <Folder Include="Features\CreditCardInfos\Profiles\" />
+    <Folder Include="Features\CreditCardInfos\Queries\" />
+    <Folder Include="Features\CreditCardInfos\Rules\" />
+    <Folder Include="Features\CreditCardInfos\Tests\" />
     <Folder Include="Features\Fuels\Tests\" />
     <Folder Include="Features\IndividualCustomers\Dtos\" />
     <Folder Include="Features\IndividualCustomers\Models\" />

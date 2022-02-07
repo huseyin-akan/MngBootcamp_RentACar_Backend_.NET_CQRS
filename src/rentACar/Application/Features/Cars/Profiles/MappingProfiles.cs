@@ -21,6 +21,7 @@ namespace Application.Features.Cars.Profiles
         {
             CreateMap<Car, CreateCarCommand>().ReverseMap();
             CreateMap<Car, UpdateCarCommand>().ReverseMap();
+            CreateMap<Car, UpdateCarAfterRentalEndCommand>().ReverseMap();
             CreateMap<Car, UpdateCarStateCommand>().ReverseMap();
             CreateMap<Car, CarListDto>().ReverseMap();
             CreateMap<IPaginate<Car>, CarListModel>().ReverseMap();

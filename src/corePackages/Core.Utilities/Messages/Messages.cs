@@ -10,6 +10,7 @@ namespace Core.Utilities.Messages
     {
         public static string CarAdded = "Car has been added successfully";
         public static string CarNotFound = "Car with that id can not be found!!";
+        public static string CarUpdateFailed= "Car can not be updated. Something is wrong!!";
 
         public static string BrandNameExists = "Brand name already exists";
 

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Contexts;
 
@@ -11,9 +12,10 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    partial class BaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220207141535_kilometer")]
+    partial class kilometer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -156,46 +158,6 @@ namespace Persistence.Migrations
                             Id = 3,
                             Name = "Blue"
                         });
-                });
-
-            modelBuilder.Entity("Domain.Entities.CreditCardInfo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("CVC")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("CVC");
-
-                    b.Property<string>("CardHolder")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("CardHolder");
-
-                    b.Property<string>("CreditCardNo")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("CreditCardNo");
-
-                    b.Property<int>("CustomerId")
-                        .HasColumnType("int")
-                        .HasColumnName("CustomerId");
-
-                    b.Property<string>("ValidDate")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("ValidDate");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CustomerId");
-
-                    b.ToTable("CreditCardInfos", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Customer", b =>
@@ -487,17 +449,6 @@ namespace Persistence.Migrations
                     b.Navigation("Color");
 
                     b.Navigation("Model");
-                });
-
-            modelBuilder.Entity("Domain.Entities.CreditCardInfo", b =>
-                {
-                    b.HasOne("Domain.Entities.Customer", "Customer")
-                        .WithMany()
-                        .HasForeignKey("CustomerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("Domain.Entities.Maintenance", b =>

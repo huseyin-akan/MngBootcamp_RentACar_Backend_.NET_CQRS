@@ -3,13 +3,14 @@ using Domain.Enums;
 
 namespace Domain.Entities
 {
-    public class Car :Entity
+    public class Car : Entity
     {
         public int ModelId { get; set; }
         public int ColorId { get; set; }
         public string Plate { get; set; }
         public int ModelYear { get; set; }
         public int FindexScore { get; set; }
+        public int Kilometer { get; set; }
 
         public CarState CarState { get; set; }
 

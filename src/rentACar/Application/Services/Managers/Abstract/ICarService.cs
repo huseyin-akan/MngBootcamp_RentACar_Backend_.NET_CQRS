@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Application.Features.Cars.Commands.UpdateCar;
+using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,5 +11,10 @@ namespace Application.Services.Managers.Abstract
     public interface ICarService
     {
         Task<int> GetFindexScoreById(int id);
+        Task<Car> GetCarById(int id);
+        Task UpdateCarState(UpdateCarStateCommand command);
+
+        Task UpdateCarAfterRentalEnd(UpdateCarAfterRentalEndCommand command);
+        Task UpdateCar(UpdateCarCommand command);
     }
 }

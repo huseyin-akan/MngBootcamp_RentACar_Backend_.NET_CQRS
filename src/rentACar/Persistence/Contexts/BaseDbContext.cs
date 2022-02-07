@@ -32,6 +32,8 @@ namespace Persistence.Contexts
         public DbSet<CorporateCustomer> CorporateCustomers { get; set; }
         public DbSet<Customer> Customers { get; set; }
 
+        public DbSet<CreditCardInfo> CreditCardInfos { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //if (!optionsBuilder.IsConfigured)
@@ -72,6 +74,18 @@ namespace Persistence.Contexts
                 b.Property(p => p.Id).HasColumnName("Id");
                 b.Property(p => p.Name).HasColumnName("Name");
                 //b.HasMany(p => p.Models);
+            });
+
+            modelBuilder.Entity<CreditCardInfo>(c =>
+            {
+                c.ToTable("CreditCardInfos").HasKey(k => k.Id);
+                c.Property(p => p.Id).HasColumnName("Id");
+                c.Property(p => p.CustomerId).HasColumnName("CustomerId");
+                c.Property(p => p.CreditCardNo).HasColumnName("CreditCardNo");
+                c.Property(p => p.CVC).HasColumnName("CVC");
+                c.Property(p => p.ValidDate).HasColumnName("ValidDate");
+                c.Property(p => p.CardHolder).HasColumnName("CardHolder");
+                c.HasOne(p => p.Customer);
             });
 
             modelBuilder.Entity<Color>(c =>

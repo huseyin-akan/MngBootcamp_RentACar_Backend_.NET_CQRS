@@ -1,6 +1,8 @@
 ﻿using Application.Features.Cars.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.CrossCuttingConcerns.Exceptions;
+using Core.Utilities.Messages;
 using Domain.Entities;
 using Domain.Enums;
 using MediatR;
@@ -20,15 +22,16 @@ namespace Application.Features.Cars.Commands.UpdateCar
         public string Plate { get; set; }
         public int ModelYear { get; set; }
         public int FindexScore { get; set; }
+        public int Kilometer { get; set; }
         public CarState CarState { get; set; }
 
-        public class UpdateBrandCommandHandler : IRequestHandler<UpdateCarCommand, Car>
+        public class UpdateCarCommandHandler : IRequestHandler<UpdateCarCommand, Car>
         {
             ICarRepository _carRepository;
             IMapper _mapper;
             CarBusinessRules _carBusinessRules;
 
-            public UpdateBrandCommandHandler(ICarRepository carRepository,
+            public UpdateCarCommandHandler(ICarRepository carRepository,
                 IMapper mapper, CarBusinessRules carBusinessRules)
             {
                 _carRepository = carRepository;
@@ -38,7 +41,12 @@ namespace Application.Features.Cars.Commands.UpdateCar
 
             public async Task<Car> Handle(UpdateCarCommand request, CancellationToken cancellationToken)
             {
-                var mappedCar = _mapper.Map<Car>(request);
+                var carToUpdate = await _carRepository.GetAsync(c => c.Id == request.Id);
+                if (carToUpdate is null)
+                {
+                    throw new RepositoryException(Messages.CarNotFound);
+                }
+                var mappedCar = _mapper.Map(request, carToUpdate);
 
                 var updatedCar = await _carRepository.UpdateAsync(mappedCar);
                 return updatedCar;

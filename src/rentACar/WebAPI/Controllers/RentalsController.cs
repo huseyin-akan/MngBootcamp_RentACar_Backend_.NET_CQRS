@@ -1,4 +1,6 @@
 ﻿using Application.Features.Cars.Commands.UpdateCar;
+using Application.Features.Rentals.Commands.EndRentalForCC;
+using Application.Features.Rentals.Commands.EndRentalForIC;
 using Application.Features.Rentals.Commands.RentForCorporateCustomer;
 using Application.Features.Rentals.Commands.RentForIndividualCustomer;
 using Application.Features.Rentals.Commands.UpdateRental;
@@ -18,13 +20,6 @@ namespace WebAPI.Controllers
         {
             var result = await Mediator.Send(command);
 
-            UpdateCarStateCommand updateCarStateCommand = new UpdateCarStateCommand
-            {
-                Id = command.CarId,
-                CarState = CarState.Rented
-            };
-            await Mediator.Send(updateCarStateCommand);
-
             return Created("", result);
         }
 
@@ -33,12 +28,21 @@ namespace WebAPI.Controllers
         {
             var result = await Mediator.Send(command);
 
-            UpdateCarStateCommand updateCarStateCommand = new UpdateCarStateCommand
-            {
-                Id = command.CarId,
-                CarState = CarState.Rented
-            };
-            await Mediator.Send(updateCarStateCommand);
+            return Created("", result);
+        }
+
+        [HttpPost("endrentalforcc")]
+        public async Task<IActionResult> EndRentalForCorporate([FromBody] EndRentalForCCCommand command)
+        {
+            var result = await Mediator.Send(command);
+
+            return Created("", result);
+        }
+
+        [HttpPost("endrentalforic")]
+        public async Task<IActionResult> EndRentalForIndividual([FromBody] EndRentalForICCommand command)
+        {
+            var result = await Mediator.Send(command);
 
             return Created("", result);
         }
