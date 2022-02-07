@@ -13,6 +13,11 @@ namespace Domain.Entities
         public DateTime ReturnDate { get; set; }
         public DateTime? ReturnedDate { get; set; }
 
+        public int RentCityId { get; set; }
+        public int ReturnCityId { get; set; }
+        public int? ReturnedCityId { get; set; }
+
+
         public int RentedKilometer { get; set; }
         public int ReturnedKilometer { get; set; }
 
@@ -21,6 +26,9 @@ namespace Domain.Entities
 
         public Car Car { get; set; }
         public Customer Customer{ get; set; }
+        public City RentCity { get; set; }
+        public City ReturnCity { get; set; }
+        public City ReturnedCity { get; set; }
 
         public Rental()
         {

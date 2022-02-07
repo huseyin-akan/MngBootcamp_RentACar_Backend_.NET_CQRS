@@ -17,6 +17,7 @@ namespace Application.Features.Cars.Commands.UpdateCar
         public int Id { get; set; }
         public CarState CarState { get; set; }
         public int Kilometer { get; set; }
+        public int CityId { get; set; }
 
         public class UpdateCarStateCommandHandler : IRequestHandler<UpdateCarAfterRentalEndCommand, Car>
         {

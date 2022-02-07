@@ -43,5 +43,15 @@ namespace WebAPI.Controllers
             var result = await Mediator.Send(query);
             return Ok(result);
         }
+
+        [HttpGet("getallcarsbycityid")]
+        public async Task<IActionResult> GetAllRentables([FromQuery] PageRequest pageRequest, [FromQuery] int cityId)
+        {
+            var query = new GetAllCarsByCityQuery();
+            query.PageRequest = pageRequest;
+            query.CityId = cityId;
+            var result = await Mediator.Send(query);
+            return Ok(result);
+        }
     }
 }

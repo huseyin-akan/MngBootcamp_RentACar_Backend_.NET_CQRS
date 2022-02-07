@@ -19,6 +19,7 @@ namespace Application.Features.Rentals.Commands.EndRentalForIC
         public int Id { get; set; }
         public DateTime ReturnedDate { get; set; }
         public int ReturnedKilometer { get; set; }
+        public int ReturnedCityId { get; set; }
         public int CarId { get; set; }
 
         public class EndRentalForICCommandHandler : IRequestHandler<EndRentalForICCommand, Rental>
@@ -49,7 +50,8 @@ namespace Application.Features.Rentals.Commands.EndRentalForIC
                 {
                     Id = request.CarId,
                     CarState = CarState.Available,
-                    Kilometer = request.ReturnedKilometer
+                    Kilometer = request.ReturnedKilometer,
+                    CityId = request.ReturnedCityId
                 };
                 await this.carService.UpdateCarAfterRentalEnd(command);
 

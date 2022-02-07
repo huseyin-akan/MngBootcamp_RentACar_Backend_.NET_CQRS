@@ -18,7 +18,7 @@ namespace Domain.Entities
             Rentals = new HashSet<Rental>();
         }
 
-        public Customer(int id, string email)
+        public Customer(int id, string email) : this()
         {
             Id = id;
             Email = email;

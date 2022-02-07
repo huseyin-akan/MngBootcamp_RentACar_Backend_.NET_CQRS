@@ -33,6 +33,8 @@ namespace Persistence.Contexts
         public DbSet<Customer> Customers { get; set; }
 
         public DbSet<CreditCardInfo> CreditCardInfos { get; set; }
+        public DbSet<City> Cities { get; set; }
+        public DbSet<Payment> Payments { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -45,6 +47,12 @@ namespace Persistence.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly() );
+
+            //tüm tablolarda delete yapılınca cascade yapılmamasını sağlar:
+            //foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            //{
+            //    relationship.DeleteBehavior = DeleteBehavior.NoAction;
+            //}
 
             modelBuilder.Entity<Customer>(c =>
             {
@@ -96,6 +104,23 @@ namespace Persistence.Contexts
                 c.HasMany(p => p.Cars);
             });
 
+            modelBuilder.Entity<City>(c =>
+            {
+                c.ToTable("Cities").HasKey(k => k.Id);
+                c.Property(p => p.Id).HasColumnName("Id");
+                c.Property(p => p.Name).HasColumnName("Name");
+                //c.HasMany(p => p.Cars);
+            });
+
+            modelBuilder.Entity<Payment>(c =>
+            {
+                c.ToTable("Payments").HasKey(k => k.Id);
+                c.Property(p => p.Id).HasColumnName("Id");
+                c.Property(p => p.PaymentDate).HasColumnName("PaymentDate");
+                c.Property(p => p.TotalSum).HasColumnName("TotalSum");
+                c.Property(p => p.RentalId).HasColumnName("RentalId");
+            });
+
             modelBuilder.Entity<Fuel>(c =>
             {
                 c.ToTable("Fuels").HasKey(k => k.Id);
@@ -145,6 +170,9 @@ namespace Persistence.Contexts
                 r.Property(p => p.Id).HasColumnName("Id");
                 r.Property(p => p.CarId).HasColumnName("CarId");
                 r.Property(p => p.CustomerId).HasColumnName("CustomerId");
+                r.Property(p => p.RentCityId).HasColumnName("RentCityId");
+                r.Property(p => p.ReturnCityId).HasColumnName("ReturnCityId");
+                r.Property(p => p.ReturnedCityId).HasColumnName("ReturnedCityId");
                 r.Property(p => p.RentDate).HasColumnName("RentDate");
                 r.Property(p => p.ReturnDate).HasColumnName("ReturnDate");
                 r.Property(p => p.ReturnedDate).HasColumnName("ReturnedDate");
@@ -159,11 +187,13 @@ namespace Persistence.Contexts
                 c.Property(p => p.Id).HasColumnName("Id");
                 c.Property(p => p.ModelId).HasColumnName("ModelId");
                 c.Property(p => p.ColorId).HasColumnName("ColorId");
+                c.Property(p => p.CityId).HasColumnName("CityId");
                 c.Property(p => p.Plate).HasColumnName("Plate");
                 c.Property(p => p.ModelYear).HasColumnName("ModelYear");
                 c.Property(p => p.CarState).HasColumnName("CarState");
                 c.HasOne(c => c.Model);
                 c.HasOne(c => c.Color);
+                c.HasOne(c => c.City);
             });
 
             var brand1 = new Brand(1, "BMW");
@@ -188,8 +218,8 @@ namespace Persistence.Contexts
             var model2 = new Model(2, "C250", 300, 1, 2, 2, "https://www.autocar.co.uk/sites/autocar.co.uk/files/mercedes-c250-4.jpg");
             modelBuilder.Entity<Model>().HasData(model1, model2);
 
-            var car1 = new Car(1, 1, 3, "34HUS256", 2020, CarState.Available, 1400);
-            var car2 = new Car(2, 2, 1, "34HUS257", 2021, CarState.Available, 1000);
+            var car1 = new Car(1, 1, 3, 1, "34HUS256", 2020, CarState.Available, 1400);
+            var car2 = new Car(2, 2, 1, 1, "34HUS257", 2021, CarState.Available, 1000);
             modelBuilder.Entity<Car>().HasData(car1, car2);
         }
     }

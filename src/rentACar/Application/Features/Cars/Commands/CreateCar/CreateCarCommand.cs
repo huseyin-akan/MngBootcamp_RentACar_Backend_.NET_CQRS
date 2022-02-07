@@ -16,6 +16,7 @@ namespace Application.Features.Cars.Commands.CreateCar
     {
         public int ModelId { get; set; }
         public int ColorId { get; set; }
+        public int CityId { get; set; }
         public string Plate { get; set; }
         public int ModelYear { get; set; }
         public int FindexScore { get; set; }

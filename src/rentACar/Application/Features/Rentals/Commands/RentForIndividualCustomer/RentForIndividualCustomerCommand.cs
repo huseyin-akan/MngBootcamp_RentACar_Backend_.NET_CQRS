@@ -19,6 +19,8 @@ namespace Application.Features.Rentals.Commands.RentForIndividualCustomer
     {
         public DateTime RentDate { get; set; }
         public DateTime ReturnDate { get; set; }
+        public int RentCityId { get; set; }
+        public int ReturnCityId { get; set; }
         public int CarId { get; set; }
         public int CustomerId { get; set; }
 

@@ -4,6 +4,7 @@ using Application.Features.Brands.Dtos;
 using Application.Features.Brands.Models;
 using Application.Features.Maintenenaces.Commands.CreateMaintenance;
 using Application.Features.Rentals.Commands.EndRentalForCC;
+using Application.Features.Rentals.Commands.EndRentalForIC;
 using Application.Features.Rentals.Commands.RentForCorporateCustomer;
 using Application.Features.Rentals.Commands.RentForIndividualCustomer;
 using AutoMapper;
@@ -24,6 +25,7 @@ namespace Application.Features.Rentals.Profiles
             CreateMap<Rental, RentForIndividualCustomerCommand>().ReverseMap();
             CreateMap<Rental, RentForCorporateCustomerCommand>().ReverseMap();
             CreateMap<Rental, EndRentalForCCCommand>().ReverseMap();
+            CreateMap<Rental, EndRentalForICCommand>().ReverseMap();
             //CreateMap<Maintenance, UpdateMaintenanceCommand>().ReverseMap();
             //CreateMap<Maintenance, MaintenanceListDto>().ReverseMap();
             //CreateMap<IPaginate<Maintenance>, MaintenanceListModel>().ReverseMap();

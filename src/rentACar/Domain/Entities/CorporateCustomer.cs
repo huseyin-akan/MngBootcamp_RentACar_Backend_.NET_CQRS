@@ -16,7 +16,7 @@ namespace Domain.Entities
 
         }
 
-        public CorporateCustomer(int id, string email, string taxNumber, string companyName)
+        public CorporateCustomer(int id, string email, string taxNumber, string companyName) : this()
         {
             Id = id;
             Email = email;

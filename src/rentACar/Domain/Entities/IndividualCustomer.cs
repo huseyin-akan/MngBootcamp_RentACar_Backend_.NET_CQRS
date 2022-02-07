@@ -17,7 +17,8 @@ namespace Domain.Entities
 
         }
 
-        public IndividualCustomer(int id, string email, string firstName, string lastName, string nationalId)
+        public IndividualCustomer(int id, string email, string firstName,
+            string lastName, string nationalId) : this()
         {
             Id = id;
             Email = email;

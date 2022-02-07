@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Contexts;
 
@@ -11,9 +12,10 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    partial class BaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220207193427_car-cityId")]
+    partial class carcityId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -446,7 +448,7 @@ namespace Persistence.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("ReturnDate");
 
-                    b.Property<int?>("ReturnedCityId")
+                    b.Property<int>("ReturnedCityId")
                         .HasColumnType("int")
                         .HasColumnName("ReturnedCityId");
 
@@ -658,7 +660,9 @@ namespace Persistence.Migrations
 
                     b.HasOne("Domain.Entities.City", "ReturnedCity")
                         .WithMany()
-                        .HasForeignKey("ReturnedCityId");
+                        .HasForeignKey("ReturnedCityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Car");
 

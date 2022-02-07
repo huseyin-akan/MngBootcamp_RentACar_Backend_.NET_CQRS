@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Persistence.Contexts;
 
@@ -11,9 +12,10 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    partial class BaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220207192733_add-migration cities")]
+    partial class addmigrationcities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -66,10 +68,6 @@ namespace Persistence.Migrations
                         .HasColumnType("int")
                         .HasColumnName("CarState");
 
-                    b.Property<int>("CityId")
-                        .HasColumnType("int")
-                        .HasColumnName("CityId");
-
                     b.Property<int>("ColorId")
                         .HasColumnType("int")
                         .HasColumnName("ColorId");
@@ -95,8 +93,6 @@ namespace Persistence.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CityId");
-
                     b.HasIndex("ColorId");
 
                     b.HasIndex("ModelId");
@@ -108,7 +104,6 @@ namespace Persistence.Migrations
                         {
                             Id = 1,
                             CarState = 1,
-                            CityId = 1,
                             ColorId = 3,
                             FindexScore = 1400,
                             Kilometer = 0,
@@ -120,7 +115,6 @@ namespace Persistence.Migrations
                         {
                             Id = 2,
                             CarState = 1,
-                            CityId = 1,
                             ColorId = 1,
                             FindexScore = 1000,
                             Kilometer = 0,
@@ -446,7 +440,7 @@ namespace Persistence.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("ReturnDate");
 
-                    b.Property<int?>("ReturnedCityId")
+                    b.Property<int>("ReturnedCityId")
                         .HasColumnType("int")
                         .HasColumnName("ReturnedCityId");
 
@@ -545,12 +539,6 @@ namespace Persistence.Migrations
 
             modelBuilder.Entity("Domain.Entities.Car", b =>
                 {
-                    b.HasOne("Domain.Entities.City", "City")
-                        .WithMany()
-                        .HasForeignKey("CityId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Domain.Entities.Color", "Color")
                         .WithMany("Cars")
                         .HasForeignKey("ColorId")
@@ -562,8 +550,6 @@ namespace Persistence.Migrations
                         .HasForeignKey("ModelId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("City");
 
                     b.Navigation("Color");
 
@@ -658,7 +644,9 @@ namespace Persistence.Migrations
 
                     b.HasOne("Domain.Entities.City", "ReturnedCity")
                         .WithMany()
-                        .HasForeignKey("ReturnedCityId");
+                        .HasForeignKey("ReturnedCityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Car");
 

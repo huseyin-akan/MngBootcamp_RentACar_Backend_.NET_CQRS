@@ -23,7 +23,7 @@ namespace Domain.Entities
         }
 
         public CreditCardInfo(int id, int customerId, string creditCardNo,
-            string validDate, string cVC, string cardHolder)
+            string validDate, string cVC, string cardHolder) : this()
         {
             Id = id;
             CustomerId = customerId;
