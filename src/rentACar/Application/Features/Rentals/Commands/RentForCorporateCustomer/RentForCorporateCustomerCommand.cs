@@ -1,5 +1,6 @@
 ﻿using Application.Features.Cars.Commands.UpdateCar;
 using Application.Features.CorporateCustomers.Rules;
+using Application.Features.Invoices.Commands.CreateInvoice;
 using Application.Features.Rentals.Rules;
 using Application.Services.Managers;
 using Application.Services.Managers.Abstract;
@@ -32,15 +33,17 @@ namespace Application.Features.Rentals.Commands.RentForCorporateCustomer
             RentalBusinessRules _rentalBusinessRules;
             CorporateCustomerBusinessRules _corporateCustomerBusinessRules;
             ICarService carService;
+            private readonly IInvoiceService invoiceService;
             public RentForCorporateCustomerCommandHandler(IRentalRepository rentalRepository,
                 IMapper mapper, RentalBusinessRules rentalBusinessRules,
-                CorporateCustomerBusinessRules corporateCustomerBusinessRules, ICarService carService)
+                CorporateCustomerBusinessRules corporateCustomerBusinessRules, ICarService carService, IInvoiceService invoiceService)
             {
                 _rentalRepository = rentalRepository;
                 _mapper = mapper;
                 _rentalBusinessRules = rentalBusinessRules;
                 _corporateCustomerBusinessRules = corporateCustomerBusinessRules;
                 this.carService = carService;
+                this.invoiceService = invoiceService;
             }
 
             public async Task<Rental> Handle(RentForCorporateCustomerCommand request,
@@ -64,6 +67,19 @@ namespace Application.Features.Rentals.Commands.RentForCorporateCustomer
                 };
                 await this.carService.UpdateCarState(command);
 
+                //TODO: Invoice No oluşturan bir Helper sınıfı yazalım.
+                //TODO: TotalSum Payment yapıldıktan sonra alınacak.
+                CreateInvoiceCommand invoiceCommand = new CreateInvoiceCommand()
+                {
+                    CustomerId = request.CustomerId,
+                    InvoiceDate = DateTime.Now,
+                    InvoiceNo = 256,
+                    RentalId = createdRental.Id,
+                    TotalSum = 500
+                };
+                await this.invoiceService.MakeOutInvoice(invoiceCommand);
+
+                //TODO: Fatura oluşturduktan sonra invoicelistdto döndürülecek.
                 return createdRental;
             }
         }

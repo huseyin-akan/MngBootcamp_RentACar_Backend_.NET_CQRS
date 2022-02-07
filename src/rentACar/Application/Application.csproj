@@ -53,6 +53,10 @@
     <Folder Include="Features\IndividualCustomers\Models\" />
     <Folder Include="Features\IndividualCustomers\Queries\" />
     <Folder Include="Features\IndividualCustomers\Tests\" />
+    <Folder Include="Features\Invoices\Dtos\" />
+    <Folder Include="Features\Invoices\Models\" />
+    <Folder Include="Features\Invoices\Queries\" />
+    <Folder Include="Features\Invoices\Tests\" />
     <Folder Include="Features\Maintenenaces\Tests\" />
     <Folder Include="Features\Models\Tests\" />
     <Folder Include="Features\Rentals\Queries\" />

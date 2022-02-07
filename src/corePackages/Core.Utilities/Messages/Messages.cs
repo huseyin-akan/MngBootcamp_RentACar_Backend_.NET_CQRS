@@ -12,6 +12,8 @@ namespace Core.Utilities.Messages
         public static string CarNotFound = "Car with that id can not be found!!";
         public static string CarUpdateFailed= "Car can not be updated. Something is wrong!!";
 
+        public static string InvoiceNotAdded = "Invoice can not be created. Something is wrong!!";
+
         public static string BrandNameExists = "Brand name already exists";
 
         public static string IndividualCustomerDoesntExist = "No Individual customer with that id exists!!";

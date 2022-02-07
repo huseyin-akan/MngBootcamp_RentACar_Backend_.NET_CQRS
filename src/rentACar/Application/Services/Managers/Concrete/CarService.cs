@@ -13,16 +13,14 @@ using System.Threading.Tasks;
 
 namespace Application.Services.Managers.Concrete
 {
-    public class CarManager : ICarService
+    public class CarService : ICarService
     {
         private readonly ICarRepository _carRepository;
-        private readonly IMapper mapper;
         private IMediator _mediator;
-        public CarManager(ICarRepository carRepository, IMediator mediator, IMapper mapper)
+        public CarService(ICarRepository carRepository, IMediator mediator)
         {
             _carRepository = carRepository;
             _mediator = mediator;
-            this.mapper = mapper;
         }
 
         public async Task<Domain.Entities.Car> GetCarById(int id)

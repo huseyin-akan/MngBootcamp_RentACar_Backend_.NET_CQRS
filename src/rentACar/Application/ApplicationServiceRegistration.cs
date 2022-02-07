@@ -5,6 +5,7 @@ using Application.Features.Colors.Rules;
 using Application.Features.CorporateCustomers.Rules;
 using Application.Features.Fuels.Rules;
 using Application.Features.IndividualCustomers.Rules;
+using Application.Features.Invoices.Rules;
 using Application.Features.Maintenenaces.Rules;
 using Application.Features.Models.Rules;
 using Application.Features.Rentals.Rules;
@@ -42,12 +43,14 @@ namespace Application
             services.AddScoped<IndividualCustomerBusinessRules>();
             services.AddScoped<CorporateCustomerBusinessRules>();
             services.AddScoped<CarDamageBusinessRules>();
+            services.AddScoped<InvoiceBusinessRules>();
 
             services.AddScoped<IFindexScoreService, FakeFindexScoreServiceAdapter>();
             services.AddScoped<IPosSystemService, FakePosSystemServiceAdapter>();
-            services.AddScoped<IIndividualCustomerService, IndividualCustomerManager>();
-            services.AddScoped<ICorporateCustomerService, CorporateCustomerManager>();
-            services.AddScoped<ICarService, CarManager>();
+            services.AddScoped<IIndividualCustomerService, IndividualCustomerService>();
+            services.AddScoped<ICorporateCustomerService, CorporateCustomerService>();
+            services.AddScoped<IInvoiceService, InvoiceService>();
+            services.AddScoped<ICarService, CarService>();
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
 

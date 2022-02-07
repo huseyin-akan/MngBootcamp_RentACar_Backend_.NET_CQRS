@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace Application.Services.Managers.Concrete
 {
-    public class CorporateCustomerManager : ICorporateCustomerService
+    public class CorporateCustomerService : ICorporateCustomerService
     {
         readonly ICorporateCustomerRepository corporateCustomerRepository;
 
-        public CorporateCustomerManager(ICorporateCustomerRepository corporateCustomerRepository)
+        public CorporateCustomerService(ICorporateCustomerRepository corporateCustomerRepository)
         {
             this.corporateCustomerRepository = corporateCustomerRepository;
         }
