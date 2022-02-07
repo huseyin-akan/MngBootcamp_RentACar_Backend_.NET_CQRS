@@ -35,6 +35,7 @@ namespace Persistence.Contexts
         public DbSet<CreditCardInfo> CreditCardInfos { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Payment> Payments { get; set; }
+        public DbSet<CarDamage> CarDamages { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

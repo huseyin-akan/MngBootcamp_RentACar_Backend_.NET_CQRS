@@ -21,13 +21,13 @@ namespace Application.Features.Cars.Commands.CreateCar
         public int ModelYear { get; set; }
         public int FindexScore { get; set; }
 
-        public class CreateBrandCommandHandler : IRequestHandler<CreateCarCommand, Car>
+        public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand, Car>
         {
             ICarRepository _carRepository;
             IMapper _mapper;
             CarBusinessRules _carBusinessRules;
 
-            public CreateBrandCommandHandler(ICarRepository carRepository,
+            public CreateCarCommandHandler(ICarRepository carRepository,
                 IMapper mapper, CarBusinessRules carBusinessRules)
             {
                 _carRepository = carRepository;

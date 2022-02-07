@@ -1,4 +1,5 @@
 ﻿using Application.Features.Brands.Rules;
+using Application.Features.CarDamages.Rules;
 using Application.Features.Cars.Rules;
 using Application.Features.Colors.Rules;
 using Application.Features.CorporateCustomers.Rules;
@@ -40,8 +41,10 @@ namespace Application
             services.AddScoped<MaintenanceBusinessRules>();
             services.AddScoped<IndividualCustomerBusinessRules>();
             services.AddScoped<CorporateCustomerBusinessRules>();
+            services.AddScoped<CarDamageBusinessRules>();
 
             services.AddScoped<IFindexScoreService, FakeFindexScoreServiceAdapter>();
+            services.AddScoped<IPosSystemService, FakePosSystemServiceAdapter>();
             services.AddScoped<IIndividualCustomerService, IndividualCustomerManager>();
             services.AddScoped<ICorporateCustomerService, CorporateCustomerManager>();
             services.AddScoped<ICarService, CarManager>();
