@@ -1,7 +1,9 @@
 ﻿using Application.Features.Brands.Rules;
 using Application.Features.Cars.Rules;
 using Application.Features.Colors.Rules;
+using Application.Features.CorporateCustomers.Rules;
 using Application.Features.Fuels.Rules;
+using Application.Features.IndividualCustomers.Rules;
 using Application.Features.Maintenenaces.Rules;
 using Application.Features.Models.Rules;
 using Application.Features.Rentals.Rules;
@@ -33,6 +35,8 @@ namespace Application
             services.AddScoped<FuelBusinessRules>();
             services.AddScoped<RentalBusinessRules>();
             services.AddScoped<MaintenanceBusinessRules>();
+            services.AddScoped<IndividualCustomerBusinessRules>();
+            services.AddScoped<CorporateCustomerBusinessRules>();
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
 

@@ -1,10 +1,5 @@
 ﻿using Core.Persistence.Repositories;
 using Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Domain.Entities
 {
@@ -20,9 +15,11 @@ namespace Domain.Entities
         public virtual Color Color { get; set; }
         public virtual Model Model { get; set; }
 
+        public virtual ICollection<Rental> Rentals { get; set; }
+
         public Car()
         {
-
+            Rentals = new HashSet<Rental>();
         }
 
         public Car(int id, int modelId, int colorId, string plate, int modelYear, CarState carState) :this()

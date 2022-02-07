@@ -34,7 +34,15 @@
     <Folder Include="Features\burdan kopyala\Tests\" />
     <Folder Include="Features\Cars\Tests\" />
     <Folder Include="Features\Colors\Tests\" />
+    <Folder Include="Features\CorporateCustomers\Dtos\" />
+    <Folder Include="Features\CorporateCustomers\Models\" />
+    <Folder Include="Features\CorporateCustomers\Queries\" />
+    <Folder Include="Features\CorporateCustomers\Tests\" />
     <Folder Include="Features\Fuels\Tests\" />
+    <Folder Include="Features\IndividualCustomers\Dtos\" />
+    <Folder Include="Features\IndividualCustomers\Models\" />
+    <Folder Include="Features\IndividualCustomers\Queries\" />
+    <Folder Include="Features\IndividualCustomers\Tests\" />
     <Folder Include="Features\Maintenenaces\Tests\" />
     <Folder Include="Features\Models\Tests\" />
     <Folder Include="Features\Rentals\Queries\" />

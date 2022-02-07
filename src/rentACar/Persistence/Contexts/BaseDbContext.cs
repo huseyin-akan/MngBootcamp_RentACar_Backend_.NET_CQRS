@@ -28,6 +28,10 @@ namespace Persistence.Contexts
         public DbSet<Maintenance> Maintenances { get; set; }
         public DbSet<Rental> Rentals { get; set; }
 
+        public DbSet<IndividualCustomer> IndividualCustomers { get; set; }
+        public DbSet<CorporateCustomer> CorporateCustomers { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //if (!optionsBuilder.IsConfigured)
@@ -39,6 +43,28 @@ namespace Persistence.Contexts
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly() );
+
+            modelBuilder.Entity<Customer>(c =>
+            {
+                c.ToTable("Customers").HasKey(k => k.Id);
+                c.Property(p => p.Id).HasColumnName("Id");
+                c.Property(p => p.Email).HasColumnName("Email");
+            });
+
+            modelBuilder.Entity<IndividualCustomer>(c =>
+            {
+                c.ToTable("IndividualCustomers");
+                c.Property(p => p.NationalId).HasColumnName("NationalId");
+                c.Property(p => p.FirstName).HasColumnName("FirstName");
+                c.Property(p => p.LastName).HasColumnName("LastName");
+            });
+
+            modelBuilder.Entity<CorporateCustomer>(c =>
+            {
+                c.ToTable("CorporateCustomers");
+                c.Property(p => p.TaxNumber).HasColumnName("TaxNumber");
+                c.Property(p => p.CompanyName).HasColumnName("CompanyName");
+            });
 
             modelBuilder.Entity<Brand>( b =>
             {
@@ -104,6 +130,7 @@ namespace Persistence.Contexts
                 r.ToTable("Rentals").HasKey(r => r.Id);
                 r.Property(p => p.Id).HasColumnName("Id");
                 r.Property(p => p.CarId).HasColumnName("CarId");
+                r.Property(p => p.CustomerId).HasColumnName("CustomerId");
                 r.Property(p => p.RentDate).HasColumnName("RentDate");
                 r.Property(p => p.ReturnDate).HasColumnName("ReturnDate");
                 r.Property(p => p.ReturnedDate).HasColumnName("ReturnedDate");
