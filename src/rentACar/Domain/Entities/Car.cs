@@ -9,6 +9,7 @@ namespace Domain.Entities
         public int ColorId { get; set; }
         public string Plate { get; set; }
         public int ModelYear { get; set; }
+        public int FindexScore { get; set; }
 
         public CarState CarState { get; set; }
 
@@ -22,7 +23,8 @@ namespace Domain.Entities
             Rentals = new HashSet<Rental>();
         }
 
-        public Car(int id, int modelId, int colorId, string plate, int modelYear, CarState carState) :this()
+        public Car(int id, int modelId, int colorId,
+            string plate, int modelYear, CarState carState, int findexScore) :this()
         {
             Id = id;
             ModelId = modelId;
@@ -30,6 +32,7 @@ namespace Domain.Entities
             Plate = plate;
             ModelYear = modelYear;
             CarState = carState;
+            FindexScore = findexScore;
         }
     }
 }

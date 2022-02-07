@@ -1,5 +1,4 @@
 ﻿using Application.Features.Cars.Commands.UpdateCar;
-using Application.Features.Rentals.Commands.CreateRental;
 using Application.Features.Rentals.Commands.RentForCorporateCustomer;
 using Application.Features.Rentals.Commands.RentForIndividualCustomer;
 using Application.Features.Rentals.Commands.UpdateRental;

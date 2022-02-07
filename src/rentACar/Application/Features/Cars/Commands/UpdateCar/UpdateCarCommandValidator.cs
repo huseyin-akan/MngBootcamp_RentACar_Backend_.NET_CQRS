@@ -16,6 +16,7 @@ namespace Application.Features.Cars.Commands.UpdateCar
             RuleFor(c => c.Plate).NotEmpty();
             RuleFor(c => c.ModelId).NotEmpty();
             RuleFor(c => c.ColorId).NotEmpty();
+            RuleFor(c => c.FindexScore).GreaterThanOrEqualTo(0).LessThanOrEqualTo(1900);
             RuleFor(c => c.ColorId).GreaterThan(0);
             RuleFor(c => c.ModelId).GreaterThan(0);
             RuleFor(c => c.CarState).IsInEnum()

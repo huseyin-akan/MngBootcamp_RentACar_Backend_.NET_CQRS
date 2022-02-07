@@ -17,6 +17,7 @@ namespace Application.Features.Cars.Commands.CreateCar
             RuleFor(c => c.ColorId).NotEmpty();
             RuleFor(c => c.ColorId).GreaterThan(0);
             RuleFor(c => c.ModelId).GreaterThan(0);
+            RuleFor(c => c.FindexScore).GreaterThanOrEqualTo(0).LessThanOrEqualTo(1900);
             RuleFor(c => c.Plate).Length(6, 9);
             RuleFor(c => c.Plate).Must(StartWithValidNumber)
                 .WithMessage("Araç plakası geçerli bir şehir numarasıyla başlamıyor!");

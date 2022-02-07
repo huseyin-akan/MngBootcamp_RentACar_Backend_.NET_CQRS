@@ -19,6 +19,7 @@ namespace Application.Features.Cars.Commands.UpdateCar
         public int ColorId { get; set; }
         public string Plate { get; set; }
         public int ModelYear { get; set; }
+        public int FindexScore { get; set; }
         public CarState CarState { get; set; }
 
         public class UpdateBrandCommandHandler : IRequestHandler<UpdateCarCommand, Car>

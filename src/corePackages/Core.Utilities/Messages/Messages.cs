@@ -14,6 +14,7 @@ namespace Core.Utilities.Messages
 
         public static string IndividualCustomerDoesntExist = "No Individual customer with that id exists!!";
         public static string CorporateCustomerDoesntExist = "No Corporate customer with that id exists!!";
+        public static string FindexScoreNotEnough = "Findex score is not enough to rent the car!!";
 
     }
 }

@@ -18,6 +18,7 @@ namespace Application.Features.Cars.Commands.CreateCar
         public int ColorId { get; set; }
         public string Plate { get; set; }
         public int ModelYear { get; set; }
+        public int FindexScore { get; set; }
 
         public class CreateBrandCommandHandler : IRequestHandler<CreateCarCommand, Car>
         {

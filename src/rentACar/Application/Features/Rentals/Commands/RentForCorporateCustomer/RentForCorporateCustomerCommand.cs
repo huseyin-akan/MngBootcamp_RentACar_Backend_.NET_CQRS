@@ -1,5 +1,6 @@
 ﻿using Application.Features.CorporateCustomers.Rules;
 using Application.Features.Rentals.Rules;
+using Application.Services.Managers;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
@@ -25,9 +26,10 @@ namespace Application.Features.Rentals.Commands.RentForCorporateCustomer
             IRentalRepository _rentalRepository;
             IMapper _mapper;
             RentalBusinessRules _rentalBusinessRules;
-            CorporateCustomerBusinessRules _corporateCustomerBusinessRules;
+            CorporateCustomerBusinessRules _corporateCustomerBusinessRules;            
             public RentForCorporateCustomerCommandHandler(IRentalRepository rentalRepository,
-                IMapper mapper, RentalBusinessRules rentalBusinessRules, CorporateCustomerBusinessRules corporateCustomerBusinessRules)
+                IMapper mapper, RentalBusinessRules rentalBusinessRules,
+                CorporateCustomerBusinessRules corporateCustomerBusinessRules)
             {
                 _rentalRepository = rentalRepository;
                 _mapper = mapper;
@@ -40,6 +42,7 @@ namespace Application.Features.Rentals.Commands.RentForCorporateCustomer
             {
                 _rentalBusinessRules.CheckIfCarIsUnderMaintenance(request.CarId);
                 _rentalBusinessRules.CheckIfCarIsRented(request.CarId);
+                await _rentalBusinessRules.CheckIfCCFindexScoreIsEnough(request.CarId, request.CustomerId);
                 await _corporateCustomerBusinessRules.CheckIfCorporateCustomerExists(request.CustomerId);
 
                 var mappedRental = _mapper.Map<Rental>(request);

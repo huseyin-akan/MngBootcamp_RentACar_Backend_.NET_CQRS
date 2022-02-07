@@ -174,8 +174,8 @@ namespace Persistence.Contexts
             var model2 = new Model(2, "C250", 300, 1, 2, 2, "https://www.autocar.co.uk/sites/autocar.co.uk/files/mercedes-c250-4.jpg");
             modelBuilder.Entity<Model>().HasData(model1, model2);
 
-            var car1 = new Car(1, 1, 3, "34HUS256", 2020, CarState.Available);
-            var car2 = new Car(2, 2, 1, "34HUS257", 2021, CarState.Available);
+            var car1 = new Car(1, 1, 3, "34HUS256", 2020, CarState.Available, 1400);
+            var car2 = new Car(2, 2, 1, "34HUS257", 2021, CarState.Available, 1000);
             modelBuilder.Entity<Car>().HasData(car1, car2);
         }
     }

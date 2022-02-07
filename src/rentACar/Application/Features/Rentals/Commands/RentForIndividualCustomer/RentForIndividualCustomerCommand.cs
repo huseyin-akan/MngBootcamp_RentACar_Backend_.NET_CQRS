@@ -40,6 +40,7 @@ namespace Application.Features.Rentals.Commands.RentForIndividualCustomer
             {
                 _rentalBusinessRules.CheckIfCarIsUnderMaintenance(request.CarId);
                 _rentalBusinessRules.CheckIfCarIsRented(request.CarId);
+                await _rentalBusinessRules.CheckIfICFindexScoreIsEnough(request.CarId, request.CustomerId);
                 await _individualCustomerBusinessRules.CheckIfIndividualCustomerExists(request.CustomerId);
 
                 var mappedRental = _mapper.Map<Rental>(request);
