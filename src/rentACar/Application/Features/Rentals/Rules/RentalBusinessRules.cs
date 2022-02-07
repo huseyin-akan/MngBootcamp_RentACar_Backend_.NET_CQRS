@@ -1,5 +1,6 @@
 ﻿using Application.Features.Maintenenaces.Rules;
 using Application.Services.Managers;
+using Application.Services.Managers.Abstract;
 using Application.Services.Repositories;
 using Core.CrossCuttingConcerns.Exceptions;
 using Core.Utilities.Messages;
@@ -17,19 +18,23 @@ namespace Application.Features.Rentals.Rules
         readonly IRentalRepository _rentalRepository;
         readonly MaintenanceBusinessRules _maintenanceBusinessRules;
         readonly IFindexScoreService _findexScoreService;
-        readonly ICarRepository _carRepository;
-        readonly IIndividualCustomerRepository individualCustomerRepository;
-        readonly ICorporateCustomerRepository corporateCustomerRepository;
+        readonly ICarService _carService;
+        readonly IIndividualCustomerService _individualCustomerService;
+        readonly ICorporateCustomerService _corporateCustomerService;
 
         public RentalBusinessRules(IRentalRepository rentalRepository,
-            MaintenanceBusinessRules maintenanceBusinessRules, IFindexScoreService findexScoreService, ICarRepository carRepository, IIndividualCustomerRepository individualCustomerRepository, ICorporateCustomerRepository corporateCustomerRepository)
+            MaintenanceBusinessRules maintenanceBusinessRules,
+            IFindexScoreService findexScoreService,
+            ICarService carService,
+            IIndividualCustomerService individualCustomerService,
+            ICorporateCustomerService corporateCustomerService)
         {
             _rentalRepository = rentalRepository;
             _maintenanceBusinessRules = maintenanceBusinessRules;
             _findexScoreService = findexScoreService;
-            _carRepository = carRepository;
-            this.individualCustomerRepository = individualCustomerRepository;
-            this.corporateCustomerRepository = corporateCustomerRepository;
+            _carService = carService;
+            _individualCustomerService = individualCustomerService;
+            _corporateCustomerService = corporateCustomerService;
         }
 
         public bool CheckIfCarIsUnderMaintenance(int carId)
@@ -52,11 +57,11 @@ namespace Application.Features.Rentals.Rules
 
         public async Task<bool> CheckIfICFindexScoreIsEnough(int carId, int customerId)
         {
-            var customer = await this.individualCustomerRepository.GetAsync(i => i.Id == customerId);
-            var car = await this._carRepository.GetAsync(c => c.Id == carId);
-            var findexScore = await this._findexScoreService.getICFindexScore(customer.NationalId);
+            var nationalId = await this._individualCustomerService.GetNationalId(customerId);
+            var carFindexScore = await this._carService.GetFindexScoreById(carId);
+            var findexScore = await this._findexScoreService.getICFindexScore(nationalId);
 
-            if (findexScore < car.FindexScore)
+            if (findexScore < carFindexScore)
             {
                 throw new BusinessException(Messages.FindexScoreNotEnough);
             }
@@ -65,11 +70,11 @@ namespace Application.Features.Rentals.Rules
 
         public async Task<bool> CheckIfCCFindexScoreIsEnough(int carId, int customerId)
         {
-            var customer = await this.corporateCustomerRepository.GetAsync(i => i.Id == customerId);
-            var car = await this._carRepository.GetAsync(c => c.Id == carId);
-            var findexScore = await this._findexScoreService.getICFindexScore(customer.TaxNumber);
+            var taxNumber = await this._corporateCustomerService.GetTaxNumber(customerId);
+            var carFindexScore = await this._carService.GetFindexScoreById(carId);
+            var findexScore = await this._findexScoreService.getICFindexScore(taxNumber);
 
-            if(findexScore < car.FindexScore)
+            if(findexScore < carFindexScore)
             {
                 throw new BusinessException(Messages.FindexScoreNotEnough);
             }

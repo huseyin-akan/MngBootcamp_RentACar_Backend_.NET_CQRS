@@ -8,7 +8,8 @@ namespace Core.Utilities.Messages
 {
     public static class Messages
     {
-        public static string CarAdded = "Araç başarıyla eklendi";
+        public static string CarAdded = "Car has been added successfully";
+        public static string CarNotFound = "Car with that id can not be found!!";
 
         public static string BrandNameExists = "Brand name already exists";
 

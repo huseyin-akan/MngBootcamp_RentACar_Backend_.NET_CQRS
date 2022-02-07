@@ -8,6 +8,7 @@ using Application.Features.Maintenenaces.Rules;
 using Application.Features.Models.Rules;
 using Application.Features.Rentals.Rules;
 using Application.Services.Managers;
+using Application.Services.Managers.Abstract;
 using Application.Services.Managers.Concrete;
 using Core.Application.Pipelines.Validation;
 using FluentValidation;
@@ -40,7 +41,10 @@ namespace Application
             services.AddScoped<IndividualCustomerBusinessRules>();
             services.AddScoped<CorporateCustomerBusinessRules>();
 
-            services.AddSingleton<IFindexScoreService, FakeFindexScoreServiceAdapter>();
+            services.AddScoped<IFindexScoreService, FakeFindexScoreServiceAdapter>();
+            services.AddScoped<IIndividualCustomerService, IndividualCustomerManager>();
+            services.AddScoped<ICorporateCustomerService, CorporateCustomerManager>();
+            services.AddScoped<ICarService, CarManager>();
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
 

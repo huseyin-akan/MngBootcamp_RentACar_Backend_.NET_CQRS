@@ -27,7 +27,8 @@ namespace Application.Features.Rentals.Commands.RentForIndividualCustomer
             RentalBusinessRules _rentalBusinessRules;
             IndividualCustomerBusinessRules _individualCustomerBusinessRules;
             public RentForIndividualCustomerCommandHandler(IRentalRepository rentalRepository,
-                IMapper mapper, RentalBusinessRules rentalBusinessRules, IndividualCustomerBusinessRules individualCustomerBusinessRules)
+                IMapper mapper, RentalBusinessRules rentalBusinessRules,
+                IndividualCustomerBusinessRules individualCustomerBusinessRules)
             {
                 _rentalRepository = rentalRepository;
                 _mapper = mapper;
