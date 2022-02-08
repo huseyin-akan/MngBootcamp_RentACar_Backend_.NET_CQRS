@@ -30,6 +30,7 @@ namespace Domain.Entities
         public City ReturnCity { get; set; }
         public City ReturnedCity { get; set; }
 
+
         public Rental()
         {
 
