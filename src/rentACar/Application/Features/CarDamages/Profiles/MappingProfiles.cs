@@ -1,4 +1,5 @@
 ﻿using Application.Features.CarDamages.Commands.CreateCarDamage;
+using Application.Features.CarDamages.Dtos;
 using AutoMapper;
 using Domain.Entities;
 using System;
@@ -14,6 +15,7 @@ namespace Application.Features.CarDamages.Profiles
         public MappingProfiles()
         {
             CreateMap<CarDamage, CreateCarDamageCommand>().ReverseMap();
+            CreateMap<CarDamage, CreateCarDamageDto>().ReverseMap();
             //CreateMap<CarDamage, UpdateCarDamageCommand>().ReverseMap();
             //CreateMap<CarDamage, CarDamageListDto>().ReverseMap();
             //CreateMap<IPaginate<CarDamage>, CarDamageListModel>().ReverseMap();

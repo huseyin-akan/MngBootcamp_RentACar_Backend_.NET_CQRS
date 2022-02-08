@@ -1,4 +1,5 @@
-﻿using Application.Features.Cars.Rules;
+﻿using Application.Features.Cars.Dtos;
+using Application.Features.Cars.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
@@ -12,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Cars.Commands.CreateCar
 {
-    public class CreateCarCommand : IRequest<Car>
+    public class CreateCarCommand : IRequest<CreateCarDto>
     {
         public int ModelId { get; set; }
         public int ColorId { get; set; }
@@ -21,7 +22,7 @@ namespace Application.Features.Cars.Commands.CreateCar
         public int ModelYear { get; set; }
         public int FindexScore { get; set; }
 
-        public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand, Car>
+        public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand, CreateCarDto>
         {
             ICarRepository _carRepository;
             IMapper _mapper;
@@ -35,13 +36,14 @@ namespace Application.Features.Cars.Commands.CreateCar
                 _carBusinessRules = carBusinessRules;
             }
 
-            public async Task<Car> Handle(CreateCarCommand request, CancellationToken cancellationToken)
+            public async Task<CreateCarDto> Handle(CreateCarCommand request, CancellationToken cancellationToken)
             {
                 var mappedCar = _mapper.Map<Car>(request);
                 mappedCar.CarState = CarState.Available;
 
                 var createdCar = await _carRepository.AddAsync(mappedCar);
-                return createdCar;
+                var carToReturn = _mapper.Map<CreateCarDto>(createdCar);
+                return carToReturn;
             }
         }
     }

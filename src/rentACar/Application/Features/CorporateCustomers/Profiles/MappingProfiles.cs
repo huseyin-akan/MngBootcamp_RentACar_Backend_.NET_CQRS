@@ -1,4 +1,5 @@
 ﻿using Application.Features.CorporateCustomers.Commands.CreateCorporateCustomer;
+using Application.Features.CorporateCustomers.Dtos;
 using AutoMapper;
 using Domain.Entities;
 using System;
@@ -14,6 +15,7 @@ namespace Application.Features.CorporateCustomers.Profiles
         public MappingProfiles()
         {
             CreateMap<CorporateCustomer, CreateCorporateCustomerCommand>().ReverseMap();
+            CreateMap<CorporateCustomer, CreateCorporateCustomerDto>().ReverseMap();
             //CreateMap<CorporateCustomer, UpdateCorporateCustomerCommand>().ReverseMap();
             //CreateMap<CorporateCustomer, CorporateCustomerListDto>().ReverseMap();
             //CreateMap<IPaginate<CorporateCustomer>, CorporateCustomerListModel>().ReverseMap();

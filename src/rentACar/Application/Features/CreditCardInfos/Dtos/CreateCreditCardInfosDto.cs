@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.CreditCardInfos.Dtos
 {
-    public class CreditCardInfosDto
+    public class CreateCreditCardInfosDto
     {
         public string CreditCardNo { get; set; }
         public string ValidDate { get; set; }

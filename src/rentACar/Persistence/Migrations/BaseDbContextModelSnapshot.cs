@@ -149,7 +149,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("CarId");
 
-                    b.ToTable("CarDamages");
+                    b.ToTable("CarDamages", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.City", b =>
@@ -331,7 +331,7 @@ namespace Persistence.Migrations
 
                     b.HasIndex("RentalId");
 
-                    b.ToTable("Invoices");
+                    b.ToTable("Invoices", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.Maintenance", b =>

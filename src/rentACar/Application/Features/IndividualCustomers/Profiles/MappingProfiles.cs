@@ -1,4 +1,5 @@
 ﻿using Application.Features.IndividualCustomers.Commands.CreateIndividualCustomer;
+using Application.Features.IndividualCustomers.Dtos;
 using AutoMapper;
 using Core.Persistence.Paging;
 using Domain.Entities;
@@ -17,6 +18,7 @@ namespace Application.Features.IndividualCustomers.Profiles
             CreateMap<IndividualCustomer, CreateIndividualCustomerCommand>().ReverseMap();
             //CreateMap<IndividualCustomer, UpdateIndividualCustomerCommand>().ReverseMap();
             //CreateMap<IndividualCustomer, IndividualCustomerListDto>().ReverseMap();
+            CreateMap<IndividualCustomer, CreateIndividualCustomerDto>().ReverseMap();
             //CreateMap<IPaginate<IndividualCustomer>, IndividualCustomerListModel>().ReverseMap();
         }
     }

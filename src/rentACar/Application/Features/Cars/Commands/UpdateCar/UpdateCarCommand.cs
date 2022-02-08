@@ -1,4 +1,5 @@
-﻿using Application.Features.Cars.Rules;
+﻿using Application.Features.Cars.Dtos;
+using Application.Features.Cars.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.CrossCuttingConcerns.Exceptions;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Cars.Commands.UpdateCar
 {
-    public class UpdateCarCommand : IRequest<Car>
+    public class UpdateCarCommand : IRequest<UpdateCarDto>
     {
         public int Id { get; set; }
         public int ModelId { get; set; }
@@ -26,7 +27,7 @@ namespace Application.Features.Cars.Commands.UpdateCar
         public int Kilometer { get; set; }
         public CarState CarState { get; set; }
 
-        public class UpdateCarCommandHandler : IRequestHandler<UpdateCarCommand, Car>
+        public class UpdateCarCommandHandler : IRequestHandler<UpdateCarCommand, UpdateCarDto>
         {
             ICarRepository _carRepository;
             IMapper _mapper;
@@ -40,7 +41,7 @@ namespace Application.Features.Cars.Commands.UpdateCar
                 _carBusinessRules = carBusinessRules;
             }
 
-            public async Task<Car> Handle(UpdateCarCommand request, CancellationToken cancellationToken)
+            public async Task<UpdateCarDto> Handle(UpdateCarCommand request, CancellationToken cancellationToken)
             {
                 var carToUpdate = await _carRepository.GetAsync(c => c.Id == request.Id);
                 if (carToUpdate is null)
@@ -50,7 +51,8 @@ namespace Application.Features.Cars.Commands.UpdateCar
                 var mappedCar = _mapper.Map(request, carToUpdate);
 
                 var updatedCar = await _carRepository.UpdateAsync(mappedCar);
-                return updatedCar;
+                var carToReturn = _mapper.Map<UpdateCarDto>(updatedCar);
+                return carToReturn;
             }
         }
     }

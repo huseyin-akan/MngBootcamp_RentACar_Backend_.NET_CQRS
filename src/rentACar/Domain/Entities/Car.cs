@@ -11,8 +11,7 @@ namespace Domain.Entities
         public string Plate { get; set; }
         public int ModelYear { get; set; }
         public int FindexScore { get; set; }
-        public int Kilometer { get; set; }
-        
+        public int Kilometer { get; set; }        
 
         public CarState CarState { get; set; }
 

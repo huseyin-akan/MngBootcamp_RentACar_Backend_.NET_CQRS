@@ -12,7 +12,7 @@ namespace Application.Services.Managers.Concrete
     internal class FakePosSystemServiceAdapter : IPosSystemService
     {
         FakePosSystemService posService = new FakePosSystemService();
-        public Task<bool> MakePayment(CreditCardInfosDto creditCardInfos)
+        public Task<bool> MakePayment(CreateCreditCardInfosDto creditCardInfos)
         {
             Task<bool> result = Task.Run(() =>
             {

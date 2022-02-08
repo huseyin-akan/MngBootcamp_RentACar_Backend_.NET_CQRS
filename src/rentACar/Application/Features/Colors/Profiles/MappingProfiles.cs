@@ -20,6 +20,8 @@ namespace Application.Features.Colors.Profiles
             CreateMap<Color, CreateColorCommand>().ReverseMap();
             CreateMap<Color, UpdateColorCommand>().ReverseMap();
             CreateMap<Color, ColorListDto>().ReverseMap();
+            CreateMap<Color, CreateColorDto>().ReverseMap();
+            CreateMap<Color, UpdateColorDto>().ReverseMap();
             CreateMap<IPaginate<Color>, ColorListModel>().ReverseMap();
         }
     }

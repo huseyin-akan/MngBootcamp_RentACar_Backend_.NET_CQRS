@@ -63,6 +63,12 @@ namespace Persistence.Contexts
                 c.Property(p => p.Email).HasColumnName("Email");
             });
 
+            modelBuilder.Entity<CarDamage>(c =>
+            {
+                c.ToTable("CarDamages").HasKey(k => k.Id);
+                c.HasOne(cd => cd.Car);
+            });
+
             modelBuilder.Entity<IndividualCustomer>(c =>
             {
                 c.ToTable("IndividualCustomers");

@@ -9,6 +9,6 @@ namespace Application.Services.Managers.Abstract
 {
     public interface IPosSystemService
     {
-        Task<bool> MakePayment(CreditCardInfosDto creditCardInfos);
+        Task<bool> MakePayment(CreateCreditCardInfosDto creditCardInfos);
     }
 }

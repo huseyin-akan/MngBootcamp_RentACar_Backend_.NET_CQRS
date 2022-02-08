@@ -1,4 +1,5 @@
-﻿using Application.Features.IndividualCustomers.Rules;
+﻿using Application.Features.IndividualCustomers.Dtos;
+using Application.Features.IndividualCustomers.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;
@@ -11,14 +12,15 @@ using System.Threading.Tasks;
 
 namespace Application.Features.IndividualCustomers.Commands.CreateIndividualCustomer
 {
-    public class CreateIndividualCustomerCommand : IRequest<IndividualCustomer>
+    public class CreateIndividualCustomerCommand : IRequest<CreateIndividualCustomerDto>
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
         public string NationalId { get; set; } 
 
-        public class CreateIndividualCustomerCommandHandler : IRequestHandler<CreateIndividualCustomerCommand, IndividualCustomer>
+        public class CreateIndividualCustomerCommandHandler :
+            IRequestHandler<CreateIndividualCustomerCommand, CreateIndividualCustomerDto>
         {
             IIndividualCustomerRepository _individualCustomerRepository;
             IMapper _mapper;
@@ -32,12 +34,14 @@ namespace Application.Features.IndividualCustomers.Commands.CreateIndividualCust
                 _individualCustomerBusinessRules = individualCustomerBusinessRules;
             }
 
-            public async Task<IndividualCustomer> Handle(CreateIndividualCustomerCommand request, CancellationToken cancellationToken)
+            public async Task<CreateIndividualCustomerDto> Handle(CreateIndividualCustomerCommand request, CancellationToken cancellationToken)
             {
                 var mappedIndividualCustomer = _mapper.Map<IndividualCustomer>(request);
 
-                var createdIndividualCustomer = await _individualCustomerRepository.AddAsync(mappedIndividualCustomer);
-                return createdIndividualCustomer;
+                var createdIndividualCustomer = await _individualCustomerRepository
+                    .AddAsync(mappedIndividualCustomer);
+                var indCustomerToReturn = _mapper.Map<CreateIndividualCustomerDto>(createdIndividualCustomer);
+                return indCustomerToReturn;
             }
         }
     }

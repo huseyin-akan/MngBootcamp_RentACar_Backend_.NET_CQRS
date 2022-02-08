@@ -51,6 +51,7 @@ namespace Application
             services.AddScoped<ICorporateCustomerService, CorporateCustomerService>();
             services.AddScoped<IInvoiceService, InvoiceService>();
             services.AddScoped<ICarService, CarService>();
+            services.AddScoped<IModelService, ModelService>();
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
 

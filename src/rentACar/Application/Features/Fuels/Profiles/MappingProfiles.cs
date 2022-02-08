@@ -20,6 +20,8 @@ namespace Application.Features.Fuels.Profiles
             CreateMap<Fuel, CreateFuelCommand>().ReverseMap();
             CreateMap<Fuel, UpdateFuelCommand>().ReverseMap();
             CreateMap<Fuel, FuelListDto>().ReverseMap();
+            CreateMap<Fuel, CreateFuelDto>().ReverseMap();
+            CreateMap<Fuel, UpdateFuelDto>().ReverseMap();
             CreateMap<IPaginate<Fuel>, FuelListModel>().ReverseMap();
         }
     }

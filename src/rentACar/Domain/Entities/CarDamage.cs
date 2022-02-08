@@ -16,7 +16,7 @@ namespace Domain.Entities
 
         public CarDamage()
         {
-
+            Car = new Car();
         }
 
         public CarDamage(int id, int carId, string description)
