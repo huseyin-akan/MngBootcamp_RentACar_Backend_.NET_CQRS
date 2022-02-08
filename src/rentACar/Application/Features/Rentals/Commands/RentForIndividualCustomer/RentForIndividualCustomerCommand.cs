@@ -33,11 +33,15 @@ namespace Application.Features.Rentals.Commands.RentForIndividualCustomer
             private readonly IndividualCustomerBusinessRules _individualCustomerBusinessRules;
             private readonly ICarService carService;
             private readonly IInvoiceService invoiceService;
+            private readonly IModelService modelService;
+
             public RentForIndividualCustomerCommandHandler(IRentalRepository rentalRepository,
                 IMapper mapper,
                 RentalBusinessRules rentalBusinessRules,
                 IndividualCustomerBusinessRules individualCustomerBusinessRules,
-                ICarService carService, IInvoiceService invoiceService)
+                ICarService carService,
+                IInvoiceService invoiceService,
+                IModelService modelService)
             {
                 _rentalRepository = rentalRepository;
                 _mapper = mapper;
@@ -45,6 +49,7 @@ namespace Application.Features.Rentals.Commands.RentForIndividualCustomer
                 _individualCustomerBusinessRules = individualCustomerBusinessRules;
                 this.carService = carService;
                 this.invoiceService = invoiceService;
+                this.modelService = modelService;
             }
 
             public async Task<Rental> Handle(RentForIndividualCustomerCommand request,
@@ -85,6 +90,21 @@ namespace Application.Features.Rentals.Commands.RentForIndividualCustomer
 
                 //TODO: Fatura oluşturduktan sonra invoicelistdto döndürülecek.
                 return createdRental;
+            }
+
+            private async Task<double> CalculateTotalSum(RentForIndividualCustomerCommand request, Car car)
+            {
+                var totalDays = (request.ReturnDate.Date - request.RentDate.Date).Days + 1;
+
+                var dailyPrice = await this.modelService.GetDailyPriceById(car.ModelId);
+                var totalSum = dailyPrice * totalDays;
+
+                bool differentCities = request.RentCityId != request.ReturnCityId;
+                if (differentCities)
+                {
+                    totalSum += 500;
+                }
+                return totalSum;
             }
         }
     }
