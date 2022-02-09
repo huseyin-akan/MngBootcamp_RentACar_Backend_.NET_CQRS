@@ -12,6 +12,7 @@ namespace Application.Services.Repositories
 {
     public interface IInvoiceRepository : IAsyncRepository<Invoice>
     {
+        Task<CreateInvoiceDto?> GetInvoiceDetailsById(int Id);
         Task<IPaginate<InvoiceListDto>> GetAllInvoices(int index = 0,
             int size = 10,
             CancellationToken cancellationToken = default);

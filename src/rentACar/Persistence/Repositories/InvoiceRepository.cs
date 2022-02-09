@@ -19,6 +19,47 @@ namespace Persistence.Repositories
             
         }
 
+        public Task<CreateInvoiceDto?> GetInvoiceDetailsById(int Id)
+        {
+            var queryResult = Task.Run(() =>
+            {
+                using (Context)
+                {
+                    var result = from i in Context.Invoices
+                                 join r in Context.Rentals
+                                 on i.RentalId equals r.Id
+                                 join cu in Context.Customers
+                                 on i.CustomerId equals cu.Id
+                                 join c in Context.Cars
+                                 on r.CarId equals c.Id
+                                 join m in Context.Models
+                                 on c.ModelId equals m.Id
+                                 join b in Context.Brands
+                                 on m.BrandId equals b.Id
+                                 where i.Id == Id
+
+                                 select new CreateInvoiceDto
+                                 {
+                                     Id = i.Id,
+                                     InvoiceDate = i.InvoiceDate,
+                                     InvoiceNo = i.InvoiceNo,
+                                     TotalSum = i.TotalSum,
+                                     RentedDate = r.RentDate,
+                                     ReturnDate = r.ReturnDate,
+                                     CustomerMail = cu.Email,
+                                     Brand = b.Name,
+                                     CarModel = m.Name,
+                                     ModelYear = c.ModelYear,
+                                     Plate = c.Plate,
+                                     RentedKilometer = r.RentedKilometer,
+                                     TotalDayCount = (r.ReturnDate.Date - r.RentDate.Date).Days
+                                 };
+                    return result.FirstOrDefault();
+                }
+            });
+            return queryResult;
+        }
+
         public async Task<IPaginate<InvoiceListDto>> GetAllInvoices(
             int index = 0,
             int size = 10,

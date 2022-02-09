@@ -1,6 +1,7 @@
 ﻿using Application.Features.Cars.Commands.UpdateCar;
 using Application.Features.IndividualCustomers.Rules;
 using Application.Features.Invoices.Commands.CreateInvoice;
+using Application.Features.Payments.Commands.CreatePayment;
 using Application.Features.Rentals.Rules;
 using Application.Services.Managers.Abstract;
 using Application.Services.Repositories;
@@ -27,47 +28,39 @@ namespace Application.Features.Rentals.Commands.RentForIndividualCustomer
 
         public class RentForIndividualCustomerCommandHandler : IRequestHandler<RentForIndividualCustomerCommand, Rental>
         {
-            private readonly IRentalRepository _rentalRepository;
-            private readonly IMapper _mapper;
-            private readonly RentalBusinessRules _rentalBusinessRules;
-            private readonly IndividualCustomerBusinessRules _individualCustomerBusinessRules;
+            private readonly IRentalRepository rentalRepository;
+            private readonly IMapper mapper;
+            private readonly RentalBusinessRules rentalBusinessRules;
+            private readonly IndividualCustomerBusinessRules individualCustomerBusinessRules;
             private readonly ICarService carService;
-            private readonly IInvoiceService invoiceService;
-            private readonly IModelService modelService;
 
             public RentForIndividualCustomerCommandHandler(IRentalRepository rentalRepository,
                 IMapper mapper,
                 RentalBusinessRules rentalBusinessRules,
                 IndividualCustomerBusinessRules individualCustomerBusinessRules,
-                ICarService carService,
-                IInvoiceService invoiceService,
-                IModelService modelService)
+                ICarService carService)
             {
-                _rentalRepository = rentalRepository;
-                _mapper = mapper;
-                _rentalBusinessRules = rentalBusinessRules;
-                _individualCustomerBusinessRules = individualCustomerBusinessRules;
+                this.rentalRepository = rentalRepository;
+                this.mapper = mapper;
+                this.rentalBusinessRules = rentalBusinessRules;
+                this.individualCustomerBusinessRules = individualCustomerBusinessRules;
                 this.carService = carService;
-                this.invoiceService = invoiceService;
-                this.modelService = modelService;
             }
 
+            //TODO: Bu metot kesinlikle transactional çalışmalı.
             public async Task<Rental> Handle(RentForIndividualCustomerCommand request,
                 CancellationToken cancellationToken)
             {
                 var car = await this.carService.GetCarById(request.CarId);
-                _rentalBusinessRules.CheckIfCarIsUnderMaintenance(request.CarId);
-                _rentalBusinessRules.CheckIfCarIsRented(request.CarId);
-                await _rentalBusinessRules.CheckIfICFindexScoreIsEnough(request.CarId, request.CustomerId);
-                await _individualCustomerBusinessRules.CheckIfIndividualCustomerExists(request.CustomerId);
-                
-                //CheckIfPaymentIsSuccessful
-                //TODO: FakePosSystemService implementasyonu PaymentService içerisinde yapılacak.
+                this.rentalBusinessRules.CheckIfCarIsUnderMaintenance(request.CarId);
+                this.rentalBusinessRules.CheckIfCarIsRented(request.CarId);
+                await this.individualCustomerBusinessRules.CheckIfIndividualCustomerExists(request.CustomerId);
+                await this.rentalBusinessRules.CheckIfICFindexScoreIsEnough(request.CarId, request.CustomerId);
 
-                var mappedRental = _mapper.Map<Rental>(request);                
+                var mappedRental = this.mapper.Map<Rental>(request);
                 mappedRental.RentedKilometer = car.Kilometer;
 
-                var createdRental = await _rentalRepository.AddAsync(mappedRental);
+                var createdRental = await this.rentalRepository.AddAsync(mappedRental);
 
                 UpdateCarStateCommand command = new UpdateCarStateCommand
                 {
@@ -76,35 +69,7 @@ namespace Application.Features.Rentals.Commands.RentForIndividualCustomer
                 };
                 await this.carService.UpdateCarState(command);
 
-                //TODO: Invoice No oluşturan bir Helper sınıfı yazalım.
-                //TODO: TotalSum Payment yapıldıktan sonra alınacak.
-                CreateInvoiceCommand invoiceCommand = new CreateInvoiceCommand()
-                {
-                    CustomerId = request.CustomerId,
-                    InvoiceDate = DateTime.Now,
-                    InvoiceNo = 123,
-                    RentalId = createdRental.Id,
-                    TotalSum = 500
-                };
-                await this.invoiceService.MakeOutInvoice(invoiceCommand);
-
-                //TODO: Fatura oluşturduktan sonra invoicelistdto döndürülecek.
                 return createdRental;
-            }
-
-            private async Task<double> CalculateTotalSum(RentForIndividualCustomerCommand request, Car car)
-            {
-                var totalDays = (request.ReturnDate.Date - request.RentDate.Date).Days + 1;
-
-                var dailyPrice = await this.modelService.GetDailyPriceById(car.ModelId);
-                var totalSum = dailyPrice * totalDays;
-
-                bool differentCities = request.RentCityId != request.ReturnCityId;
-                if (differentCities)
-                {
-                    totalSum += 500;
-                }
-                return totalSum;
             }
         }
     }

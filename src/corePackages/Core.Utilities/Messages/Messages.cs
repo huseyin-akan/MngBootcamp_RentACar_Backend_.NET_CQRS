@@ -13,6 +13,7 @@ namespace Core.Utilities.Messages
         public static string CarUpdateFailed= "Car can not be updated. Something is wrong!!";
 
         public static string ModelNotFound = "Model can not be found!!!";
+        public static string PaymentFailed = "Payment is not successful!!";
 
         public static string InvoiceNotAdded = "Invoice can not be created. Something is wrong!!";
 

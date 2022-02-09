@@ -19,6 +19,7 @@ namespace Application.Features.Invoices.Profiles
             CreateMap<Invoice, CreateInvoiceCommand>().ReverseMap();
             //CreateMap<Invoice, UpdateInvoiceCommand>().ReverseMap();
             CreateMap<Invoice, InvoiceListDto>().ReverseMap();
+            CreateMap<Invoice, CreateInvoiceDto>().ReverseMap();
             CreateMap<IPaginate<Invoice>, InvoiceListModel>().ReverseMap();
             CreateMap<IPaginate<InvoiceListDto>, InvoiceListModel>().ReverseMap();
         }

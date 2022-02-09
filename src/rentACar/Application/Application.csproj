@@ -24,6 +24,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ComplexFeatures\RentalProcess\Dtos\" />
+    <Folder Include="ComplexFeatures\RentalProcess\Models\" />
+    <Folder Include="ComplexFeatures\RentalProcess\Profiles\" />
+    <Folder Include="ComplexFeatures\RentalProcess\Queries\" />
+    <Folder Include="ComplexFeatures\RentalProcess\Rules\" />
+    <Folder Include="ComplexFeatures\RentalProcess\Tests\" />
     <Folder Include="Features\Brands\Tests\" />
     <Folder Include="Features\burdan kopyala\Commands\" />
     <Folder Include="Features\burdan kopyala\Dtos\" />
@@ -51,8 +57,11 @@
     <Folder Include="Features\IndividualCustomers\Queries\" />
     <Folder Include="Features\IndividualCustomers\Tests\" />
     <Folder Include="Features\Invoices\Tests\" />
-    <Folder Include="Features\Maintenenaces\Tests\" />
+    <Folder Include="Features\Maintenances\Tests\" />
     <Folder Include="Features\Models\Tests\" />
+    <Folder Include="Features\Payments\Models\" />
+    <Folder Include="Features\Payments\Queries\" />
+    <Folder Include="Features\Payments\Tests\" />
     <Folder Include="Features\Rentals\Queries\" />
     <Folder Include="Features\Rentals\Tests\" />
     <Folder Include="Features\Rentals\Models\" />

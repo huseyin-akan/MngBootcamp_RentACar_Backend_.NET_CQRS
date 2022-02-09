@@ -8,6 +8,7 @@ using Application.Features.IndividualCustomers.Rules;
 using Application.Features.Invoices.Rules;
 using Application.Features.Maintenenaces.Rules;
 using Application.Features.Models.Rules;
+using Application.Features.Payments.Rules;
 using Application.Features.Rentals.Rules;
 using Application.Services.Managers;
 using Application.Services.Managers.Abstract;
@@ -44,6 +45,7 @@ namespace Application
             services.AddScoped<CorporateCustomerBusinessRules>();
             services.AddScoped<CarDamageBusinessRules>();
             services.AddScoped<InvoiceBusinessRules>();
+            services.AddScoped<PaymentBusinessRules>();
 
             services.AddScoped<IFindexScoreService, FakeFindexScoreServiceAdapter>();
             services.AddScoped<IPosSystemService, FakePosSystemServiceAdapter>();
@@ -52,6 +54,7 @@ namespace Application
             services.AddScoped<IInvoiceService, InvoiceService>();
             services.AddScoped<ICarService, CarService>();
             services.AddScoped<IModelService, ModelService>();
+            services.AddScoped<IPaymentService, PaymentService>();
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
 
