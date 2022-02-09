@@ -33,15 +33,16 @@ namespace Persistence.Contexts
         public DbSet<CorporateCustomer> CorporateCustomers { get; set; }
         public DbSet<Customer> Customers { get; set; }
 
+        public DbSet<User> Users { get; set; }
+        public DbSet<OperationClaim> OperationClaims { get; set; }
+        public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
+
+
         public DbSet<CreditCardInfo> CreditCardInfos { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<CarDamage> CarDamages { get; set; }
-        public DbSet<Invoice> Invoices { get; set; }
-
-        public DbSet<User> Users { get; set; }
-        public DbSet<OperationClaim> OperationClaims { get; set; }
-        public DbSet<UserOperationClaim> UserOperationClaims { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }        
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -61,22 +62,36 @@ namespace Persistence.Contexts
             //    relationship.DeleteBehavior = DeleteBehavior.NoAction;
             //}
 
-            modelBuilder.Entity<Customer>(c =>
-            {
-                c.ToTable("Customers").HasKey(k => k.Id);
-                c.Property(p => p.Id).HasColumnName("Id");
-                c.Property(p => p.Email).HasColumnName("Email");
-            });
-
             modelBuilder.Entity<User>(u =>
             {
                 u.ToTable("Users").HasKey(k => k.Id);
-                u.Property(p => p.FirstName).HasColumnName("FirstName");
-                u.Property(p => p.LastName).HasColumnName("LastName");
+                u.Property(p => p.UserName).HasColumnName("UserName");
                 u.Property(p => p.Email).HasColumnName("Email");
                 u.Property(p => p.PasswordHash).HasColumnName("PasswordHash");
                 u.Property(p => p.PasswordSalt).HasColumnName("PasswordSalt");
                 u.Property(p => p.Status).HasColumnName("Status");
+            });
+
+            modelBuilder.Entity<Customer>(c =>
+            {
+                c.ToTable("Customers");
+                c.Property(p => p.Id).HasColumnName("Id");
+                c.Property(p => p.Email).HasColumnName("Email");
+            });
+
+            modelBuilder.Entity<IndividualCustomer>(c =>
+            {
+                c.ToTable("IndividualCustomers");
+                c.Property(p => p.NationalId).HasColumnName("NationalId");
+                c.Property(p => p.FirstName).HasColumnName("FirstName");
+                c.Property(p => p.LastName).HasColumnName("LastName");
+            });
+
+            modelBuilder.Entity<CorporateCustomer>(c =>
+            {
+                c.ToTable("CorporateCustomers");
+                c.Property(p => p.TaxNumber).HasColumnName("TaxNumber");
+                c.Property(p => p.CompanyName).HasColumnName("CompanyName");
             });
 
             modelBuilder.Entity<OperationClaim>(oc =>
@@ -98,21 +113,6 @@ namespace Persistence.Contexts
             {
                 c.ToTable("CarDamages").HasKey(k => k.Id);
                 c.HasOne(cd => cd.Car);
-            });
-
-            modelBuilder.Entity<IndividualCustomer>(c =>
-            {
-                c.ToTable("IndividualCustomers");
-                c.Property(p => p.NationalId).HasColumnName("NationalId");
-                c.Property(p => p.FirstName).HasColumnName("FirstName");
-                c.Property(p => p.LastName).HasColumnName("LastName");
-            });
-
-            modelBuilder.Entity<CorporateCustomer>(c =>
-            {
-                c.ToTable("CorporateCustomers");
-                c.Property(p => p.TaxNumber).HasColumnName("TaxNumber");
-                c.Property(p => p.CompanyName).HasColumnName("CompanyName");
             });
 
             modelBuilder.Entity<Brand>( b =>
@@ -235,31 +235,6 @@ namespace Persistence.Contexts
                 c.HasOne(c => c.City);
             });
 
-            var brand1 = new Brand(1, "BMW");
-            var brand2 = new Brand(2, "Mercedes");
-            modelBuilder.Entity<Brand>().HasData(brand1, brand2);
-
-            var color1 = new Color(1, "Yellow");
-            var color2 = new Color(2, "Green");
-            var color3 = new Color(3, "Blue");
-            modelBuilder.Entity<Color>().HasData(color1, color2, color3);
-
-            var transmission1 = new Transmission(1, "Manuel");
-            var transmission2 = new Transmission(2, "Automatic");
-            modelBuilder.Entity<Transmission>().HasData(transmission1, transmission2);
-
-            var fuel1 = new Fuel(1, "Diesel");
-            var fuel2 = new Fuel(2, "Gasoline");
-            var fuel3 = new Fuel(3, "Electiricity");
-            modelBuilder.Entity<Fuel>().HasData(fuel1, fuel2, fuel3);
-
-            var model1 = new Model(1, "320", 250, 2, 2, 1, "https://www.arabahabercisi.com/wp-content/uploads/2020/01/BMW-320-dizel-Hibrit-Geliyor.jpg");
-            var model2 = new Model(2, "C250", 300, 1, 2, 2, "https://www.autocar.co.uk/sites/autocar.co.uk/files/mercedes-c250-4.jpg");
-            modelBuilder.Entity<Model>().HasData(model1, model2);
-
-            var car1 = new Car(1, 1, 3, 1, "34HUS256", 2020, CarState.Available, 1400);
-            var car2 = new Car(2, 2, 1, 1, "34HUS257", 2021, CarState.Available, 1000);
-            modelBuilder.Entity<Car>().HasData(car1, car2);
         }
     }
 }

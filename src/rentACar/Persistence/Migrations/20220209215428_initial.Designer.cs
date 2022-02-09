@@ -12,8 +12,8 @@ using Persistence.Contexts;
 namespace Persistence.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20220209111753_user")]
-    partial class user
+    [Migration("20220209215428_initial")]
+    partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -47,7 +47,8 @@ namespace Persistence.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("Id");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
 
@@ -55,16 +56,6 @@ namespace Persistence.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("Email");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("FirstName");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("LastName");
 
                     b.Property<byte[]>("PasswordHash")
                         .IsRequired()
@@ -79,6 +70,11 @@ namespace Persistence.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit")
                         .HasColumnName("Status");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("UserName");
 
                     b.HasKey("Id");
 
@@ -128,18 +124,6 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Brands", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "BMW"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Mercedes"
-                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Car", b =>
@@ -191,32 +175,6 @@ namespace Persistence.Migrations
                     b.HasIndex("ModelId");
 
                     b.ToTable("Cars", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CarState = 1,
-                            CityId = 1,
-                            ColorId = 3,
-                            FindexScore = 1400,
-                            Kilometer = 0,
-                            ModelId = 1,
-                            ModelYear = 2020,
-                            Plate = "34HUS256"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CarState = 1,
-                            CityId = 1,
-                            ColorId = 1,
-                            FindexScore = 1000,
-                            Kilometer = 0,
-                            ModelId = 2,
-                            ModelYear = 2021,
-                            Plate = "34HUS257"
-                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.CarDamage", b =>
@@ -277,23 +235,6 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Colors", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Yellow"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Green"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Blue"
-                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.CreditCardInfo", b =>
@@ -336,25 +277,6 @@ namespace Persistence.Migrations
                     b.ToTable("CreditCardInfos", (string)null);
                 });
 
-            modelBuilder.Entity("Domain.Entities.Customer", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasColumnName("Id");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
-                        .HasColumnName("Email");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Customers", (string)null);
-                });
-
             modelBuilder.Entity("Domain.Entities.Fuel", b =>
                 {
                     b.Property<int>("Id")
@@ -372,23 +294,6 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Fuels", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Diesel"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Gasoline"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Electiricity"
-                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Invoice", b =>
@@ -500,28 +405,6 @@ namespace Persistence.Migrations
                     b.HasIndex("TransmissionId");
 
                     b.ToTable("Models", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            BrandId = 1,
-                            DailyPrice = 250.0,
-                            FuelId = 2,
-                            ImageUrl = "https://www.arabahabercisi.com/wp-content/uploads/2020/01/BMW-320-dizel-Hibrit-Geliyor.jpg",
-                            Name = "320",
-                            TransmissionId = 2
-                        },
-                        new
-                        {
-                            Id = 2,
-                            BrandId = 2,
-                            DailyPrice = 300.0,
-                            FuelId = 2,
-                            ImageUrl = "https://www.autocar.co.uk/sites/autocar.co.uk/files/mercedes-c250-4.jpg",
-                            Name = "C250",
-                            TransmissionId = 1
-                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Payment", b =>
@@ -633,18 +516,13 @@ namespace Persistence.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Transmissions", (string)null);
+                });
 
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Manuel"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Automatic"
-                        });
+            modelBuilder.Entity("Domain.Entities.Customer", b =>
+                {
+                    b.HasBaseType("Core.Security.Entities.User");
+
+                    b.ToTable("Customers", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Entities.CorporateCustomer", b =>
@@ -863,6 +741,15 @@ namespace Persistence.Migrations
                     b.Navigation("ReturnedCity");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Customer", b =>
+                {
+                    b.HasOne("Core.Security.Entities.User", null)
+                        .WithOne()
+                        .HasForeignKey("Domain.Entities.Customer", "Id")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Domain.Entities.CorporateCustomer", b =>
                 {
                     b.HasOne("Domain.Entities.Customer", null)
@@ -896,11 +783,6 @@ namespace Persistence.Migrations
                     b.Navigation("Cars");
                 });
 
-            modelBuilder.Entity("Domain.Entities.Customer", b =>
-                {
-                    b.Navigation("Rentals");
-                });
-
             modelBuilder.Entity("Domain.Entities.Fuel", b =>
                 {
                     b.Navigation("Models");
@@ -914,6 +796,11 @@ namespace Persistence.Migrations
             modelBuilder.Entity("Domain.Entities.Transmission", b =>
                 {
                     b.Navigation("Models");
+                });
+
+            modelBuilder.Entity("Domain.Entities.Customer", b =>
+                {
+                    b.Navigation("Rentals");
                 });
 #pragma warning restore 612, 618
         }
