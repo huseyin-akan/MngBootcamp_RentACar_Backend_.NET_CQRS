@@ -19,6 +19,7 @@
     <ProjectReference Include="..\..\corePackages\Core.CrossCuttingConcerns\Core.CrossCuttingConcerns.csproj" />
     <ProjectReference Include="..\..\corePackages\Core.Mailing\Core.Mailing.csproj" />
     <ProjectReference Include="..\..\corePackages\Core.Persistence\Core.Persistence.csproj" />
+    <ProjectReference Include="..\..\corePackages\Core.Security\Core.Security.csproj" />
     <ProjectReference Include="..\..\corePackages\Core.Utilities\Core.Utilities.csproj" />
     <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
@@ -73,6 +74,7 @@
     <Folder Include="Features\Transmissions\Queries\" />
     <Folder Include="Features\Transmissions\Rules\" />
     <Folder Include="Features\Transmissions\Tests\" />
+    <Folder Include="Features\Users\Tests\" />
   </ItemGroup>
 
 </Project>

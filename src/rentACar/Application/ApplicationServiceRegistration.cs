@@ -10,6 +10,7 @@ using Application.Features.Maintenenaces.Rules;
 using Application.Features.Models.Rules;
 using Application.Features.Payments.Rules;
 using Application.Features.Rentals.Rules;
+using Application.Features.Users.Rules;
 using Application.Services.Managers;
 using Application.Services.Managers.Abstract;
 using Application.Services.Managers.Concrete;
@@ -46,6 +47,7 @@ namespace Application
             services.AddScoped<CarDamageBusinessRules>();
             services.AddScoped<InvoiceBusinessRules>();
             services.AddScoped<PaymentBusinessRules>();
+            services.AddScoped<UserBusinessRules>();
 
             services.AddScoped<IFindexScoreService, FakeFindexScoreServiceAdapter>();
             services.AddScoped<IPosSystemService, FakePosSystemServiceAdapter>();
