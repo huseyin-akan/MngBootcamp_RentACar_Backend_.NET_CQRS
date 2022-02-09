@@ -1,5 +1,4 @@
 ﻿using Application.Features.Payments.Commands.CreatePayment;
-using Application.Services.Managers.Abstract;
 using Application.Services.Repositories;
 using Core.CrossCuttingConcerns.Exceptions;
 using Core.Utilities.Messages;
@@ -10,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Services.Managers.Concrete
+namespace Application.Services.PaymentService
 {
     public class PaymentService :IPaymentService
     {

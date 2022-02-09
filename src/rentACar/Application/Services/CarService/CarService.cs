@@ -1,5 +1,4 @@
 ﻿using Application.Features.Cars.Commands.UpdateCar;
-using Application.Services.Managers.Abstract;
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.CrossCuttingConcerns.Exceptions;
@@ -11,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Services.Managers.Concrete
+namespace Application.Services.CarService
 {
     public class CarService : ICarService
     {

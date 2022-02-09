@@ -1,5 +1,5 @@
 ﻿using Application.Features.Invoices.Commands.CreateInvoice;
-using Application.Services.Managers.Abstract;
+using Application.Features.Invoices.Dtos;
 using Application.Services.Repositories;
 using Core.CrossCuttingConcerns.Exceptions;
 using Core.Utilities.Messages;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Services.Managers.Concrete
+namespace Application.Services.InvoiceService
 {
     internal class InvoiceService : IInvoiceService
     {
@@ -23,7 +23,7 @@ namespace Application.Services.Managers.Concrete
             _mediator = mediator;
         }
 
-        public async Task MakeOutInvoice(CreateInvoiceCommand command)
+        public async Task<CreateInvoiceDto> MakeOutInvoice(CreateInvoiceCommand command)
         {
             var result = await this._mediator.Send(command);
 
@@ -31,6 +31,7 @@ namespace Application.Services.Managers.Concrete
             {
                 throw new BusinessException(Messages.InvoiceNotAdded);
             }
+            return result;
         }
     }
 }

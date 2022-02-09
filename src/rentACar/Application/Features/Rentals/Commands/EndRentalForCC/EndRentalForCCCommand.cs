@@ -1,6 +1,6 @@
 ﻿using Application.Features.Cars.Commands.UpdateCar;
 using Application.Features.Rentals.Rules;
-using Application.Services.Managers.Abstract;
+using Application.Services.CarService;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;

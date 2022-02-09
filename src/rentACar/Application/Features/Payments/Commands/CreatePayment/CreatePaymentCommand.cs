@@ -1,7 +1,6 @@
 ﻿using Application.Features.CreditCardInfos.Dtos;
 using Application.Features.Payments.Dtos;
 using Application.Features.Payments.Rules;
-using Application.Services.Managers.Abstract;
 using Application.Services.Repositories;
 using AutoMapper;
 using Domain.Entities;

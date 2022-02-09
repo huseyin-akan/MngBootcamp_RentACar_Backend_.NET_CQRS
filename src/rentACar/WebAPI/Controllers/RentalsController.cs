@@ -1,5 +1,4 @@
-﻿using Application.ComplexFeatures.RentalProcess.Commands;
-using Application.Features.Cars.Commands.UpdateCar;
+﻿using Application.Features.Cars.Commands.UpdateCar;
 using Application.Features.Rentals.Commands.EndRentalForCC;
 using Application.Features.Rentals.Commands.EndRentalForIC;
 using Application.Features.Rentals.Commands.RentForCorporateCustomer;
@@ -18,14 +17,6 @@ namespace WebAPI.Controllers
 
         [HttpPost("rentforindividual")]
         public async Task<IActionResult> RentForIndividual([FromBody] RentForIndividualCustomerCommand command)
-        {
-            var result = await Mediator.Send(command);
-
-            return Created("", result);
-        }
-
-        [HttpPost("rentforindividualcomplex")]
-        public async Task<IActionResult> RentForIndividualComplex([FromBody] CreateICRentalComplexCommand command)
         {
             var result = await Mediator.Send(command);
 

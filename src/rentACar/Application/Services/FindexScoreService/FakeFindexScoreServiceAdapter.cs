@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Services.Managers.Concrete
+namespace Application.Services.FindexScoreService
 {
     public class FakeFindexScoreServiceAdapter : IFindexScoreService
     {

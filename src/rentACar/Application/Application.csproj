@@ -25,12 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ComplexFeatures\RentalProcess\Dtos\" />
-    <Folder Include="ComplexFeatures\RentalProcess\Models\" />
-    <Folder Include="ComplexFeatures\RentalProcess\Profiles\" />
-    <Folder Include="ComplexFeatures\RentalProcess\Queries\" />
-    <Folder Include="ComplexFeatures\RentalProcess\Rules\" />
-    <Folder Include="ComplexFeatures\RentalProcess\Tests\" />
     <Folder Include="Features\Brands\Tests\" />
     <Folder Include="Features\burdan kopyala\Commands\" />
     <Folder Include="Features\burdan kopyala\Dtos\" />

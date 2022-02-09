@@ -1,6 +1,7 @@
 ﻿using Application.Features.Maintenenaces.Rules;
-using Application.Services.Managers;
-using Application.Services.Managers.Abstract;
+using Application.Services.CarService;
+using Application.Services.CustomerServices;
+using Application.Services.FindexScoreService;
 using Application.Services.Repositories;
 using Core.CrossCuttingConcerns.Exceptions;
 using Core.Utilities.Messages;
@@ -79,7 +80,8 @@ namespace Application.Features.Rentals.Rules
                 throw new BusinessException(Messages.FindexScoreNotEnough);
             }
             return true;
-        }        
+        }
+        
     }
 
 }

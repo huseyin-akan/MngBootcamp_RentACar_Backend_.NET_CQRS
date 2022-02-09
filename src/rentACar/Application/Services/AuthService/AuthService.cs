@@ -1,4 +1,4 @@
-﻿using Application.Services.Managers.Abstract;
+﻿using Application.Services.UserService;
 using Core.Security.Entities;
 using Core.Security.Jwt;
 using System;
@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Services.Managers.Concrete
+namespace Application.Services.AuthService
 {
     public class AuthService: IAuthService
     {

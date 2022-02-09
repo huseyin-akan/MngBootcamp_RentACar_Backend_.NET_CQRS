@@ -1,5 +1,5 @@
 ﻿using Application.Features.CreditCardInfos.Dtos;
-using Application.Services.Managers.Abstract;
+using Application.Services.PosSystemService;
 using Application.Services.Repositories;
 using Core.CrossCuttingConcerns.Exceptions;
 using Core.Utilities.Messages;

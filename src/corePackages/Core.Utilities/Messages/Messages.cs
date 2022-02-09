@@ -26,5 +26,7 @@ namespace Core.Utilities.Messages
         public static string CorporateCustomerDoesntExist = "No Corporate customer with that id exists!!";
         public static string FindexScoreNotEnough = "Findex score is not enough to rent the car!!";
 
+        public static string TotalSumCalculationIsWrong = "The demanded total sum doesnt match the calculated total sum";
+
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Application.Features.Users.Dtos;
 using Application.Features.Users.Rules;
-using Application.Services.Managers.Abstract;
+using Application.Services.AuthService;
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.CrossCuttingConcerns.Exceptions;
