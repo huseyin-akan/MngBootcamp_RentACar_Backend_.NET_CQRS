@@ -1,6 +1,5 @@
 ﻿using Core.Security.Encryption;
 using Core.Security.Entities;
-using Core.Application.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -25,20 +24,24 @@ namespace Core.Security.Jwt
             _tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
         }
-        public AccessToken CreateToken(User user, List<OperationClaim> operationClaims)
+        public Task<AccessToken> CreateToken(User user, List<OperationClaim> operationClaims)
         {
-            _accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
-            var securityKey = SecurityKeyHelper.CreateSecurityKey(_tokenOptions.SecurityKey);
-            var signingCredentials = SigningCredentialsHelper.CreateSigningCredentials(securityKey);
-            var jwt = CreateJwtSecurityToken(_tokenOptions, user, signingCredentials, operationClaims);
-            var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
-            var token = jwtSecurityTokenHandler.WriteToken(jwt);
+            var result = Task.Run(() =>
+           {
+               _accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
+               var securityKey = SecurityKeyHelper.CreateSecurityKey(_tokenOptions.SecurityKey);
+               var signingCredentials = SigningCredentialsHelper.CreateSigningCredentials(securityKey);
+               var jwt = CreateJwtSecurityToken(_tokenOptions, user, signingCredentials, operationClaims);
+               var jwtSecurityTokenHandler = new JwtSecurityTokenHandler();
+               var token = jwtSecurityTokenHandler.WriteToken(jwt);
 
-            return new AccessToken
-            {
-                Token = token,
-                Expiration = _accessTokenExpiration
-            };
+               return new AccessToken
+               {
+                   Token = token,
+                   Expiration = _accessTokenExpiration
+               };
+           });
+            return result;
         }
 
         public JwtSecurityToken CreateJwtSecurityToken(TokenOptions tokenOptions, User user,

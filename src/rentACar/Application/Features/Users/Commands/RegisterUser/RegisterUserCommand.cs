@@ -12,13 +12,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Users.Commands.CreateUser
+namespace Application.Features.Users.Commands.RegisterUser
 {
-    public class CreateUserCommand :IRequest<CreateUserDto>
+    public class RegisterUserCommand :IRequest<CreateUserDto>
     {
         public UserForRegisterDto RegisterDto { get; set; }
 
-        public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, CreateUserDto>
+        public class CreateUserCommandHandler : IRequestHandler<RegisterUserCommand, CreateUserDto>
         {
             private readonly IUserRepository _userRepository;
             private readonly IMapper _mapper;
@@ -33,10 +33,10 @@ namespace Application.Features.Users.Commands.CreateUser
                 this.userBusinessRules = userBusinessRules;
             }
 
-            public async Task<CreateUserDto> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+            public async Task<CreateUserDto> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
             {
 
-                var userToAdd = _mapper.Map<User>(request);
+                var userToAdd = _mapper.Map<User>(request.RegisterDto);
 
                 byte[] passwordHash, passwordSalt;
                 HashingHelper.CreatePasswordHash(request.RegisterDto.Password, out passwordHash, out passwordSalt);

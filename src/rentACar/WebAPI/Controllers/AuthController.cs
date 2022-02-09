@@ -1,4 +1,5 @@
 ﻿using Application.Features.Users.Commands.LoginUser;
+using Application.Features.Users.Commands.RegisterUser;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,21 +10,18 @@ namespace WebAPI.Controllers
     public class AuthController : BaseController
     {
         [HttpPost("login")]
-        public async ActionResult Login(LoginUserCommand command)
+        public async Task<IActionResult> Login([FromBody] LoginUserCommand command)
         {
-            var userToLogin = await Mediator.Send(command);
+            var loginResult = await Mediator.Send(command);
 
-            if (userToLogin.LoginIsSuccessful)
-            {
-                var result = _authService.CreateAccessToken(userToLogin.Data);
-            }
-            
-            if (result.Success)
-            {
-                return Ok(result.Data);
-            }
+            return Ok(loginResult);
+        }
 
-            return BadRequest(result.Message);
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] RegisterUserCommand command)
+        {
+            var registerResult = await Mediator.Send(command);
+            return Created("", registerResult);
         }
     }
 }

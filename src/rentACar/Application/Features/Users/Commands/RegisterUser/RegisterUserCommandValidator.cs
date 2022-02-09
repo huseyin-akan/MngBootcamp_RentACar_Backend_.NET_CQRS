@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Application.Features.Users.Commands.CreateUser
+namespace Application.Features.Users.Commands.RegisterUser
 {
-    public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
+    public class RegisterUserCommandValidator : AbstractValidator<RegisterUserCommand>
     {
-        public CreateUserCommandValidator()
+        public RegisterUserCommandValidator()
         {
             RuleFor(c => c.RegisterDto.FirstName).NotEmpty();
             RuleFor(c => c.RegisterDto.LastName).NotEmpty();

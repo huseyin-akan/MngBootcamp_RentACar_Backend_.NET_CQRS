@@ -15,6 +15,7 @@ using Application.Services.Managers;
 using Application.Services.Managers.Abstract;
 using Application.Services.Managers.Concrete;
 using Core.Application.Pipelines.Validation;
+using Core.Security.Jwt;
 using FluentValidation;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
@@ -57,6 +58,9 @@ namespace Application
             services.AddScoped<ICarService, CarService>();
             services.AddScoped<IModelService, ModelService>();
             services.AddScoped<IPaymentService, PaymentService>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ITokenHelper, JwtHelper>();
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
 

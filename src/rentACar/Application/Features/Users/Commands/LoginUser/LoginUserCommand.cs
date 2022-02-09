@@ -1,5 +1,6 @@
 ﻿using Application.Features.Users.Dtos;
 using Application.Features.Users.Rules;
+using Application.Services.Managers.Abstract;
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.CrossCuttingConcerns.Exceptions;
@@ -23,15 +24,17 @@ namespace Application.Features.Users.Commands.LoginUser
         {
             private readonly IUserRepository _userRepository;
             private readonly IMapper _mapper;
-            private readonly UserBusinessRules userBusinessRules;
+            private readonly UserBusinessRules _userBusinessRules;
+            private readonly IAuthService _authService;
 
             public LoginUserCommandHandler(IUserRepository userRepository,
                 IMapper mapper,
-                UserBusinessRules userBusinessRules)
+                UserBusinessRules userBusinessRules, IAuthService authService)
             {
                 _userRepository = userRepository;
                 _mapper = mapper;
-                this.userBusinessRules = userBusinessRules;
+                _userBusinessRules = userBusinessRules;
+                _authService = authService;
             }
             public async Task<LoginUserDto> Handle(LoginUserCommand request, CancellationToken cancellationToken)
             {
@@ -47,10 +50,11 @@ namespace Application.Features.Users.Commands.LoginUser
                     throw new RepositoryException(Messages.PasswordError);
                 }
 
+                var accessToken = await _authService.CreateAccessToken(userToCheck);
+
                 return new LoginUserDto
                 {
-                    Email = request.LoginDto.Email,
-                    LoginIsSuccessful = true
+                    AccessToken = accessToken
                 };
             }
         }

@@ -68,6 +68,32 @@ namespace Persistence.Contexts
                 c.Property(p => p.Email).HasColumnName("Email");
             });
 
+            modelBuilder.Entity<User>(u =>
+            {
+                u.ToTable("Users").HasKey(k => k.Id);
+                u.Property(p => p.FirstName).HasColumnName("FirstName");
+                u.Property(p => p.LastName).HasColumnName("LastName");
+                u.Property(p => p.Email).HasColumnName("Email");
+                u.Property(p => p.PasswordHash).HasColumnName("PasswordHash");
+                u.Property(p => p.PasswordSalt).HasColumnName("PasswordSalt");
+                u.Property(p => p.Status).HasColumnName("Status");
+            });
+
+            modelBuilder.Entity<OperationClaim>(oc =>
+            {
+                oc.ToTable("OperationClaims").HasKey(k => k.Id);
+                oc.Property(o=> o.Id).HasColumnName("Id");
+                oc.Property(o=> o.Name).HasColumnName("Name");
+            });
+
+            modelBuilder.Entity<UserOperationClaim>(oc =>
+            {
+                oc.ToTable("UserOperationClaims").HasKey(k => k.Id);
+                oc.Property(o => o.Id).HasColumnName("Id");
+                oc.Property(o => o.UserId).HasColumnName("UserId");
+                oc.Property(o => o.OperationClaimId).HasColumnName("OperationClaimId");
+            });
+
             modelBuilder.Entity<CarDamage>(c =>
             {
                 c.ToTable("CarDamages").HasKey(k => k.Id);
