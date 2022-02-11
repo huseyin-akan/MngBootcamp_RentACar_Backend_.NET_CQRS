@@ -2,7 +2,6 @@
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.Application.Requests;
-using Core.Utilities.Results;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -12,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Cars.Queries.GetCar
 {
-    public class GetAllCarsListQuery : IRequest<DataResult<CarListModel>>
+    public class GetAllCarsListQuery : IRequest<CarListModel>
     {
         public PageRequest PageRequest { get; set; }
 
-        public class GetAllCarsListQueryHandler : IRequestHandler<GetAllCarsListQuery, DataResult<CarListModel>>
+        public class GetAllCarsListQueryHandler : IRequestHandler<GetAllCarsListQuery, CarListModel>
         {
             ICarRepository _carRepository;
             IMapper _mapper;
@@ -25,14 +24,14 @@ namespace Application.Features.Cars.Queries.GetCar
                 _carRepository = carRepository;
                 _mapper = mapper;
             }
-            public async Task<DataResult<CarListModel>> Handle(GetAllCarsListQuery request, CancellationToken cancellationToken)
+            public async Task<CarListModel> Handle(GetAllCarsListQuery request, CancellationToken cancellationToken)
             {
                 var cars = await _carRepository.GetListAsync(
                     index: request.PageRequest.Page,
                     size: request.PageRequest.PageSize
                     );
                 var mappedCars = _mapper.Map<CarListModel>(cars);
-                return new SuccessDataResult<CarListModel>(mappedCars);
+                return mappedCars;
             }
         }
     }

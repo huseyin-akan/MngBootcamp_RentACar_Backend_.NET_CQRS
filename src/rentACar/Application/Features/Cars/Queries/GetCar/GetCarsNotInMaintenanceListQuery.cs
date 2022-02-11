@@ -2,7 +2,6 @@
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.Application.Requests;
-using Core.Utilities.Results;
 using Domain.Enums;
 using MediatR;
 using System;
@@ -38,7 +37,4 @@ namespace Application.Features.Cars.Queries.GetCar
             }
         }
     }
-
-
-
 }

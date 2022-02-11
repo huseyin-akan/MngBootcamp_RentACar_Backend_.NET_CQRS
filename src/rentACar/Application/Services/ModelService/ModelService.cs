@@ -24,7 +24,7 @@ namespace Application.Services.ModelService
 
             if (result is null)
             {
-                throw new RepositoryException(Messages.ModelNotFound);
+                throw new BusinessException(Messages.ModelNotFound);
             }
             return result.DailyPrice;
         }

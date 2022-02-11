@@ -2,7 +2,6 @@
 using Application.Features.Brands.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
-using Core.Utilities.Results;
 using Domain.Entities;
 using MediatR;
 using System;

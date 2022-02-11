@@ -46,7 +46,7 @@ namespace Application.Features.Cars.Commands.UpdateCar
                 var carToUpdate = await _carRepository.GetAsync(c => c.Id == request.Id);
                 if (carToUpdate is null)
                 {
-                    throw new RepositoryException(Messages.CarNotFound);
+                    throw new BusinessException(Messages.CarNotFound);
                 }
                 var mappedCar = _mapper.Map(request, carToUpdate);
 

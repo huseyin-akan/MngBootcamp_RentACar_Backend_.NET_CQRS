@@ -20,7 +20,14 @@ using Application.Services.ModelService;
 using Application.Services.PaymentService;
 using Application.Services.PosSystemService;
 using Application.Services.UserService;
+using Core.Application.Pipelines.Caching;
+using Core.Application.Pipelines.Logging;
 using Core.Application.Pipelines.Validation;
+using Core.CrossCuttingConcerns.Logging.SeriLog;
+using Core.CrossCuttingConcerns.Logging.SeriLog.Loggers;
+using Core.ElasticSearch;
+using Core.Mailing;
+using Core.Mailing.MailKitImplementations;
 using Core.Security.Jwt;
 using FluentValidation;
 using MediatR;
@@ -41,6 +48,7 @@ namespace Application
             services.AddAutoMapper(Assembly.GetExecutingAssembly() );
             services.AddMediatR(Assembly.GetExecutingAssembly() );
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly() );
+            services.AddSingleton<LoggerServiceBase, FileLogger>();
 
             services.AddScoped<BrandBusinessRules>();
             services.AddScoped<ModelBusinessRules>();
@@ -68,7 +76,12 @@ namespace Application
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITokenHelper, JwtHelper>();
 
+            services.AddSingleton<IMailService, MailKitMailService>();
+            services.AddSingleton<IElasticSearch, ElasticSearchManager>();
+
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));
 
             return services;
         }

@@ -24,7 +24,7 @@ namespace Application.Services.UserService
             var result = await this.userRepository.GetAsync(u => u.Email == email);
             if(result is null)
             {
-                throw new RepositoryException(Messages.UserNotFound);
+                throw new BusinessException(Messages.UserNotFound);
             }
 
             return result;
@@ -38,7 +38,7 @@ namespace Application.Services.UserService
 
                 if (claims is null)
                 {
-                    throw new RepositoryException(Messages.UserNotFound);
+                    throw new BusinessException(Messages.UserNotFound);
                 }
 
                 return claims;

@@ -27,7 +27,7 @@ namespace Application.Services.CarService
             var carToReturn = await _carRepository.GetAsync(c => c.Id == id);
             if (carToReturn is null)
             {
-                throw new RepositoryException(Messages.CarNotFound);
+                throw new BusinessException(Messages.CarNotFound);
             }
             return carToReturn;
         }
@@ -37,7 +37,7 @@ namespace Application.Services.CarService
             var result = await _carRepository.GetAsync(c => c.Id == id);
             if(result is null)
             {
-                throw new RepositoryException(Messages.CarNotFound);
+                throw new BusinessException(Messages.CarNotFound);
             }
             return result.FindexScore;
         }

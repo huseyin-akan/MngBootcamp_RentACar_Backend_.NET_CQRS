@@ -41,13 +41,13 @@ namespace Application.Features.Users.Commands.LoginUser
                 var userToCheck = await _userRepository.GetAsync(u => u.Email == request.LoginDto.Email);
                 if(userToCheck is null)
                 {
-                    throw new RepositoryException(Messages.UserNotFound);
+                    throw new BusinessException(Messages.UserNotFound);
                 }
 
                 if (!HashingHelper.VerifyPasswordHash(request.LoginDto.Password,
                     userToCheck.PasswordHash, userToCheck.PasswordSalt))
                 {
-                    throw new RepositoryException(Messages.PasswordError);
+                    throw new BusinessException(Messages.PasswordError);
                 }
 
                 var accessToken = await _authService.CreateAccessToken(userToCheck);
