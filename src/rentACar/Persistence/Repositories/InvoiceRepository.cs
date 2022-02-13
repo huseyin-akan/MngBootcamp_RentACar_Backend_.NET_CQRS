@@ -52,7 +52,7 @@ namespace Persistence.Repositories
                                      ModelYear = c.ModelYear,
                                      Plate = c.Plate,
                                      RentedKilometer = r.RentedKilometer,
-                                     TotalDayCount = (r.ReturnDate.Date - r.RentDate.Date).Days
+                                     TotalDayCount = (r.ReturnDate.Date - r.RentDate.Date).Days + 1
                                  };
                     return result.FirstOrDefault();
                 }

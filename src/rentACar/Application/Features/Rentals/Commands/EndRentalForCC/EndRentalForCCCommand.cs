@@ -40,6 +40,8 @@ namespace Application.Features.Rentals.Commands.EndRentalForCC
 
             public async Task<Rental> Handle(EndRentalForCCCommand request, CancellationToken cancellationToken)
             {
+                await this._rentalBusinessRules.CheckIfKilometerValid(request.CarId, request.ReturnedKilometer);
+
                 var rentalToEnd = await _rentalRepository.GetAsync(r => r.Id == request.Id);
                 var mappedRental = _mapper.Map(request, rentalToEnd);                
 

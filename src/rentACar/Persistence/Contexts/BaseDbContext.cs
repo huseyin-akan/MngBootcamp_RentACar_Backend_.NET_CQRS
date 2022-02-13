@@ -42,7 +42,9 @@ namespace Persistence.Contexts
         public DbSet<City> Cities { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<CarDamage> CarDamages { get; set; }
-        public DbSet<Invoice> Invoices { get; set; }        
+        public DbSet<Invoice> Invoices { get; set; }
+
+        public DbSet<AdditionalService> AdditionalServices { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {

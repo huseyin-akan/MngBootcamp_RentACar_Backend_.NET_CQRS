@@ -81,6 +81,19 @@ namespace Application.Features.Rentals.Rules
             }
             return true;
         }
+
+        public async Task CheckIfKilometerValid(int carId, int kilometer)
+        {
+            var carToCheck = await this._carService.GetCarById(carId);
+            if(carToCheck is null)
+            {
+                throw new BusinessException(Messages.CarNotFound);
+            }
+            if(carToCheck.Kilometer > kilometer)
+            {
+                throw new BusinessException(Messages.KilometerCantBeLess);
+            }
+        }
         
     }
 

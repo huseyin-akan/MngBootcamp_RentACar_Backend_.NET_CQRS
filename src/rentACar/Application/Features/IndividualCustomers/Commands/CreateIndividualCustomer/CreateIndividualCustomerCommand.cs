@@ -45,6 +45,10 @@ namespace Application.Features.IndividualCustomers.Commands.CreateIndividualCust
 
             public async Task<LoginUserDto> Handle(CreateIndividualCustomerCommand request, CancellationToken cancellationToken)
             {
+                await _individualCustomerBusinessRules.CheckIfUserNameTaken(request.UserName);
+                await _individualCustomerBusinessRules.CheckIfNationalIdUsed(request.NationalId);
+                await _individualCustomerBusinessRules.CheckIfEmailTaken(request.Email);
+
                 var indCustomerToAdd = _mapper.Map<IndividualCustomer>(request);
 
                 byte[] passwordHash, passwordSalt;

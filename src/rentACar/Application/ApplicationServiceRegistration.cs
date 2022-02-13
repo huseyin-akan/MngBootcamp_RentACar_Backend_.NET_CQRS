@@ -1,4 +1,5 @@
-﻿using Application.Features.Brands.Rules;
+﻿using Application.Features.AdditionalServices.Rules;
+using Application.Features.Brands.Rules;
 using Application.Features.CarDamages.Rules;
 using Application.Features.Cars.Rules;
 using Application.Features.Colors.Rules;
@@ -8,9 +9,11 @@ using Application.Features.IndividualCustomers.Rules;
 using Application.Features.Invoices.Rules;
 using Application.Features.Maintenenaces.Rules;
 using Application.Features.Models.Rules;
+using Application.Features.OperationClaims.Rules;
 using Application.Features.Payments.Rules;
 using Application.Features.Rentals.Rules;
 using Application.Features.Users.Rules;
+using Application.Services.AddtionalServiceService;
 using Application.Services.AuthService;
 using Application.Services.CarService;
 using Application.Services.CustomerServices;
@@ -48,7 +51,7 @@ namespace Application
             services.AddAutoMapper(Assembly.GetExecutingAssembly() );
             services.AddMediatR(Assembly.GetExecutingAssembly() );
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly() );
-            services.AddSingleton<LoggerServiceBase, FileLogger>();
+            
 
             services.AddScoped<BrandBusinessRules>();
             services.AddScoped<ModelBusinessRules>();
@@ -63,11 +66,15 @@ namespace Application
             services.AddScoped<InvoiceBusinessRules>();
             services.AddScoped<PaymentBusinessRules>();
             services.AddScoped<UserBusinessRules>();
+            services.AddScoped<OperationClaimBusinessRules>();
+            services.AddScoped<AdditionalServiceBusinessRules>();
+
 
             services.AddScoped<IFindexScoreService, FakeFindexScoreServiceAdapter>();
             services.AddScoped<IPosSystemService, FakePosSystemServiceAdapter>();
             services.AddScoped<IIndividualCustomerService, IndividualCustomerService>();
             services.AddScoped<ICorporateCustomerService, CorporateCustomerService>();
+            services.AddScoped<IAdditionalServiceService, AdditionalServiceService>();
             services.AddScoped<IInvoiceService, InvoiceService>();
             services.AddScoped<ICarService, CarService>();
             services.AddScoped<IModelService, ModelService>();
@@ -78,6 +85,7 @@ namespace Application
 
             services.AddSingleton<IMailService, MailKitMailService>();
             services.AddSingleton<IElasticSearch, ElasticSearchManager>();
+            services.AddSingleton<LoggerServiceBase, FileLogger>();
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));

@@ -11,11 +11,13 @@ namespace Application.Features.IndividualCustomers.Rules
 {
     public class IndividualCustomerBusinessRules
     {
-        readonly IIndividualCustomerRepository _individualCustomerRepository;
+        private readonly IIndividualCustomerRepository _individualCustomerRepository;
+        private readonly IUserRepository _userRepository;
 
-        public IndividualCustomerBusinessRules(IIndividualCustomerRepository individualCustomerRepository)
+        public IndividualCustomerBusinessRules(IIndividualCustomerRepository individualCustomerRepository, IUserRepository userRepository)
         {
             _individualCustomerRepository = individualCustomerRepository;
+            _userRepository = userRepository;
         }
 
         public async Task CheckIfIndividualCustomerExists(int id)
@@ -27,6 +29,37 @@ namespace Application.Features.IndividualCustomers.Rules
                 throw new BusinessException(Messages.IndividualCustomerDoesntExist);
             }
         }
+
+        public async Task CheckIfNationalIdUsed(string nationalId)
+        {
+            var result = await _individualCustomerRepository.GetAsync(i => i.NationalId == nationalId);
+
+            if(result is not null)
+            {
+                throw new BusinessException(Messages.NationalIdAlreadyUsed);
+            }
+        }
+
+        public async Task CheckIfUserNameTaken(string userName)
+        {
+            var result = await _userRepository.GetAsync(u => u.UserName == userName);
+
+            if (result is not null)
+            {
+                throw new BusinessException(Messages.UsernameAlreadyTaken);
+            }
+        }
+
+        public async Task CheckIfEmailTaken(string email)
+        {
+            var result = await _userRepository.GetAsync(u => u.Email == email);
+
+            if (result is not null)
+            {
+                throw new BusinessException(Messages.EmailAlreadyTaken);
+            }
+        }
+
     }
 
 }

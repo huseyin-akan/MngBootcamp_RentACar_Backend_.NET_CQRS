@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Features\AdditionalServices\Tests\" />
     <Folder Include="Features\Brands\Tests\" />
     <Folder Include="Features\burdan kopyala\Commands\" />
     <Folder Include="Features\burdan kopyala\Dtos\" />
@@ -55,6 +56,9 @@
     <Folder Include="Features\Invoices\Tests\" />
     <Folder Include="Features\Maintenances\Tests\" />
     <Folder Include="Features\Models\Tests\" />
+    <Folder Include="Features\OperationClaims\Models\" />
+    <Folder Include="Features\OperationClaims\Queries\" />
+    <Folder Include="Features\OperationClaims\Tests\" />
     <Folder Include="Features\Payments\Models\" />
     <Folder Include="Features\Payments\Queries\" />
     <Folder Include="Features\Payments\Tests\" />

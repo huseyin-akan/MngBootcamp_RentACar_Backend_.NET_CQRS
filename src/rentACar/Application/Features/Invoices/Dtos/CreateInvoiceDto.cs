@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Domain.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,5 +23,7 @@ namespace Application.Features.Invoices.Dtos
         public string CarModel { get; set; }
         public int ModelYear { get; set; }
         public string Plate { get; set; }
+
+        public List<AdditionalService> AdditionalServices { get; set; }
     }
 }

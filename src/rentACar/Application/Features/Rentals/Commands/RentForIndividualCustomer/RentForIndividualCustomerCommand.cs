@@ -5,6 +5,7 @@ using Application.Features.Invoices.Commands.CreateInvoice;
 using Application.Features.Invoices.Dtos;
 using Application.Features.Payments.Commands.CreatePayment;
 using Application.Features.Rentals.Rules;
+using Application.Services.AddtionalServiceService;
 using Application.Services.CarService;
 using Application.Services.Helpers;
 using Application.Services.InvoiceService;
@@ -31,6 +32,7 @@ public class RentForIndividualCustomerCommand : IRequest<CreateInvoiceDto>
     public int ReturnCityId { get; set; }
     public int CarId { get; set; }
     public int CustomerId { get; set; }
+    public List<int> AdditionalServiceIds { get; set; }
     public CreateCreditCardInfosDto CreditCardInfos { get; set; }
 
     public class RentForIndividualCustomerCommandHandler : IRequestHandler<RentForIndividualCustomerCommand, CreateInvoiceDto>
@@ -43,12 +45,13 @@ public class RentForIndividualCustomerCommand : IRequest<CreateInvoiceDto>
         private readonly IModelService modelService;
         private readonly IPaymentService paymentService;
         private readonly IInvoiceService invoiceService;
+        private readonly IAdditionalServiceService additionalServiceService;
 
         public RentForIndividualCustomerCommandHandler(IRentalRepository rentalRepository,
             IMapper mapper,
             RentalBusinessRules rentalBusinessRules,
             IndividualCustomerBusinessRules individualCustomerBusinessRules,
-            ICarService carService, IPaymentService paymentService, IModelService modelService, IInvoiceService invoiceService)
+            ICarService carService, IPaymentService paymentService, IModelService modelService, IInvoiceService invoiceService, IAdditionalServiceService additionalServiceService)
         {
             this.rentalRepository = rentalRepository;
             this.mapper = mapper;
@@ -58,6 +61,7 @@ public class RentForIndividualCustomerCommand : IRequest<CreateInvoiceDto>
             this.paymentService = paymentService;
             this.modelService = modelService;
             this.invoiceService = invoiceService;
+            this.additionalServiceService = additionalServiceService;
         }
 
         //TODO: Bu metot kesinlikle transactional çalışmalı.
@@ -72,7 +76,7 @@ public class RentForIndividualCustomerCommand : IRequest<CreateInvoiceDto>
 
             var mappedRental = this.mapper.Map<Rental>(request);
             mappedRental.RentedKilometer = car.Kilometer;
-
+            mappedRental.AdditionalServices = await this.additionalServiceService.GetAdditionalServicesByIdList(request.AdditionalServiceIds);
             var createdRental = await this.rentalRepository.AddAsync(mappedRental);
 
             UpdateCarStateCommand command = new UpdateCarStateCommand
@@ -82,7 +86,7 @@ public class RentForIndividualCustomerCommand : IRequest<CreateInvoiceDto>
             };
             await this.carService.UpdateCarState(command);
 
-            var calculatedTotalSum = await TotalSumCalculator.CalculateTotalSumForIC(request, car, modelService);
+            var calculatedTotalSum = await TotalSumCalculator.CalculateTotalSumForIC(request, car, mappedRental.AdditionalServices.ToList(), modelService);
 
             CreatePaymentCommand paymentCommand = new CreatePaymentCommand
             {
@@ -104,6 +108,7 @@ public class RentForIndividualCustomerCommand : IRequest<CreateInvoiceDto>
             };
 
             var invoiceResult = await this.invoiceService.MakeOutInvoice(invoiceCommand);
+            invoiceResult.AdditionalServices = mappedRental.AdditionalServices.ToList();
 
             return invoiceResult;
         }

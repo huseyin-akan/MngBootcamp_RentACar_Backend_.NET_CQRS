@@ -30,10 +30,11 @@ namespace Domain.Entities
         public City ReturnCity { get; set; }
         public City ReturnedCity { get; set; }
 
+        public virtual ICollection<AdditionalService> AdditionalServices { get; set; }
 
         public Rental()
         {
-
+            AdditionalServices = new HashSet<AdditionalService>();  
         }
 
         public Rental(int id, DateTime rentDate, DateTime returnDate,

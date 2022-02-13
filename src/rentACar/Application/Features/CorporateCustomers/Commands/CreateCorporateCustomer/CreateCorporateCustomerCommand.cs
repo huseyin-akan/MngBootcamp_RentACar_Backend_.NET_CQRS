@@ -41,6 +41,10 @@ namespace Application.Features.CorporateCustomers.Commands.CreateCorporateCustom
 
             public async Task<LoginUserDto> Handle(CreateCorporateCustomerCommand request, CancellationToken cancellationToken)
             {
+                await _corporateCustomerBusinessRules.CheckIfUserNameTaken(request.UserName);
+                await _corporateCustomerBusinessRules.CheckIfTaxNumberUsed(request.TaxNumber);
+                await _corporateCustomerBusinessRules.CheckIfEmailTaken(request.Email);
+
                 var corpCustomerToAdd = _mapper.Map<CorporateCustomer>(request);
 
                 byte[] passwordHash, passwordSalt;

@@ -34,6 +34,8 @@ namespace Persistence
             services.AddScoped<IInvoiceRepository, InvoiceRepository>();
             services.AddScoped<IPaymentRepository, PaymentRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IOperationClaimRepository, OperationClaimRepository>();
+            services.AddScoped<IAdditionalServiceRepository, AdditionalServiceRepository>();
 
             return services;
         }
