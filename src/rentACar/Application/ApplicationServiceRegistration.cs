@@ -28,6 +28,7 @@ using Core.Application.Pipelines.Caching;
 using Core.Application.Pipelines.Logging;
 using Core.Application.Pipelines.Transaction;
 using Core.Application.Pipelines.Validation;
+using Core.CrossCuttingConcerns.Caching;
 using Core.CrossCuttingConcerns.Logging.SeriLog;
 using Core.CrossCuttingConcerns.Logging.SeriLog.Loggers;
 using Core.ElasticSearch;
@@ -84,6 +85,7 @@ namespace Application
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITokenHelper, JwtHelper>();
+            services.AddScoped<ICacheService, CacheService>();
 
             services.AddSingleton<IMailService, MailKitMailService>();
             services.AddSingleton<IElasticSearch, ElasticSearchManager>();

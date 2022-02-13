@@ -2,6 +2,7 @@
 using Application.Features.Brands.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.CrossCuttingConcerns.Caching;
 using Domain.Entities;
 using MediatR;
 using System;
@@ -22,13 +23,15 @@ namespace Application.Features.Brands.Commands.UpdateBrand
             IBrandRepository _brandRepository;
             IMapper _mapper;
             BrandBusinessRules _brandBusinessRules;
+            ICacheService _cacheService;
 
             public UpdateBrandCommandHandler(IBrandRepository brandRepository, IMapper mapper,
-            BrandBusinessRules brandBusinessRules)
+            BrandBusinessRules brandBusinessRules, ICacheService cacheService)
             {
                 _brandRepository = brandRepository;
                 _mapper = mapper;
                 _brandBusinessRules = brandBusinessRules;
+                _cacheService = cacheService;
             }
 
             public async Task<UpdateBrandDto> Handle(UpdateBrandCommand request, CancellationToken cancellationToken)
@@ -38,6 +41,9 @@ namespace Application.Features.Brands.Commands.UpdateBrand
                 var mappedBrand = _mapper.Map<Brand>(request);
                 var updatedBrand = await _brandRepository.UpdateAsync(mappedBrand);
                 var brandToReturn = _mapper.Map<UpdateBrandDto>(updatedBrand);
+
+                _cacheService.Remove("brands-list");
+
                 return brandToReturn;
             }
         }
