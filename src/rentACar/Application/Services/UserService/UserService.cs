@@ -1,6 +1,6 @@
 ﻿using Application.Services.Repositories;
 using Core.CrossCuttingConcerns.Exceptions;
-using Core.Security.Entities;
+using Domain.Entities;
 using Core.Utilities.Messages;
 using System;
 using System.Collections.Generic;

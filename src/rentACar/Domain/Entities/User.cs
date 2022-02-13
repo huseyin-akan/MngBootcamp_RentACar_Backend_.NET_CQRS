@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Security.Entities
+namespace Domain.Entities
 {
     public class User : Entity
     {

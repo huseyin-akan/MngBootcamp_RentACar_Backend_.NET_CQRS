@@ -2,7 +2,7 @@
 using Application.Features.OperationClaims.Dtos;
 using AutoMapper;
 using Core.Persistence.Paging;
-using Core.Security.Entities;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

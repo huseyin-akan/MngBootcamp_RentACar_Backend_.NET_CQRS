@@ -1,5 +1,4 @@
 ﻿using Core.Security.Encryption;
-using Core.Security.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -10,6 +9,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Core.Security.Extensions;
+using Domain.Entities;
 
 namespace Core.Security.Jwt
 {

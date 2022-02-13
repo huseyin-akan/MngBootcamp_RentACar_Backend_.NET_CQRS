@@ -1,4 +1,4 @@
-﻿using Core.Security.Entities;
+﻿using Domain.Entities;
 using Core.Security.Jwt;
 using System;
 using System.Collections.Generic;

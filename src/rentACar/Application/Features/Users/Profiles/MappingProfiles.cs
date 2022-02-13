@@ -5,7 +5,7 @@ using Application.Features.Users.Models;
 using AutoMapper;
 using Core.Persistence.Paging;
 using Core.Security.Dtos;
-using Core.Security.Entities;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

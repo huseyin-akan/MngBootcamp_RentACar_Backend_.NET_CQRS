@@ -3,7 +3,7 @@ using Application.Features.Users.Rules;
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.Security.Dtos;
-using Core.Security.Entities;
+using Domain.Entities;
 using MediatR;
 using System;
 using System.Collections.Generic;

@@ -13,6 +13,7 @@ using Application.Services.ModelService;
 using Application.Services.PaymentService;
 using Application.Services.Repositories;
 using AutoMapper;
+using Core.Application.Pipelines.Transaction;
 using Domain.Entities;
 using Domain.Enums;
 using MediatR;
@@ -24,7 +25,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Rentals.Commands.RentForCorporateCustomer
 {
-    public class RentForCorporateCustomerCommand : IRequest<CreateInvoiceDto>
+    public class RentForCorporateCustomerCommand : IRequest<CreateInvoiceDto>, ITransactionalRequest
     {
         public DateTime RentDate { get; set; }
         public DateTime ReturnDate { get; set; }
