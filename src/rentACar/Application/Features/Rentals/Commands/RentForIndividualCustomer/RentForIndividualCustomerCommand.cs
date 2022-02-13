@@ -65,7 +65,6 @@ public class RentForIndividualCustomerCommand : IRequest<CreateInvoiceDto>, ITra
             this.additionalServiceService = additionalServiceService;
         }
 
-        //TODO: Bu metot kesinlikle transactional çalışmalı.
         public async Task<CreateInvoiceDto> Handle(RentForIndividualCustomerCommand request,
             CancellationToken cancellationToken)
         {

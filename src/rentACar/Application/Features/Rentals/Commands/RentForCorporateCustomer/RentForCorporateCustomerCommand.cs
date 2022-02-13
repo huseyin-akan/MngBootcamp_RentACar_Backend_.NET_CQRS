@@ -68,7 +68,6 @@ namespace Application.Features.Rentals.Commands.RentForCorporateCustomer
                 this.additionalServiceService = additionalServiceService;
             }
 
-            //TODO: Bu metot kesinlikle transactional çalışmalı.
             public async Task<CreateInvoiceDto> Handle(RentForCorporateCustomerCommand request,
                 CancellationToken cancellationToken)
             {

@@ -1,11 +1,11 @@
 ﻿using Application.Services.Repositories;
+using Core.Application.Transaction;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence.Contexts;
 using Persistence.Repositories;
-using Persistence.Transaction;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -23,8 +23,6 @@ namespace Persistence
             services.AddDbContext<BaseDbContext>(options => 
                 options.UseSqlServer(configuration.GetConnectionString("RentACarConnectionString") ));
             
-            services.AddScoped<DbContext, BaseDbContext>();
-
             services.AddScoped<IBrandRepository, BrandRepository>();
             services.AddScoped<IModelRepository, ModelRepository>();
             services.AddScoped<ICarRepository, CarRepository>();
