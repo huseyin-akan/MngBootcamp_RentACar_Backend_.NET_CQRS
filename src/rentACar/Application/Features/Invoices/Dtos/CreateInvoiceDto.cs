@@ -1,4 +1,5 @@
-﻿using Domain.Entities;
+﻿using Application.Features.AdditionalServices.Dtos;
+using Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,9 +22,15 @@ namespace Application.Features.Invoices.Dtos
         public int RentedKilometer { get; set; }
         public string Brand { get; set; }
         public string CarModel { get; set; }
+        public double CarDailyPrice { get; set; }
         public int ModelYear { get; set; }
         public string Plate { get; set; }
 
-        public List<AdditionalService> AdditionalServices { get; set; }
+        public List<AdditionalServiceListDto> AdditionalServices { get; set; }
+
+        public CreateInvoiceDto()
+        {
+            AdditionalServices = new List<AdditionalServiceListDto>();
+        }
     }
 }

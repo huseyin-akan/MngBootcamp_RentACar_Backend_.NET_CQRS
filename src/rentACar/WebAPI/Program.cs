@@ -10,6 +10,13 @@ using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: MyAllowSpecificOrigins,
+        builder => builder.WithOrigins("http://localhost:4200"));
+});
+
 builder.Services.AddControllers();
 
 //IoC Container Extension Metotları:
@@ -37,11 +44,6 @@ builder.Services.AddLogging(config =>
    config.AddConsole();
 });
 
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("AllowOrigin",
-        builder => builder.WithOrigins("http://localhost:3000"));
-});
 
 //Database'den gelen verinin birbirini çağırma döngüsüne girmesini engelliyor.
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
@@ -49,6 +51,8 @@ builder.Services.AddControllers().AddNewtonsoftJson(options =>
             );
 
 var app = builder.Build();
+
+app.UseCors(MyAllowSpecificOrigins);
 
 //ILogger logger = app.Logger;
 

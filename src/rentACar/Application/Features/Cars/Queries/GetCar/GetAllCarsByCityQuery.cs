@@ -28,8 +28,8 @@ namespace Application.Features.Cars.Queries.GetCar
             public async Task<CarListModel> Handle(GetAllCarsByCityQuery request,
                 CancellationToken cancellationToken)
             {
-                var cars = await _carRepository.GetListAsync(
-                    c => c.CityId == request.CityId,
+                var cars = await _carRepository.GetAllCarsByCity(
+                    request.CityId,
                     index: request.PageRequest.Page,
                     size: request.PageRequest.PageSize
                     );

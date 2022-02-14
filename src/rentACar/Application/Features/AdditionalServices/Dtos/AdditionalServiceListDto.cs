@@ -17,5 +17,6 @@ namespace Application.Features.AdditionalServices.Dtos
 
         public byte ServicePoint { get; set; }
         public ServiceType ServiceType { get; set; }
+
     }
 }

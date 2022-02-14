@@ -1,4 +1,5 @@
-﻿using Application.Features.Cars.Commands.UpdateCar;
+﻿using Application.Features.AdditionalServices.Dtos;
+using Application.Features.Cars.Commands.UpdateCar;
 using Application.Features.CorporateCustomers.Rules;
 using Application.Features.CreditCardInfos.Dtos;
 using Application.Features.Invoices.Commands.CreateInvoice;
@@ -110,7 +111,11 @@ namespace Application.Features.Rentals.Commands.RentForCorporateCustomer
                     TotalSum = 500
                 };
                 var invoiceResult =  await this.invoiceService.MakeOutInvoice(invoiceCommand);
-                invoiceResult.AdditionalServices = mappedRental.AdditionalServices.ToList();
+
+                foreach (var additionalService in mappedRental.AdditionalServices.ToList())
+                {
+                    invoiceResult.AdditionalServices.Add(this.mapper.Map<AdditionalServiceListDto>(additionalService));
+                };
 
                 return invoiceResult;
             }

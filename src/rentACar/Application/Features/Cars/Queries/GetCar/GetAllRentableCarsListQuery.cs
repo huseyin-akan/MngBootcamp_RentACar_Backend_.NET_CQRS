@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace Application.Features.Cars.Queries.GetCar
 {
-    public class GetAllRentableCarsListQuery : IRequest<CarListModel>, ICachableRequest
+    public class GetAllRentableCarsListQuery : IRequest<CarListModel>
     {
         public PageRequest PageRequest { get; set; }
 
@@ -34,8 +34,7 @@ namespace Application.Features.Cars.Queries.GetCar
             }
             public async Task<CarListModel> Handle(GetAllRentableCarsListQuery request, CancellationToken cancellationToken)
             {
-                var cars = await _carRepository.GetListAsync(
-                    c => c.CarState == CarState.Available,
+                var cars = await _carRepository.GetAllRentableCars(
                     index: request.PageRequest.Page,
                     size: request.PageRequest.PageSize
                     );

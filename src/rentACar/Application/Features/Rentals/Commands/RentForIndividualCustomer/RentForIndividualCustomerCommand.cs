@@ -1,4 +1,5 @@
-﻿using Application.Features.Cars.Commands.UpdateCar;
+﻿using Application.Features.AdditionalServices.Dtos;
+using Application.Features.Cars.Commands.UpdateCar;
 using Application.Features.CreditCardInfos.Dtos;
 using Application.Features.IndividualCustomers.Rules;
 using Application.Features.Invoices.Commands.CreateInvoice;
@@ -108,7 +109,11 @@ public class RentForIndividualCustomerCommand : IRequest<CreateInvoiceDto>, ITra
             };
 
             var invoiceResult = await this.invoiceService.MakeOutInvoice(invoiceCommand);
-            invoiceResult.AdditionalServices = mappedRental.AdditionalServices.ToList();
+
+            foreach (var additionalService in mappedRental.AdditionalServices.ToList())
+            {
+                invoiceResult.AdditionalServices.Add(this.mapper.Map<AdditionalServiceListDto>(additionalService));
+            };
 
             return invoiceResult;
         }

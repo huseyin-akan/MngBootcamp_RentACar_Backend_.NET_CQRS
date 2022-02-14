@@ -49,6 +49,7 @@ namespace Persistence.Repositories
                                      CustomerMail = cu.Email,
                                      Brand = b.Name,
                                      CarModel = m.Name,
+                                     CarDailyPrice = m.DailyPrice,
                                      ModelYear = c.ModelYear,
                                      Plate = c.Plate,
                                      RentedKilometer = r.RentedKilometer,

@@ -26,7 +26,7 @@ namespace Application.Features.Cars.Queries.GetCar
             }
             public async Task<CarListModel> Handle(GetAllCarsListQuery request, CancellationToken cancellationToken)
             {
-                var cars = await _carRepository.GetListAsync(
+                var cars = await _carRepository.GetAllCars(
                     index: request.PageRequest.Page,
                     size: request.PageRequest.PageSize
                     );

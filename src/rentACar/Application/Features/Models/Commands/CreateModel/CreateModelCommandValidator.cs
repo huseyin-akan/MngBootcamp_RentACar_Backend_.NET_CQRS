@@ -19,7 +19,6 @@ namespace Application.Features.Models.Commands.CreateModel
             RuleFor(m => m.FuelId).NotEmpty();
 
             RuleFor(m => m.DailyPrice).Must(DivideTen);
-            RuleFor(m => m.ImageUrl).Must(BeValidUrl).WithMessage("Geçerli bir link değil");
             RuleFor(m => m.ImageUrl).Must(ValidFormat).WithMessage("Resim formatı uygun değil.");
 
             RuleFor(m => m.FuelId).GreaterThan(0);
@@ -35,10 +34,6 @@ namespace Application.Features.Models.Commands.CreateModel
             return dailyPrice % 10 == 0;
         }
 
-        private bool BeValidUrl(string url)
-        {
-            return url.Contains("www");
-        }
         private bool ValidFormat(string url)
         {
             return url.EndsWith(".png") || url.EndsWith(".jpg") || url.EndsWith(".jpeg");
