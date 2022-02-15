@@ -44,7 +44,7 @@ namespace Application.Features.Brands.Queries.GetBrand
 
                 
                
-        }
+            }
         }
     }
 }

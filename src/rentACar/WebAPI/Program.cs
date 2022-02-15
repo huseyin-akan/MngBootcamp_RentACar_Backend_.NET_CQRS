@@ -4,9 +4,16 @@ using Core.Application.Pipelines.Caching;
 using Core.CrossCuttingConcerns.Exceptions;
 using Core.Mailing;
 using Core.Mailing.MailKitImplementations;
+using Domain.Entities;
 using Microsoft.Extensions.DependencyInjection;
 using Persistence;
 using System.Configuration;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using Core.Security.Encryption;
+using TokenOptions = Core.Security.Jwt.TokenOptions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,7 +21,9 @@ var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(name: MyAllowSpecificOrigins,
-        builder => builder.WithOrigins("http://localhost:4200"));
+        builder => builder.WithOrigins("http://localhost:4200")
+        .AllowAnyHeader()
+        .AllowAnyMethod() );
 });
 
 builder.Services.AddControllers();
@@ -22,6 +31,32 @@ builder.Services.AddControllers();
 //IoC Container Extension Metotları:
 builder.Services.AddApplicationServices();
 builder.Services.AddPersistenceServices(builder.Configuration);
+
+//For Identity:
+//builder.Services.AddIdentity<User, OperationClaim>
+//    .AddEntityFrameworkStores<>()
+//    .AddDefaultTokenProviders();
+
+//appsettings.json dosyasından TokenOptions kısmını okuyup TokenOptions objeme map et ve değişkene ata.
+var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    //Token geldiğinde hangi kontroller yapılsın ayarları:
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,          //Issuer'ı biz www.engin.com yapmıştık, o şekilde gelsin. Gelmezse hata verir.
+                        ValidateAudience = true,        //Audience'ı biz www.engin.com yapmıştık, o şekilde gelsin. Gelmezse hata verir.
+                        ValidateLifetime = true,        //sistemde hep login olabilsin istiyorsak burayı false yap.
+                        ValidIssuer = tokenOptions.Issuer,      //appsetting.json'daki Issuer'ı verdik. Yani www.engin.com
+                        ValidAudience = tokenOptions.Audience,  //appsetting.json'daki Audience'ı verdik. Yani www.engin.com
+                        ValidateIssuerSigningKey = true,        // signing keyi de validate edecek.
+                        IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)    //appsettings.jsondan alıyor yine.
+                    };
+                });
+
+builder.Services.AddAuthorization();
 
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
@@ -54,8 +89,6 @@ var app = builder.Build();
 
 app.UseCors(MyAllowSpecificOrigins);
 
-//ILogger logger = app.Logger;
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -64,6 +97,8 @@ if (app.Environment.IsDevelopment())
 }
 
 //app.ConfigureCustomExceptionMiddleware();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

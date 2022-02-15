@@ -18,7 +18,8 @@ namespace Application.Features.Users.Commands.LoginUser
 {
     public class LoginUserCommand :IRequest<LoginUserDto>
     {
-        public UserForLoginDto LoginDto { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
 
         public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, LoginUserDto>
         {
@@ -38,13 +39,13 @@ namespace Application.Features.Users.Commands.LoginUser
             }
             public async Task<LoginUserDto> Handle(LoginUserCommand request, CancellationToken cancellationToken)
             {
-                var userToCheck = await _userRepository.GetAsync(u => u.Email == request.LoginDto.Email);
+                var userToCheck = await _userRepository.GetAsync(u => u.Email == request.Email);
                 if(userToCheck is null)
                 {
                     throw new BusinessException(Messages.UserNotFound);
                 }
 
-                if (!HashingHelper.VerifyPasswordHash(request.LoginDto.Password,
+                if (!HashingHelper.VerifyPasswordHash(request.Password,
                     userToCheck.PasswordHash, userToCheck.PasswordSalt))
                 {
                     throw new BusinessException(Messages.PasswordError);
