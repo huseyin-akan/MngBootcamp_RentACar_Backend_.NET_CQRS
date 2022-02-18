@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Core.Application.FakeServices
+namespace Core.Application.ExternalServices
 {
     public class FakeFindexScoreService
     {

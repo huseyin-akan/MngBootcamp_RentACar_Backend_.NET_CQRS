@@ -35,7 +35,8 @@ namespace WebAPI.Controllers
             return Created("", result);
         }
 
-        [HttpGet("getall"), Authorize(Roles = "Admin")]
+        //[HttpGet("getall"), Authorize(Roles = "Admin")]
+        [HttpGet("getall")]
         public async Task<IActionResult> GetAll([FromQuery] PageRequest pageRequest)
         {
             string? authHeader = _httpContextAccessor.HttpContext?.Request.Headers["Authorization"];

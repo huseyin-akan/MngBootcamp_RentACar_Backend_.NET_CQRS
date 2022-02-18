@@ -28,5 +28,15 @@ namespace Application.Features.Brands.Rules
                 throw new BusinessException(Messages.BrandNameExists);
             }
         } 
+
+        public async Task CheckIfBrandExists(int id)
+        {
+            var result = await _brandRepository.GetAsync(b => b.Id == id);
+
+            if(result is null)
+            {
+                throw new BusinessException(Messages.BrandNotFound);
+            }
+        }
     }
 }

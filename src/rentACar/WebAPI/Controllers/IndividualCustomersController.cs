@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace WebAPI.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/individualcustomers")]
     [ApiController]
     public class IndividualCustomersController : BaseController
     {

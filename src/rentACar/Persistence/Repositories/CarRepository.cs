@@ -23,9 +23,7 @@ namespace Persistence.Repositories
             int index = 0,
             int size = 10,
             CancellationToken cancellationToken = default)
-        {
-            using (Context)
-            {
+        {            
                 var result = from c in Context.Cars
                              join m in Context.Models
                              on c.ModelId equals m.Id
@@ -40,17 +38,22 @@ namespace Persistence.Repositories
                              {
                                  Id = c.Id,
                                  Model = m.Name,
+                                 ModelId = c.ModelId,
                                  Color = co.Name,
+                                 ColorId = c.ColorId,
                                  City = ci.Name,
+                                 CityId = c.CityId,
+                                 Plate = c.Plate,
                                  ModelYear = c.ModelYear,
+                                 FindexScore = c.FindexScore,
+                                 Kilometer = c.Kilometer,
                                  CarState = c.CarState,
                                  DailyPrice = m.DailyPrice,
                                  Brand = b.Name,
                                  ImageUrl = m.ImageUrl
                              };
 
-                return await result.ToPaginateAsync(index, size, 0, cancellationToken);
-            }
+                return await result.ToPaginateAsync(index, size, 0, cancellationToken);            
         }
 
         public async Task<IPaginate<CarListDto>> GetAllRentableCars(
@@ -58,8 +61,7 @@ namespace Persistence.Repositories
             int size = 10,
             CancellationToken cancellationToken = default)
         {
-            using (Context)
-            {
+            
                 var result = from c in Context.Cars
                              join m in Context.Models
                              on c.ModelId equals m.Id
@@ -83,8 +85,7 @@ namespace Persistence.Repositories
                                  ImageUrl = m.ImageUrl
                              };
 
-                return await result.ToPaginateAsync(index, size, 0, cancellationToken);
-            }
+                return await result.ToPaginateAsync(index, size, 0, cancellationToken);            
         }
 
         public async Task<IPaginate<CarListDto>> GetAllCarsByCity(
@@ -93,8 +94,7 @@ namespace Persistence.Repositories
             int size = 10,
             CancellationToken cancellationToken = default)
         {
-            using (Context)
-            {
+            
                 var result = from c in Context.Cars
                              join m in Context.Models
                              on c.ModelId equals m.Id
@@ -119,7 +119,7 @@ namespace Persistence.Repositories
                              };
 
                 return await result.ToPaginateAsync(index, size, 0, cancellationToken);
-            }
+            
         }
 
     }

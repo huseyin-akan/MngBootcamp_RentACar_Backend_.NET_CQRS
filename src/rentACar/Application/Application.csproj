@@ -39,6 +39,9 @@
     <Folder Include="Features\CarDamages\Queries\" />
     <Folder Include="Features\CarDamages\Tests\" />
     <Folder Include="Features\Cars\Tests\" />
+    <Folder Include="Features\Cities\Commands\" />
+    <Folder Include="Features\Cities\Rules\" />
+    <Folder Include="Features\Cities\Tests\" />
     <Folder Include="Features\Colors\Tests\" />
     <Folder Include="Features\CorporateCustomers\Models\" />
     <Folder Include="Features\CorporateCustomers\Queries\" />

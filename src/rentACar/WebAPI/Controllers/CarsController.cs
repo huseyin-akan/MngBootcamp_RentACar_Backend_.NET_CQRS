@@ -1,4 +1,5 @@
 ﻿using Application.Features.Cars.Commands.CreateCar;
+using Application.Features.Cars.Commands.UpdateCar;
 using Application.Features.Cars.Queries.GetCar;
 using Application.Features.Maintenenaces.Commands.UpdateMaintenance;
 using Application.Features.Maintenenaces.Queries.GetMaintenance;
@@ -20,7 +21,7 @@ namespace WebAPI.Controllers
         }
 
         [HttpPost("update")]
-        public async Task<IActionResult> Update([FromBody] UpdateMaintenanceCommand command)
+        public async Task<IActionResult> Update([FromBody] UpdateCarCommand command)
         {
             var result = await Mediator.Send(command);
             return Created("", result);

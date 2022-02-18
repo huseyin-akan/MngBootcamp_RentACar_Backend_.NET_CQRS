@@ -25,8 +25,7 @@ namespace Persistence.Repositories
             int size = 10,
             CancellationToken cancellationToken = default)
         {
-            using (Context)
-            {
+            
                 var result = from m in Context.Models
                              join b in Context.Brands
                              on m.BrandId equals b.Id
@@ -49,7 +48,7 @@ namespace Persistence.Repositories
                              };
 
                 return await result.ToPaginateAsync(index, size, 0, cancellationToken);
-            }
+            
         }
 
         //TODO: burada brand, transmission ve fuel elemanlarının virtual alanları da geliyor. Yukarıdaki çok daha iyi
@@ -58,15 +57,14 @@ namespace Persistence.Repositories
             int size = 10,
             CancellationToken cancellationToken = default)
         {
-            using (Context)
-            {
+            
                 var result = Context.Models
                     .Include(c => c.Brand)
                     .Include(c => c.Transmission)
                     .Include(c => c.Fuel)
                     .ToPaginateAsync(index, size, 0, cancellationToken);
                 return await result;
-            }
+            
         }
     }
 }

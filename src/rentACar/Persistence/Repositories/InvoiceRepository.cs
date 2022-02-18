@@ -23,8 +23,7 @@ namespace Persistence.Repositories
         {
             var queryResult = Task.Run(() =>
             {
-                using (Context)
-                {
+                
                     var result = from i in Context.Invoices
                                  join r in Context.Rentals
                                  on i.RentalId equals r.Id
@@ -56,7 +55,7 @@ namespace Persistence.Repositories
                                      TotalDayCount = (r.ReturnDate.Date - r.RentDate.Date).Days + 1
                                  };
                     return result.FirstOrDefault();
-                }
+                
             });
             return queryResult;
         }
@@ -66,8 +65,7 @@ namespace Persistence.Repositories
             int size = 10,
             CancellationToken cancellationToken = default)
         {
-            using (Context)
-            {
+            
                 var result = from i in Context.Invoices
                              join r in Context.Rentals
                              on i.RentalId equals r.Id
@@ -98,13 +96,12 @@ namespace Persistence.Repositories
                              };
 
                 return await result.ToPaginateAsync(index, size, 0, cancellationToken);
-            }
+            
         }
 
         public async Task<IPaginate<InvoiceListDto>> GetAllInvoicesBetweenDates(DateTime startDate, DateTime endDate, int index = 0, int size = 10, CancellationToken cancellationToken = default)
         {
-            using (Context)
-            {
+            
                 var result = from i in Context.Invoices
                              join r in Context.Rentals
                              on i.RentalId equals r.Id
@@ -136,13 +133,12 @@ namespace Persistence.Repositories
                              };
 
                 return await result.ToPaginateAsync(index, size, 0, cancellationToken);
-            }
+            
         }
 
         public async Task<IPaginate<InvoiceListDto>> GetAllInvoicesByCustomerId(int customerId, int index = 0, int size = 10, CancellationToken cancellationToken = default)
         {
-            using (Context)
-            {
+            
                 var result = from i in Context.Invoices
                              join r in Context.Rentals
                              on i.RentalId equals r.Id
@@ -174,7 +170,7 @@ namespace Persistence.Repositories
                              };
 
                 return await result.ToPaginateAsync(index, size, 0, cancellationToken);
-            }
+            
         }
     }
 }
