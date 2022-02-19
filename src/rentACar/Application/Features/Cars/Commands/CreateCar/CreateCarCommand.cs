@@ -21,6 +21,7 @@ namespace Application.Features.Cars.Commands.CreateCar
         public string Plate { get; set; }
         public int ModelYear { get; set; }
         public int FindexScore { get; set; }
+        public int Kilometer { get; set; }
 
         public class CreateCarCommandHandler : IRequestHandler<CreateCarCommand, CreateCarDto>
         {

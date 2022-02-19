@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -47,7 +48,7 @@ namespace Core.CrossCuttingConcerns.Exceptions
                     Status = StatusCodes.Status400BadRequest,
                     Type = "https://example.com/probs/validation",
                     Title = "Validation error(s)",
-                    Detail = "",
+                    Detail = (errors as IEnumerable<ValidationFailure>)?.FirstOrDefault()?.ToString(), 
                     Instance = "",
                     Errors = errors
                 }.ToString() );

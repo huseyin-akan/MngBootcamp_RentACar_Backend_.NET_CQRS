@@ -1,4 +1,5 @@
 ﻿using Application.Features.Colors.Commands.CreateColor;
+using Application.Features.Colors.Commands.DeleteColor;
 using Application.Features.Colors.Commands.UpdateColor;
 using Application.Features.Colors.Queries.GetColor;
 using Core.Application.Requests;
@@ -18,8 +19,15 @@ namespace WebAPI.Controllers
             return Created("", result);
         }
 
-        [HttpPost("update")]
+        [HttpPut("update")]
         public async Task<IActionResult> Update([FromBody] UpdateColorCommand command)
+        {
+            var result = await Mediator.Send(command);
+            return Created("", result);
+        }
+
+        [HttpDelete("delete/{Id}")]
+        public async Task<IActionResult> Delete([FromRoute] DeleteColorCommand command)
         {
             var result = await Mediator.Send(command);
             return Created("", result);

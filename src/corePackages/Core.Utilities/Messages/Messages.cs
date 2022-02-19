@@ -16,6 +16,8 @@ namespace Core.Utilities.Messages
         public static string ModelNotFound = "Model can not be found!!!";
         public static string PaymentFailed = "Payment is not successful!!";
 
+        public static string ColorNotFound = "Color with that id can not be found!!";
+
         public static string InvoiceNotAdded = "Invoice can not be created. Something is wrong!!";
 
         public static string BrandNameExists = "Brand name already exists";

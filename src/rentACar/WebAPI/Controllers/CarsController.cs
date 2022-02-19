@@ -1,4 +1,5 @@
 ﻿using Application.Features.Cars.Commands.CreateCar;
+using Application.Features.Cars.Commands.DeleteCar;
 using Application.Features.Cars.Commands.UpdateCar;
 using Application.Features.Cars.Queries.GetCar;
 using Application.Features.Maintenenaces.Commands.UpdateMaintenance;
@@ -20,8 +21,15 @@ namespace WebAPI.Controllers
             return Created("", result);
         }
 
-        [HttpPost("update")]
+        [HttpPut("update")]
         public async Task<IActionResult> Update([FromBody] UpdateCarCommand command)
+        {
+            var result = await Mediator.Send(command);
+            return Created("", result);
+        }
+
+        [HttpDelete("delete/{Id}")]
+        public async Task<IActionResult> Delete([FromRoute] DeleteCarCommand command)
         {
             var result = await Mediator.Send(command);
             return Created("", result);
