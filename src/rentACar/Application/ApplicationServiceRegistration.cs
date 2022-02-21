@@ -11,6 +11,7 @@ using Application.Features.Maintenenaces.Rules;
 using Application.Features.Models.Rules;
 using Application.Features.OperationClaims.Rules;
 using Application.Features.Payments.Rules;
+using Application.Features.PromotionCodes.Rules;
 using Application.Features.Rentals.Rules;
 using Application.Features.Users.Rules;
 using Application.Services.AddtionalServiceService;
@@ -71,6 +72,7 @@ namespace Application
             services.AddScoped<UserBusinessRules>();
             services.AddScoped<OperationClaimBusinessRules>();
             services.AddScoped<AdditionalServiceBusinessRules>();
+            services.AddScoped<PromotionCodeBusinessRules>();
 
 
             services.AddScoped<IFindexScoreService, FakeFindexScoreServiceAdapter>();

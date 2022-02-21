@@ -39,6 +39,7 @@ namespace Persistence
             services.AddScoped<IOperationClaimRepository, OperationClaimRepository>();
             services.AddScoped<IAdditionalServiceRepository, AdditionalServiceRepository>();
             services.AddScoped<ICityRepository, CityRepository>();
+            services.AddScoped<IPromotionCodeRepository, PromotionCodeRepository>();
 
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>));
 

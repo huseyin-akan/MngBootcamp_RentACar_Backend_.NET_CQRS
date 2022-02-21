@@ -25,5 +25,15 @@ namespace Domain.Entities
             Rentals = new HashSet<Rental>();   
         }
 
+        public AdditionalService(int id, string serviceName, string description, string imageUrl, double price, byte servicePoint, ServiceType serviceType)
+        {
+            Id = id;
+            ServiceName = serviceName;
+            Description = description;
+            ImageUrl = imageUrl;
+            Price = price;
+            ServicePoint = servicePoint;
+            ServiceType = serviceType;
+        }
     }
 }

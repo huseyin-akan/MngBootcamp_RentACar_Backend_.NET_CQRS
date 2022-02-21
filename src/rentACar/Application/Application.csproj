@@ -65,6 +65,7 @@
     <Folder Include="Features\Payments\Models\" />
     <Folder Include="Features\Payments\Queries\" />
     <Folder Include="Features\Payments\Tests\" />
+    <Folder Include="Features\PromotionCodes\Tests\" />
     <Folder Include="Features\Rentals\Queries\" />
     <Folder Include="Features\Rentals\Tests\" />
     <Folder Include="Features\Rentals\Models\" />

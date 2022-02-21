@@ -35,6 +35,10 @@ namespace Persistence.Repositories
                                  on c.ModelId equals m.Id
                                  join b in Context.Brands
                                  on m.BrandId equals b.Id
+                                 join ci1 in Context.Cities
+                                 on r.RentCityId equals ci1.Id
+                                 join ci2 in Context.Cities
+                                 on r.ReturnCityId equals ci2.Id
                                  where i.Id == Id
 
                                  select new CreateInvoiceDto
@@ -45,6 +49,8 @@ namespace Persistence.Repositories
                                      TotalSum = i.TotalSum,
                                      RentedDate = r.RentDate,
                                      ReturnDate = r.ReturnDate,
+                                     RentCity = ci1.Name,
+                                     ReturnCity = ci2.Name,
                                      CustomerMail = cu.Email,
                                      Brand = b.Name,
                                      CarModel = m.Name,

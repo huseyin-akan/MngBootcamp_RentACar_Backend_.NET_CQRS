@@ -45,6 +45,8 @@ namespace Persistence.Contexts
 
         public DbSet<AdditionalService> AdditionalServices { get; set; }
 
+        public DbSet<PromotionCode> PromotionCodes { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //if (!optionsBuilder.IsConfigured)
