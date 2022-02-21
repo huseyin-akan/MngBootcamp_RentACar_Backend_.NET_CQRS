@@ -5,6 +5,7 @@ using Application.Features.CreditCardInfos.Dtos;
 using Application.Features.Invoices.Commands.CreateInvoice;
 using Application.Features.Invoices.Dtos;
 using Application.Features.Payments.Commands.CreatePayment;
+using Application.Features.PromotionCodes.Rules;
 using Application.Features.Rentals.Rules;
 using Application.Services.AddtionalServiceService;
 using Application.Services.CarService;
@@ -12,6 +13,7 @@ using Application.Services.Helpers;
 using Application.Services.InvoiceService;
 using Application.Services.ModelService;
 using Application.Services.PaymentService;
+using Application.Services.PromotionCodeService;
 using Application.Services.Repositories;
 using AutoMapper;
 using Core.Application.Pipelines.Transaction;
@@ -34,6 +36,7 @@ namespace Application.Features.Rentals.Commands.RentForCorporateCustomer
         public int ReturnCityId { get; set; }
         public int CarId { get; set; }
         public int CustomerId { get; set; }
+        public string PromotionCode { get; set; }
         public List<int> AdditionalServiceIds { get; set; }
         public CreateCreditCardInfosDto CreditCardInfos { get; set; }
 
@@ -48,6 +51,8 @@ namespace Application.Features.Rentals.Commands.RentForCorporateCustomer
             private readonly IPaymentService paymentService;
             private readonly IInvoiceService invoiceService;
             private readonly IAdditionalServiceService additionalServiceService;
+            private readonly PromotionCodeBusinessRules promotionCodeBusinessRules;
+            private readonly IPromotionCodeService promotionCodeService;
 
             public RentForCorporateCustomerCommandHandler(IRentalRepository rentalRepository,
                 IMapper mapper,
@@ -56,7 +61,7 @@ namespace Application.Features.Rentals.Commands.RentForCorporateCustomer
                 ICarService carService,
                 IModelService modelService,
                 IPaymentService paymentService,
-                IInvoiceService invoiceService, IAdditionalServiceService additionalServiceService)
+                IInvoiceService invoiceService, IAdditionalServiceService additionalServiceService, PromotionCodeBusinessRules promotionCodeBusinessRules, IPromotionCodeService promotionCodeService)
             {
                 this.rentalRepository = rentalRepository;
                 this.mapper = mapper;
@@ -67,6 +72,8 @@ namespace Application.Features.Rentals.Commands.RentForCorporateCustomer
                 this.paymentService = paymentService;
                 this.invoiceService = invoiceService;
                 this.additionalServiceService = additionalServiceService;
+                this.promotionCodeBusinessRules = promotionCodeBusinessRules;
+                this.promotionCodeService = promotionCodeService;
             }
 
             public async Task<CreateInvoiceDto> Handle(RentForCorporateCustomerCommand request,
@@ -77,7 +84,10 @@ namespace Application.Features.Rentals.Commands.RentForCorporateCustomer
                 rentalBusinessRules.CheckIfCarIsRented(request.CarId);
                 await corporateCustomerBusinessRules.CheckIfCorporateCustomerExists(request.CustomerId);
                 await rentalBusinessRules.CheckIfCCFindexScoreIsEnough(request.CarId, request.CustomerId);
-                
+
+                await this.promotionCodeBusinessRules.CheckIfPromotionCodeExists(request.PromotionCode);
+                await this.promotionCodeBusinessRules.CheckIfPromotionCodeIsUsed(request.PromotionCode, request.CustomerId);
+
                 var mappedRental = mapper.Map<Rental>(request);
                 mappedRental.RentedKilometer = car.Kilometer;
                 mappedRental.AdditionalServices = await this.additionalServiceService.GetAdditionalServicesByIdList(request.AdditionalServiceIds);
@@ -90,7 +100,8 @@ namespace Application.Features.Rentals.Commands.RentForCorporateCustomer
                 };
                 await this.carService.UpdateCarState(command);
 
-                var calculatedTotalSum = await TotalSumCalculator.CalculateTotalSumForCC(request, car, mappedRental.AdditionalServices.ToList(), this.modelService);
+                var discountRate = await this.promotionCodeService.GetPromotionCodeDiscount(request.PromotionCode);
+                var calculatedTotalSum = await TotalSumCalculator.CalculateTotalSumForCC(request, car, mappedRental.AdditionalServices.ToList(), this.modelService, discountRate);
   
                 CreatePaymentCommand paymentCommand = new CreatePaymentCommand
                 {

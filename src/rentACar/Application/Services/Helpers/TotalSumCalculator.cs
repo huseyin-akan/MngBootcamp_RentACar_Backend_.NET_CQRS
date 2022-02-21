@@ -1,6 +1,7 @@
 ﻿using Application.Features.Rentals.Commands.RentForCorporateCustomer;
 using Application.Features.Rentals.Commands.RentForIndividualCustomer;
 using Application.Services.ModelService;
+using Application.Services.PromotionCodeService;
 using Domain.Entities;
 using Domain.Enums;
 using System;
@@ -13,10 +14,13 @@ namespace Application.Services.Helpers
 {
     public static class TotalSumCalculator
     {
-        public static async Task<double> CalculateTotalSumForCC(RentForCorporateCustomerCommand request,
+        public static async Task<double> CalculateTotalSumForCC(
+            RentForCorporateCustomerCommand request,
             Car car,
             List<AdditionalService> additionalServices, 
-            IModelService modelService)
+            IModelService modelService,
+            int discountRate = 0
+            )
         {
             var totalDays = (request.ReturnDate.Date - request.RentDate.Date).Days + 1;
 
@@ -34,6 +38,9 @@ namespace Application.Services.Helpers
                     totalSum += additionalService.Price;
                 }
             }
+
+            totalSum -= totalSum * discountRate / 100;
+
             return totalSum;
         }
 
@@ -41,7 +48,8 @@ namespace Application.Services.Helpers
             RentForIndividualCustomerCommand request,
             Car car,
             List<AdditionalService> additionalServices, 
-            IModelService modelService)
+            IModelService modelService,
+            int discountRate = 0)
         {
             var totalDays = (request.ReturnDate.Date - request.RentDate.Date).Days + 1;
 
@@ -58,6 +66,7 @@ namespace Application.Services.Helpers
                     totalSum += additionalService.Price;
                 }
             }
+            totalSum -= totalSum * discountRate / 100;
 
             return totalSum;
         }

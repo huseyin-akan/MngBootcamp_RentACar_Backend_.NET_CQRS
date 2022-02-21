@@ -23,6 +23,7 @@ using Application.Services.InvoiceService;
 using Application.Services.ModelService;
 using Application.Services.PaymentService;
 using Application.Services.PosSystemService;
+using Application.Services.PromotionCodeService;
 using Application.Services.Repositories;
 using Application.Services.UserService;
 using Core.Application.Pipelines.Caching;
@@ -88,6 +89,7 @@ namespace Application
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITokenHelper, JwtHelper>();
             services.AddScoped<ICacheService, CacheService>();
+            services.AddScoped<IPromotionCodeService, PromotionCodeService>();
 
             services.AddSingleton<IMailService, MailKitMailService>();
             services.AddSingleton<IElasticSearch, ElasticSearchManager>();

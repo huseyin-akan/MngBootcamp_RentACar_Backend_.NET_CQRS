@@ -23,6 +23,8 @@ namespace Core.Utilities.Messages
         public static string BrandNameExists = "Brand name already exists";
         public static string BrandNotFound = "Brand doesnt exist.";
 
+        public static string ProCodeNotFound = "Böyle bir promosyon kodu bulunmamaktadır.";
+
         public static string UserNotFound = "User is not found";
         public static string PasswordError = "Password is wrong. Try again!!";
 

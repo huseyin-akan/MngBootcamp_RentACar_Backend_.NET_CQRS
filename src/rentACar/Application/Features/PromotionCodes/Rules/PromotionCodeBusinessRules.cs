@@ -19,13 +19,22 @@ namespace Application.Features.PromotionCodes.Rules
 
         public async Task CheckIfPromotionCodeIsDuplicated(string code)
         {
-            var result = await _promotionCodeRepository.GetListAsync(b => b.Code == code);
+            var result = await _promotionCodeRepository.GetListAsync(p => p.Code == code);
 
             if (result.Items.Any())
             {
                 throw new BusinessException("Bu promosyon kodu daha önce oluşturulmuş.");
             }
         }
+
+        public async Task CheckIfPromotionCodeExists(string code)
+        {
+            var result = await _promotionCodeRepository.GetAsync(p => p.Code == code);
+            if (result is null)
+            {
+                throw new BusinessException("Böyle bir promosyon kodu bulunmamaktadır.");
+            }
+        } 
 
         public async Task CheckIfPromotionCodeIsUsed(string code, int customerId)
         {
