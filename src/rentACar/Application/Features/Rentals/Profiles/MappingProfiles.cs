@@ -7,6 +7,7 @@ using Application.Features.Rentals.Commands.EndRentalForCC;
 using Application.Features.Rentals.Commands.EndRentalForIC;
 using Application.Features.Rentals.Commands.RentForCorporateCustomer;
 using Application.Features.Rentals.Commands.RentForIndividualCustomer;
+using Application.Features.Rentals.Dtos;
 using AutoMapper;
 using Core.Persistence.Paging;
 using Domain.Entities;
@@ -26,9 +27,9 @@ namespace Application.Features.Rentals.Profiles
             CreateMap<Rental, RentForCorporateCustomerCommand>().ReverseMap();
             CreateMap<Rental, EndRentalForCCCommand>().ReverseMap();
             CreateMap<Rental, EndRentalForICCommand>().ReverseMap();
-            //CreateMap<Maintenance, UpdateMaintenanceCommand>().ReverseMap();
-            //CreateMap<Maintenance, MaintenanceListDto>().ReverseMap();
-            //CreateMap<IPaginate<Maintenance>, MaintenanceListModel>().ReverseMap();
+            //CreateMap<Rental, UpdateRentalCommand>().ReverseMap();
+            //CreateMap<Rental, RentalListDto>().ReverseMap();
+            //CreateMap<IPaginate<Rental>, RentalListModel>().ReverseMap();
         }
     }
 }

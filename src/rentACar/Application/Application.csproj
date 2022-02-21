@@ -66,10 +66,8 @@
     <Folder Include="Features\Payments\Queries\" />
     <Folder Include="Features\Payments\Tests\" />
     <Folder Include="Features\PromotionCodes\Tests\" />
-    <Folder Include="Features\Rentals\Queries\" />
     <Folder Include="Features\Rentals\Tests\" />
     <Folder Include="Features\Rentals\Models\" />
-    <Folder Include="Features\Rentals\Dtos\" />
     <Folder Include="Features\Transmissions\Commands\" />
     <Folder Include="Features\Transmissions\Dtos\" />
     <Folder Include="Features\Transmissions\Models\" />

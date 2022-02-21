@@ -4,6 +4,8 @@ using Application.Features.Rentals.Commands.EndRentalForIC;
 using Application.Features.Rentals.Commands.RentForCorporateCustomer;
 using Application.Features.Rentals.Commands.RentForIndividualCustomer;
 using Application.Features.Rentals.Commands.UpdateRental;
+using Application.Features.Rentals.Queries.GetRental;
+using Core.Application.Requests;
 using Domain.Enums;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -52,6 +54,15 @@ namespace WebAPI.Controllers
         {
             var result = await Mediator.Send(command);
             return Created("", result);
+        }
+
+        [HttpGet("getactiverentals")]
+        public async Task<IActionResult> GetActiveRentals([FromQuery] PageRequest pageRequest)
+        {
+            var query = new GetActiveRentalsListQuery();
+            query.PageRequest = pageRequest;
+            var result = await Mediator.Send(query);
+            return Ok(result);
         }
     }
 }

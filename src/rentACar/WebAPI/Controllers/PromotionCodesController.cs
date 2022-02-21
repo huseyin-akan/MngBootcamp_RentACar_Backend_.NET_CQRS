@@ -44,19 +44,9 @@ namespace WebAPI.Controllers
             return Ok(result);
         }
 
-        [HttpGet("get"), Authorize() ]
+        [HttpGet("get") ]
         public async Task<IActionResult> GetAll([FromQuery] GetPromotionCodeQuery query)
         {
-            string? authHeader = _httpContextAccessor.HttpContext?.Request.Headers["Authorization"];
-            if (authHeader == null)
-            {
-                return BadRequest("Promosyon kodu kullanımı için giriş yapmalısınız.");
-            }
-            else
-            {
-                userId = Convert.ToInt32(_httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value);
-            }
-            query.CustomerId = userId;
             var result = await Mediator.Send(query);
             return Ok(result);
         }

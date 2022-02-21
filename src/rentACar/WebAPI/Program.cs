@@ -40,6 +40,7 @@ builder.Services.AddPersistenceServices(builder.Configuration);
 //appsettings.json dosyasından TokenOptions kısmını okuyup TokenOptions objeme map et ve değişkene ata.
 var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {

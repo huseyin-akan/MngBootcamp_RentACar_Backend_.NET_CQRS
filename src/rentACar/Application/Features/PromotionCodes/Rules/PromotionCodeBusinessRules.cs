@@ -38,7 +38,7 @@ namespace Application.Features.PromotionCodes.Rules
 
         public async Task CheckIfPromotionCodeIsUsed(string code, int customerId)
         {
-            var result = await _promotionCodeRepository.GetAsync(c => c.Code == code && c.Customers.Where(cu => cu.Id == customerId).Any() );
+            var result = await _promotionCodeRepository.GetAsync(c => c.Code == code && !c.Customers.Where(cu => cu.Id == customerId).Any() );
 
             if(result is null)
             {
