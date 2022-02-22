@@ -9,5 +9,7 @@ namespace Application.Services.PromotionCodeService
     public interface IPromotionCodeService
     {
         Task<int> GetPromotionCodeDiscount(string code);
+
+        Task UsePromotionCodeForCustomer(string code, int customerId);
     }
 }

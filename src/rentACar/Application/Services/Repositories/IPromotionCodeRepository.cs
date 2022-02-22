@@ -10,6 +10,6 @@ namespace Application.Services.Repositories
 {
     public interface IPromotionCodeRepository : IAsyncRepository<PromotionCode>
     {
-
+        Task UsePromotionCodeForCustomer(string code, int customerId);
     }
 }

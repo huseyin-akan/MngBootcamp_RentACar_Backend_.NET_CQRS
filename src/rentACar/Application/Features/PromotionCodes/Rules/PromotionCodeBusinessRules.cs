@@ -45,5 +45,15 @@ namespace Application.Features.PromotionCodes.Rules
                 throw new BusinessException("Bu kullanıcı bu promosyon kodunu zaten kullanmış.");
             }
         }
+
+        public async Task CheckIfPromotionCodeDateIsValid(string code)
+        {
+            var result = await _promotionCodeRepository.GetAsync(c => c.Code == code);
+
+            if(result.ValidityDate.Date < DateTime.Now.Date)
+            {
+                throw new BusinessException("Promosyon kodunun tarihi geçmiş olduğu için geçersizdir.");
+            }
+        }
     }
 }

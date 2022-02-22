@@ -23,5 +23,10 @@ namespace Application.Services.PromotionCodeService
             if (result is null) throw new BusinessException("Böyle bir promosyon kodu bulunmamaktadır.");
             return result.DiscountRate;
         }
+
+        public async Task UsePromotionCodeForCustomer(string code, int customerId)
+        {
+            await _promotionCodeRepository.UsePromotionCodeForCustomer(code,customerId);            
+        }
     }
 }

@@ -36,7 +36,7 @@ public class RentForIndividualCustomerCommand : IRequest<CreateInvoiceDto>, ITra
     public int ReturnCityId { get; set; }
     public int CarId { get; set; }
     public int CustomerId { get; set; }
-    public string PromotionCode { get; set; }
+    public string? PromotionCode { get; set; }
     public List<int> AdditionalServiceIds { get; set; }
     public CreateCreditCardInfosDto CreditCardInfos { get; set; }
 
@@ -88,8 +88,12 @@ public class RentForIndividualCustomerCommand : IRequest<CreateInvoiceDto>, ITra
             await this.individualCustomerBusinessRules.CheckIfIndividualCustomerExists(request.CustomerId);
             await this.rentalBusinessRules.CheckIfICFindexScoreIsEnough(request.CarId, request.CustomerId);
             
-            await this.promotionCodeBusinessRules.CheckIfPromotionCodeExists(request.PromotionCode);
-            await this.promotionCodeBusinessRules.CheckIfPromotionCodeIsUsed(request.PromotionCode, request.CustomerId);
+            if(request.PromotionCode is not null && request.PromotionCode != "") 
+            {
+                await this.promotionCodeBusinessRules.CheckIfPromotionCodeExists(request.PromotionCode);
+                await this.promotionCodeBusinessRules.CheckIfPromotionCodeDateIsValid(request.PromotionCode);
+                await this.promotionCodeBusinessRules.CheckIfPromotionCodeIsUsed(request.PromotionCode, request.CustomerId);
+            }
 
             var mappedRental = this.mapper.Map<Rental>(request);
             mappedRental.RentedKilometer = car.Kilometer;
@@ -103,7 +107,12 @@ public class RentForIndividualCustomerCommand : IRequest<CreateInvoiceDto>, ITra
             };
             await this.carService.UpdateCarState(command);
 
-            var discountRate = await this.promotionCodeService.GetPromotionCodeDiscount(request.PromotionCode);
+            var discountRate = 0;
+            if(request.PromotionCode is not null && request.PromotionCode != "")
+            {
+                discountRate = await this.promotionCodeService.GetPromotionCodeDiscount(request.PromotionCode);
+                await this.promotionCodeService.UsePromotionCodeForCustomer(request.PromotionCode, request.CustomerId);
+            }            
 
             var calculatedTotalSum = await TotalSumCalculator.CalculateTotalSumForIC(request, car, mappedRental.AdditionalServices.ToList(), modelService, discountRate);
 

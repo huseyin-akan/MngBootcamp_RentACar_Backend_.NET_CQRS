@@ -38,6 +38,13 @@ namespace Application.Features.PromotionCodes.Queries.GetPromotionCode
                 var code = await _promotionCodeRepository.GetAsync(pc => pc.Code == request.Code );
                 if (code is null) throw new BusinessException(Messages.ProCodeNotFound);
 
+                if (request.Code is not null && request.Code != "")
+                {
+                    await this._promotionCodeBusinessRules.CheckIfPromotionCodeExists(request.Code);
+                    await this._promotionCodeBusinessRules.CheckIfPromotionCodeDateIsValid(request.Code);
+                    await this._promotionCodeBusinessRules.CheckIfPromotionCodeIsUsed(request.Code, request.CustomerId);
+                }
+
                 await this._promotionCodeBusinessRules.CheckIfPromotionCodeIsUsed(request.Code, request.CustomerId);
 
                 var mappedCode = _mapper.Map<PromotionCodeListDto>(code);

@@ -16,5 +16,17 @@ namespace Persistence.Repositories
         {
 
         }
+
+        public Task UsePromotionCodeForCustomer(string code, int customerId)
+        {
+            var codeEntity = Context.PromotionCodes.Where(p => p.Code == code).FirstOrDefault();
+            var customerToAdd = Context.Customers.Where(c => c.Id == customerId).FirstOrDefault();
+            if(codeEntity is not null && customerToAdd is not null)
+            {
+                codeEntity.Customers.Add(customerToAdd);
+            }
+            Context.SaveChanges();
+            return Task.CompletedTask;
+        }
     }
 }
