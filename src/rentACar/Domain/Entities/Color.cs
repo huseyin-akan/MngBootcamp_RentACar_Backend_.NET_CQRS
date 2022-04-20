@@ -9,7 +9,7 @@ namespace Domain.Entities
 {
     public class Color : Entity
     {
-        public string Name { get; set; }
+        public string Name { get; set; } = "";
         public virtual ICollection<Car> Cars{ get; set; }
 
         public Color()
