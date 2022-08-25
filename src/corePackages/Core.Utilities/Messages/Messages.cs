@@ -24,6 +24,9 @@ namespace Core.Utilities.Messages
         public static string BrandNotFound = "Brand doesnt exist.";
 
         public static string ProCodeNotFound = "Böyle bir promosyon kodu bulunmamaktadır.";
+        public static string ProCodeAlreadyExists = "Bu promosyon kodu daha önce oluşturulmuş.";
+        public static string UserAlreadyUsedProCode = "Bu kullanıcı bu promosyon kodunu zaten kullanmış.";
+        public static string ProCodeExpired = "Promosyon kodunun tarihi geçmiş olduğu için geçersizdir.";
 
         public static string UserNotFound = "User is not found";
         public static string PasswordError = "Password is wrong. Try again!!";

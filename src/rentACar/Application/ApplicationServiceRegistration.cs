@@ -30,6 +30,7 @@ using Core.Application.Pipelines.Caching;
 using Core.Application.Pipelines.Logging;
 using Core.Application.Pipelines.Transaction;
 using Core.Application.Pipelines.Validation;
+using Core.Application.Transaction;
 using Core.CrossCuttingConcerns.Caching;
 using Core.CrossCuttingConcerns.Logging.SeriLog;
 using Core.CrossCuttingConcerns.Logging.SeriLog.Loggers;
@@ -98,6 +99,7 @@ namespace Application
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(CachingBehavior<,>));            
+            services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TransactionBehavior<,>));            
 
             return services;
         }

@@ -42,11 +42,6 @@ namespace Application.Services.CarService
             return result.FindexScore;
         }
 
-        public Task UpdateCar(UpdateCarCommand command)
-        {
-            throw new NotImplementedException();
-        }
-
         public async Task UpdateCarAfterRentalEnd(UpdateCarAfterRentalEndCommand command)
         {
             var result = await this._mediator.Send(command);

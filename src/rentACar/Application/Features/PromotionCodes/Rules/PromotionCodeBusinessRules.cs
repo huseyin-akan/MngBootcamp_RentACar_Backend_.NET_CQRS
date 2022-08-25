@@ -1,5 +1,6 @@
 ﻿using Application.Services.Repositories;
 using Core.CrossCuttingConcerns.Exceptions;
+using Core.Utilities.Messages;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace Application.Features.PromotionCodes.Rules
 
             if (result.Items.Any())
             {
-                throw new BusinessException("Bu promosyon kodu daha önce oluşturulmuş.");
+                throw new BusinessException(Messages.ProCodeAlreadyExists);
             }
         }
 
@@ -32,7 +33,7 @@ namespace Application.Features.PromotionCodes.Rules
             var result = await _promotionCodeRepository.GetAsync(p => p.Code == code);
             if (result is null)
             {
-                throw new BusinessException("Böyle bir promosyon kodu bulunmamaktadır.");
+                throw new BusinessException(Messages.ProCodeNotFound);
             }
         } 
 
@@ -42,7 +43,7 @@ namespace Application.Features.PromotionCodes.Rules
 
             if(result is null)
             {
-                throw new BusinessException("Bu kullanıcı bu promosyon kodunu zaten kullanmış.");
+                throw new BusinessException(Messages.UserAlreadyUsedProCode);
             }
         }
 
@@ -52,7 +53,7 @@ namespace Application.Features.PromotionCodes.Rules
 
             if(result.ValidityDate.Date < DateTime.Now.Date)
             {
-                throw new BusinessException("Promosyon kodunun tarihi geçmiş olduğu için geçersizdir.");
+                throw new BusinessException(Messages.ProCodeExpired);
             }
         }
     }

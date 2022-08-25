@@ -18,13 +18,18 @@ namespace Domain.Entities
         }
 
         public IndividualCustomer(int id, string email, string firstName,
-            string lastName, string nationalId) : this()
+            string lastName, string nationalId, string userName,
+            byte[] passwordSalt, byte[] passwordHash, bool status) : this()
         {
             Id = id;
             Email = email;
             FirstName = firstName;
             LastName = lastName;
             NationalId = nationalId;
+            UserName = userName;
+            PasswordSalt = passwordSalt;
+            PasswordHash = passwordHash;
+            Status = status;
         }
     }
 }

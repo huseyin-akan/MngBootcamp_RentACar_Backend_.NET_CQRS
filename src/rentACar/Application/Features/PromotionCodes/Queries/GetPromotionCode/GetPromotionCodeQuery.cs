@@ -45,8 +45,6 @@ namespace Application.Features.PromotionCodes.Queries.GetPromotionCode
                     await this._promotionCodeBusinessRules.CheckIfPromotionCodeIsUsed(request.Code, request.CustomerId);
                 }
 
-                await this._promotionCodeBusinessRules.CheckIfPromotionCodeIsUsed(request.Code, request.CustomerId);
-
                 var mappedCode = _mapper.Map<PromotionCodeListDto>(code);
 
                 return mappedCode;

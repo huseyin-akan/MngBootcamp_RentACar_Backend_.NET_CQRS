@@ -16,12 +16,18 @@ namespace Domain.Entities
 
         }
 
-        public CorporateCustomer(int id, string email, string taxNumber, string companyName) : this()
+        public CorporateCustomer(int id, string email, string taxNumber, string companyName, string userName, 
+            byte[] passwordSalt, byte[] passwordHash, bool status) : this()
         {
             Id = id;
             Email = email;
             TaxNumber = taxNumber;
             CompanyName = companyName;
+            UserName = userName;
+            Email = email;
+            PasswordSalt = passwordSalt;
+            PasswordHash = passwordHash;
+            Status = status;
         }
     }
 }

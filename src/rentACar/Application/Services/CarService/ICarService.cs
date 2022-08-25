@@ -13,8 +13,6 @@ namespace Application.Services.CarService
         Task<int> GetFindexScoreById(int id);
         Task<Car> GetCarById(int id);
         Task UpdateCarState(UpdateCarStateCommand command);
-
         Task UpdateCarAfterRentalEnd(UpdateCarAfterRentalEndCommand command);
-        Task UpdateCar(UpdateCarCommand command);
     }
 }

@@ -83,6 +83,7 @@ public class RentForIndividualCustomerCommand : IRequest<CreateInvoiceDto>, ITra
             CancellationToken cancellationToken)
         {
             var car = await this.carService.GetCarById(request.CarId);
+            //TODO bu 2 metot awaitable yapılacak
             this.rentalBusinessRules.CheckIfCarIsUnderMaintenance(request.CarId);
             this.rentalBusinessRules.CheckIfCarIsRented(request.CarId);
             await this.individualCustomerBusinessRules.CheckIfIndividualCustomerExists(request.CustomerId);

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Application.Services.PosSystemService
 {
-    internal class FakePosSystemServiceAdapter : IPosSystemService
+    public class FakePosSystemServiceAdapter : IPosSystemService
     {
         FakePosSystemService posService = new FakePosSystemService();
         public Task<bool> MakePayment(CreateCreditCardInfosDto creditCardInfos)
