@@ -2,6 +2,7 @@
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,14 +69,16 @@ namespace Core.CrossCuttingConcerns.Exceptions
                 }.ToString());
             }
 
-            return context.Response.WriteAsync(new ProblemDetails
+            var unknownException = new ProblemDetails
             {
                 Status = StatusCodes.Status500InternalServerError,
                 Type = "https://example.com/probs/internal",
                 Title = "Internal exception",
                 Detail = exception.Message,
                 Instance = ""
-            }.ToString());
+            };
+
+            return context.Response.WriteAsync(JsonConvert.SerializeObject(unknownException));
         }
     }
 }
